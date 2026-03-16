@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  --background: #02151f;
+  --foreground: #f9fafb;
+  --accent: #38bdf8;
+  --accent-hover: #0ea5e9;
+  --sand: #082f49;
+  --ocean: #0b3b4f;
+  --ocean-light: #1d4f68;
+  --hero-pill: #f9fafb;
+  --hero-pill-text: #0b3b4f;
+  --hero-pill-hover: #e5e7eb;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-sand: var(--sand);
+  --color-ocean: var(--ocean);
+  --color-ocean-light: var(--ocean-light);
+  --color-hero-pill: var(--hero-pill);
+  --color-hero-pill-text: var(--hero-pill-text);
+  --color-hero-pill-hover: var(--hero-pill-hover);
+  --font-sans: var(--font-outfit);
+  --font-display: var(--font-syne);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-syne), system-ui, sans-serif;
+}
