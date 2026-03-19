@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Calendar, FileText, Trophy, Users } from "lucide-react";
+import { PageHero } from "@/components/PageHero";
 
 const links = [
   { label: "Calendrier", href: "/calendrier", icon: Calendar },
@@ -16,16 +17,11 @@ export const metadata = {
 export default function InfosPage() {
   return (
     <main>
-      <section className="border-b border-slate-200 bg-slate-50/80 py-16">
-        <div className="mx-auto max-w-4xl px-4 lg:px-8">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Infos
-          </h1>
-          <p className="mt-4 text-lg text-slate-600">
-            Calendrier, résultats et actualités du club.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Infos"
+        description="Calendrier, résultats et actualités du club."
+        imageSrc="/imagesvideos/Images volley lacanau 1.jpg"
+      />
 
       <div className="mx-auto max-w-4xl px-4 py-12 lg:px-8 lg:py-16">
         <div className="grid gap-6 sm:grid-cols-2">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PageHero } from "@/components/PageHero";
 
 export const metadata = {
   title: "Partenaires — Lacanau Volley-Ball",
@@ -24,16 +25,11 @@ const partners = [
 export default function PartenairesPage() {
   return (
     <main>
-      <section className="border-b border-slate-200 bg-slate-50/80 py-16">
-        <div className="mx-auto max-w-4xl px-4 lg:px-8">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Partenaires
-          </h1>
-          <p className="mt-4 text-lg text-slate-600">
-            Merci à nos partenaires pour leur soutien.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Partenaires"
+        description="Merci à nos partenaires pour leur soutien."
+        imageSrc="/imagesvideos/Logo mairie de lacanau.jpg"
+      />
 
       <div className="mx-auto max-w-4xl px-4 py-12 lg:px-8 lg:py-16">
         {partners.map((section) => (

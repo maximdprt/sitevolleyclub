@@ -1,0 +1,150 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+
+const navLinks = [
+  { label: "Accueil", href: "#hero" },
+  { label: "Le Club", href: "#club" },
+  { label: "Activités", href: "#activities" },
+  { label: "Galerie", href: "#gallery" },
+  { label: "Rejoindre", href: "#join" },
+  { label: "Contact", href: "#contact" },
+] as const;
+
+export function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const navClass = useMemo(
+    () =>
+      scrolled
+        ? "bg-ocean-deep/95 backdrop-blur-xl shadow-2xl"
+        : "bg-transparent",
+    [scrolled],
+  );
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [open]);
+
+  return (
+    <>
+      <motion.nav
+        className={`fixed left-0 right-0 top-0 z-50 transition-all duration-400 ${navClass}`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 md:px-8">
+          <Link href="#hero" className="flex items-center gap-3" aria-label="Aller à l'accueil">
+            <Image
+              src="/images/LVB1.png"
+              alt="AS Lacanau Section Volley Ball"
+              width={92}
+              height={92}
+              className="h-[78px] w-[78px] object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.35)] md:h-[92px] md:w-[92px]"
+              priority
+            />
+            <span className="hidden font-display text-3xl tracking-wide text-foam sm:block">
+              Lacanau Volley
+            </span>
+          </Link>
+
+          <div className="hidden items-center gap-8 md:flex">
+            <div className="flex items-center gap-6">
+              {navLinks.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="group relative font-ui text-[11px] uppercase tracking-[0.18em] text-(--sand-light)/85 transition hover:text-foam"
+                >
+                  {l.label}
+                  <span className="absolute -bottom-1 left-1/2 h-px w-4/5 -translate-x-1/2 scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100" />
+                </Link>
+              ))}
+            </div>
+            <Link
+              href="#join"
+              data-cursor="hover"
+              className="rounded-full bg-accent px-5 py-3 font-ui text-xs uppercase tracking-[0.18em] text-foam transition hover:bg-foam hover:text-ocean-deep"
+            >
+              Rejoindre
+            </Link>
+          </div>
+
+          <button
+            type="button"
+            className="relative h-10 w-10 md:hidden"
+            aria-label="Ouvrir le menu"
+            onClick={() => setOpen((v) => !v)}
+            data-cursor="hover"
+          >
+            <span
+              className={`absolute left-1/2 top-1/2 h-0.5 w-6 -translate-x-1/2 bg-foam transition-transform duration-300 ${
+                open ? "translate-y-0 rotate-45" : "-translate-y-2.5"
+              }`}
+            />
+            <span
+              className={`absolute left-1/2 top-1/2 h-0.5 w-6 -translate-x-1/2 bg-foam transition-opacity duration-300 ${
+                open ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`absolute left-1/2 top-1/2 h-0.5 w-6 -translate-x-1/2 bg-foam transition-transform duration-300 ${
+                open ? "translate-y-0 -rotate-45" : "translate-y-2.5"
+              }`}
+            />
+          </button>
+        </div>
+      </motion.nav>
+
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            className="fixed inset-0 z-40 bg-ocean-deep"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
+            <div className="flex h-full flex-col px-6 pb-10 pt-24">
+              <div className="flex flex-col gap-6">
+                {navLinks.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className="font-display text-5xl tracking-wide text-foam"
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-auto">
+                <Link
+                  href="#join"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex rounded-full bg-accent px-7 py-4 font-ui text-xs uppercase tracking-[0.18em] text-foam"
+                >
+                  Rejoindre
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </>
+  );
+}
+

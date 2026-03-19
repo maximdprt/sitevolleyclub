@@ -5,19 +5,16 @@ import { ArrowRight } from "lucide-react";
 const news = [
   {
     title: "Reprise des entraînements 2024-2025",
-    date: "12 septembre 2024",
     href: "/infos",
     image: "/imagesvideos/Images volley lacanau 1.jpg",
   },
   {
     title: "Beach volley : saison mai à octobre",
-    date: "5 mai 2024",
     href: "/pratique",
     image: "/imagesvideos/Images volley 2.jpg",
   },
   {
     title: "40 adhérents et 12 licenciés Compet'Lib",
-    date: "1 mars 2024",
     href: "/le-club",
     image: "/imagesvideos/img volley 5.jpg",
   },
@@ -61,7 +58,6 @@ export function NewsGrid() {
                 />
               </div>
               <div className="p-5">
-                <time className="text-sm text-slate-500">{item.date}</time>
                 <h3 className="mt-2 font-semibold text-slate-900 transition group-hover:text-ocean">
                   {item.title}
                 </h3>

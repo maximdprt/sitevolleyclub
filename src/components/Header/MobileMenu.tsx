@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Ticket, ShoppingBag } from "lucide-react";
+import { Menu, X, ShoppingBag } from "lucide-react";
 import { NavLinks } from "./NavLinks";
 
 export function MobileMenu() {
@@ -39,14 +39,6 @@ export function MobileMenu() {
             <NavLinks onLinkClick={() => setOpen(false)} />
           </nav>
           <div className="flex flex-col gap-2 border-t border-slate-200 p-4">
-            <Link
-              href="/billetterie"
-              onClick={() => setOpen(false)}
-              className="flex items-center justify-center gap-2 rounded-full bg-ocean py-3 font-medium text-white"
-            >
-              <Ticket className="h-4 w-4" />
-              Billetterie
-            </Link>
             <Link
               href="/boutique"
               onClick={() => setOpen(false)}

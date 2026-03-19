@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PageHero } from "@/components/PageHero";
 
 export const metadata = {
   title: "Billetterie — Lacanau Volley-Ball",
@@ -8,16 +9,11 @@ export const metadata = {
 export default function BilletteriePage() {
   return (
     <main>
-      <section className="border-b border-slate-200 bg-slate-50/80 py-16">
-        <div className="mx-auto max-w-4xl px-4 lg:px-8">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Billetterie
-          </h1>
-          <p className="mt-4 text-lg text-slate-600">
-            Pour les événements et matchs amicaux, contactez le club.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Billetterie"
+        description="Pour les événements et matchs amicaux, contactez le club."
+        imageSrc="/imagesvideos/Images volley lacanau 1.jpg"
+      />
 
       <div className="mx-auto max-w-4xl px-4 py-12 lg:px-8 lg:py-16">
         <p className="text-slate-600">

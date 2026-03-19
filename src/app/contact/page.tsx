@@ -2,21 +2,17 @@
 
 import { useState } from "react";
 import { Mail, Phone, MapPin, Facebook, Send } from "lucide-react";
+import { PageHero } from "@/components/PageHero";
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
   return (
     <main>
-      <section className="border-b border-slate-200 bg-slate-50/80 py-16">
-        <div className="mx-auto max-w-4xl px-4 lg:px-8">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Contact
-          </h1>
-          <p className="mt-4 text-lg text-slate-600">
-            Une question, envie de nous rejoindre ? Écrivez-nous ou appelez-nous.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Contact"
+        description="Une question, envie de nous rejoindre ? Écrivez-nous ou appelez-nous."
+        imageSrc="/imagesvideos/Images volley lacanau 1.jpg"
+      />
 
       <div className="mx-auto max-w-4xl px-4 py-12 lg:px-8 lg:py-16">
         <div className="grid gap-12 lg:grid-cols-2">

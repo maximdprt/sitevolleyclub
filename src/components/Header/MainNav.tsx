@@ -5,7 +5,6 @@ import { NavLinks } from "./NavLinks";
 import { User, ShoppingBag, Ticket } from "lucide-react";
 
 const ctaLinks = [
-  { label: "Billetterie", href: "/billetterie", icon: Ticket },
   { label: "Boutique", href: "/boutique", icon: ShoppingBag },
 ];
 

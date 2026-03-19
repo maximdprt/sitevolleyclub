@@ -1,3 +1,5 @@
+import { PageHero } from "@/components/PageHero";
+
 export const metadata = {
   title: "Calendrier — Lacanau Volley-Ball",
   description: "Entraînements et événements du club.",
@@ -6,16 +8,11 @@ export const metadata = {
 export default function CalendrierPage() {
   return (
     <main>
-      <section className="border-b border-slate-200 bg-slate-50/80 py-16">
-        <div className="mx-auto max-w-4xl px-4 lg:px-8">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Calendrier
-          </h1>
-          <p className="mt-4 text-lg text-slate-600">
-            Entraînements réguliers et dates à retenir.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Calendrier"
+        description="Entraînements réguliers et dates à retenir."
+        imageSrc="/imagesvideos/Images volley 2.jpg"
+      />
 
       <div className="mx-auto max-w-4xl px-4 py-12 lg:px-8 lg:py-16">
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">

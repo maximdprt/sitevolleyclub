@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 
 const mainNav = [
-  { label: "Le club", href: "/le-club", children: [{ label: "Présentation", href: "/le-club" }, { label: "Historique", href: "/le-club#historique" }, { label: "Bureau", href: "/le-club#bureau" }] },
+  { label: "Présentation", href: "/le-club" },
   { label: "Pratique", href: "/pratique", children: [{ label: "Entraînements", href: "/pratique#entrainements" }, { label: "Tarifs", href: "/tarifs" }, { label: "Compétition", href: "/pratique#competition" }] },
   { label: "Infos", href: "/infos", children: [{ label: "Calendrier", href: "/calendrier" }, { label: "Résultats", href: "/resultats" }, { label: "Partenaires", href: "/partenaires" }] },
   { label: "Contact", href: "/contact" },

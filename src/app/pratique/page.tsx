@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, MapPin } from "lucide-react";
+import { PageHero } from "@/components/PageHero";
 
 export const metadata = {
   title: "Pratique — Lacanau Volley-Ball",
@@ -10,19 +11,11 @@ export const metadata = {
 export default function PratiquePage() {
   return (
     <main>
-      <section className="relative h-64 w-full overflow-hidden bg-ocean md:h-80">
-        <Image
-          src="/imagesvideos/Images volley 2.jpg"
-          alt="Volley à Lacanau"
-          fill
-          className="object-cover opacity-70"
-        />
-        <div className="absolute inset-0 flex items-end bg-linear-to-t from-ocean/90 to-transparent p-6 md:p-10">
-          <h1 className="font-display text-4xl font-bold text-white md:text-5xl">
-            Pratique
-          </h1>
-        </div>
-      </section>
+      <PageHero
+        title="Pratique"
+        description="Entraînements, horaires et pratique en salle / beach."
+        imageSrc="/imagesvideos/Images volley 2.jpg"
+      />
 
       <div className="mx-auto max-w-4xl px-4 py-12 lg:px-8 lg:py-16">
         <section id="entrainements">

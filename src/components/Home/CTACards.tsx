@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Ticket, Shirt, Users } from "lucide-react";
+import { Shirt, Users } from "lucide-react";
 
 const cards = [
   {
@@ -8,13 +8,6 @@ const cards = [
     href: "/tarifs",
     icon: Users,
     cta: "Tarifs & adhésion",
-  },
-  {
-    title: "Billetterie",
-    description: "Événements et matchs amicaux du club.",
-    href: "/billetterie",
-    icon: Ticket,
-    cta: "Voir les dates",
   },
   {
     title: "Boutique",

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PageHero } from "@/components/PageHero";
 
 export const metadata = {
   title: "Tarifs & adhésion — Lacanau Volley-Ball",
@@ -8,16 +9,11 @@ export const metadata = {
 export default function TarifsPage() {
   return (
     <main>
-      <section className="border-b border-slate-200 bg-slate-50/80 py-16">
-        <div className="mx-auto max-w-4xl px-4 lg:px-8">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Tarifs & adhésion
-          </h1>
-          <p className="mt-4 text-lg text-slate-600">
-            Cotisation annuelle du club. Pratique à partir de 10 ans.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Tarifs & adhésion"
+        description="Cotisation annuelle du club. Pratique à partir de 10 ans."
+        imageSrc="/imagesvideos/Im volley 3.jpg"
+      />
 
       <div className="mx-auto max-w-4xl px-4 py-12 lg:px-8 lg:py-16">
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -31,12 +27,12 @@ export default function TarifsPage() {
             </thead>
             <tbody>
               <tr className="border-b border-slate-100">
-                <td className="px-6 py-4">Volley en salle</td>
+                <td className="px-6 py-4">Formule indoor</td>
                 <td className="px-6 py-4 font-semibold text-ocean">30 €</td>
                 <td className="px-6 py-4 text-slate-600">Année</td>
               </tr>
               <tr className="border-b border-slate-100">
-                <td className="px-6 py-4">Beach volley</td>
+                <td className="px-6 py-4">Formule beach</td>
                 <td className="px-6 py-4 font-semibold text-ocean">30 €</td>
                 <td className="px-6 py-4 text-slate-600">Saison (mai à octobre)</td>
               </tr>

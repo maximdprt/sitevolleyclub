@@ -1,23 +1,21 @@
 import type { Metadata } from "next";
-import { Outfit, Syne } from "next/font/google";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { Bebas_Neue, DM_Sans, Lora } from "next/font/google";
 import "./globals.css";
 
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-});
-
-const syne = Syne({
-  variable: "--font-syne",
-  subsets: ["latin"],
-});
+const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas" });
+const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans" });
+const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
 
 export const metadata: Metadata = {
-  title: "Lacanau Volley-Ball — Club de volley loisir",
+  title: "AS Lacanau Volley Ball · Indoor & Beach",
   description:
-    "Bienvenue au club de Volley loisir de Lacanau. Entraînements tous les jeudis 20h30-23h au COSEC. Salle et beach (mai-octobre).",
+    "Club de volley-ball de Lacanau, Gironde. Entraînements le jeudi soir et beach le samedi. Rejoignez-nous ! 40 adhérents, fondé en 2010.",
+  keywords: ["volley-ball", "Lacanau", "Gironde", "beach volley", "sport", "association"],
+  openGraph: {
+    title: "AS Lacanau Volley Ball",
+    description: "Entre océan et forêt · Indoor & Beach · Depuis 2010",
+    images: ["/images/LVB1.png"],
+  },
 };
 
 export default function RootLayout({
@@ -26,11 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr">
-      <body className={`${outfit.variable} ${syne.variable} antialiased`}>
-        <Header />
+    <html lang="fr" suppressHydrationWarning>
+      <body className={`${bebas.variable} ${dmSans.variable} ${lora.variable} antialiased`}>
         {children}
-        <Footer />
       </body>
     </html>
   );

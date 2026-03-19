@@ -1,39 +1,66 @@
 @import "tailwindcss";
 
 :root {
-  --background: #02151f;
-  --foreground: #f9fafb;
-  --accent: #38bdf8;
-  --accent-hover: #0ea5e9;
-  --sand: #082f49;
-  --ocean: #0b3b4f;
-  --ocean-light: #1d4f68;
-  --hero-pill: #f9fafb;
-  --hero-pill-text: #0b3b4f;
-  --hero-pill-hover: #e5e7eb;
+  --sand: #e8d5b0;
+  --sand-light: #f5edd8;
+  --ocean: #1a3a5c;
+  --ocean-deep: #0d2237;
+  --wave: #2b7fbf;
+  --foam: #f0f7ff;
+  --accent: #e8610a;
+  --accent-light: #ff7a28;
+  --text-dark: #0d2237;
+  --text-light: #f5edd8;
+  --card-glass: rgba(255, 255, 255, 0.06);
+  --border-glass: rgba(255, 255, 255, 0.12);
+  --grain-opacity: 0.032;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
+  --color-accent-light: var(--accent-light);
   --color-sand: var(--sand);
+  --color-sand-light: var(--sand-light);
   --color-ocean: var(--ocean);
-  --color-ocean-light: var(--ocean-light);
-  --color-hero-pill: var(--hero-pill);
-  --color-hero-pill-text: var(--hero-pill-text);
-  --color-hero-pill-hover: var(--hero-pill-hover);
-  --font-sans: var(--font-outfit);
-  --font-display: var(--font-syne);
+  --color-ocean-deep: var(--ocean-deep);
+  --color-wave: var(--wave);
+  --color-foam: var(--foam);
+  --color-text-dark: var(--text-dark);
+  --color-text-light: var(--text-light);
+  --font-display: var(--font-bebas);
+  --font-ui: var(--font-dm-sans);
+  --font-body: var(--font-lora);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-outfit), system-ui, sans-serif;
+  background: var(--ocean-deep);
+  color: var(--foam);
+  font-family: var(--font-lora), serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .font-display {
-  font-family: var(--font-syne), system-ui, sans-serif;
+  font-family: var(--font-bebas), sans-serif;
+}
+
+.font-ui {
+  font-family: var(--font-dm-sans), sans-serif;
 }
