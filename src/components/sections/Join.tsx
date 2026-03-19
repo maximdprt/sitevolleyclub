@@ -78,7 +78,7 @@ export function Join() {
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <div className="font-ui text-xs uppercase tracking-[0.2em] text-sand-light/80">
-            Tarifs saison 2024-2025
+            Tarifs saison 2025-2026
           </div>
           <div className="mt-6 space-y-6">
             <div className="flex items-baseline justify-between gap-4">

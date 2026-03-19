@@ -25,7 +25,7 @@ export function Hero() {
           transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
         >
           <span aria-hidden>🏐</span>
-          Saison 2024–2025 · En cours
+          Saison 2025-2026 · En cours
         </motion.div>
 
         <div className="hero-title">
