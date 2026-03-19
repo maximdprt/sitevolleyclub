@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
@@ -8,7 +9,17 @@ export function Contact() {
     <section id="contact" className="bg-sand-light py-20 text-ocean-deep">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <ScrollReveal>
-          <h2 className="font-display text-7xl leading-[0.9] tracking-wide md:text-8xl">Nous trouver</h2>
+          <div className="flex items-end justify-between gap-4">
+            <h2 className="font-display text-7xl leading-[0.9] tracking-wide md:text-8xl">Nous trouver</h2>
+            <Image
+              src="/images/LVB1.png"
+              alt="Logo AS Lacanau Volley Ball"
+              width={112}
+              height={112}
+              className="h-20 w-20 shrink-0 object-contain md:h-24 md:w-24"
+              loading="lazy"
+            />
+          </div>
           <p className="mt-5 max-w-prose text-lg leading-relaxed text-ocean-deep/80">
             Lacanau, Gironde — entre océan Atlantique et forêt de pins. Venez nous rencontrer sur un entraînement.
           </p>

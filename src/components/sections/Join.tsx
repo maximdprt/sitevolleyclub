@@ -26,7 +26,17 @@ export function Join() {
 
       <div className="relative mx-auto grid max-w-7xl gap-14 px-4 md:px-8 lg:grid-cols-[1fr_420px]">
         <ScrollReveal>
-          <h2 className="font-display text-7xl leading-[0.9] tracking-wide md:text-8xl">Rejoindre le club</h2>
+          <div className="flex items-end justify-between gap-4">
+            <h2 className="font-display text-7xl leading-[0.9] tracking-wide md:text-8xl">Rejoindre le club</h2>
+            <Image
+              src="/images/LVB1.png"
+              alt="Logo AS Lacanau Volley Ball"
+              width={112}
+              height={112}
+              className="h-20 w-20 shrink-0 object-contain md:h-24 md:w-24"
+              loading="lazy"
+            />
+          </div>
           <p className="mt-5 max-w-prose text-lg leading-relaxed text-ocean-deep/80">
             1ère séance 100% gratuite — venez essayer sans engagement, sans inscription préalable.
           </p>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { CounterStat } from "@/components/ui/CounterStat";
 import { WaveDivider } from "@/components/ui/WaveDivider";
 
@@ -15,6 +16,18 @@ export function Stats() {
     <section className="bg-ocean-deep">
       <WaveDivider color="var(--sand-light)" />
       <div className="mx-auto max-w-7xl px-4 py-14 md:px-8">
+        <div className="mb-8 flex justify-center lg:justify-end">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-2 backdrop-blur">
+            <Image
+              src="/images/LVB1.png"
+              alt="Logo AS Lacanau Volley Ball"
+              width={112}
+              height={112}
+              className="h-20 w-20 object-contain md:h-24 md:w-24"
+              loading="lazy"
+            />
+          </div>
+        </div>
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {stats.map((s) => (
             <div key={s.label} className="relative">

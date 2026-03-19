@@ -11,7 +11,13 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-8">
         <div className="grid gap-12 md:grid-cols-3">
           <div>
-            <Image src="/images/LVB1.png" alt="AS Lacanau Section Volley Ball" width={120} height={120} className="h-16 w-16 object-contain" />
+            <Image
+              src="/images/LVB1.png"
+              alt="AS Lacanau Section Volley Ball"
+              width={180}
+              height={180}
+              className="h-24 w-24 object-contain md:h-28 md:w-28"
+            />
             <div className="mt-6 font-display text-4xl tracking-wide text-foam">Lacanau Volley Ball</div>
             <div className="mt-2 font-body italic text-(--sand-light)/80">
               Entre océan et forêt • Depuis 2010
