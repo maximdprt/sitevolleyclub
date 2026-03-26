@@ -44,7 +44,7 @@ export function Hero() {
           </p>
 
           <div className="mt-6 max-w-2xl text-lg leading-relaxed text-foam/80">
-            L’esprit d’équipe. L’air marin. Une pratique indoor &amp; beach, ouverte à tous les niveaux.
+            L’esprit d’équipe. L’ambiance d’été. Une pratique indoor &amp; beach, ouverte à tous les niveaux.
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -82,7 +82,7 @@ export function Hero() {
             <div className="mt-4 font-display text-5xl leading-[0.95] tracking-wide text-foam">
               Esprit d’équipe.
               <br />
-              Air marin.
+              Ambiance d’été.
               <br />
               Convivialité.
             </div>
