@@ -26,9 +26,14 @@ export function Footer() {
                 <Phone className="h-4 w-4" />
                 06 95 04 31 14
               </a>
-              <a href="mailto:david.lacanau33@orange.fr" className="flex items-center gap-2 hover:text-white">
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=alexandre.davidoff@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:text-white"
+              >
                 <Mail className="h-4 w-4" />
-                david.lacanau33@orange.fr
+                alexandre.davidoff@gmail.com
               </a>
               <span className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />

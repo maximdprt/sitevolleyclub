@@ -29,8 +29,13 @@ export default function ContactPage() {
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="h-5 w-5 shrink-0 text-ocean" />
-                <a href="mailto:david.lacanau33@orange.fr" className="hover:text-ocean hover:underline">
-                  david.lacanau33@orange.fr
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=alexandre.davidoff@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-ocean hover:underline"
+                >
+                  alexandre.davidoff@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3">

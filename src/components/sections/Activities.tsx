@@ -39,6 +39,10 @@ export function Activities() {
                 Tous les jeudis · 20h30 → 23h00
               </div>
               <div>
+                <span className="font-ui text-xs uppercase tracking-[0.18em] text-sand-light/70">🗓️</span>{" "}
+                Mardi (à confirmer) · Indoor
+              </div>
+              <div>
                 <span className="font-ui text-xs uppercase tracking-[0.18em] text-sand-light/70">📍</span>{" "}
                 Salle Cosec · 19 Av. Albert François · 33680 Lacanau
               </div>

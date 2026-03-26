@@ -1,16 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Club() {
   return (
-    <section id="club" className="relative overflow-hidden bg-sand-light text-text-dark">
+    <section id="club" className="relative overflow-hidden bg-sand-light text-text-dark py-2">
       <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center">
         <div className="font-display text-[220px] leading-none text-sand/20 md:text-[260px]">VOLLEY</div>
       </div>
 
-      <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 py-20 md:px-8 lg:grid-cols-[55%_45%]">
+      <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 py-16 md:px-8 lg:grid-cols-[55%_45%]">
         <ScrollReveal className="relative z-10">
           <div className="font-ui text-xs uppercase tracking-[0.2em] text-wave">Notre histoire</div>
           <h2 className="mt-4 font-display text-6xl leading-[0.9] text-ocean-deep md:text-7xl">
@@ -44,8 +43,13 @@ export function Club() {
                     06 95 04 31 14
                   </a>{" "}
                   ·{" "}
-                  <a className="font-medium text-ocean underline decoration-accent/50 underline-offset-4" href="mailto:david.lacanau33@orange.fr">
-                    david.lacanau33@orange.fr
+                  <a
+                    className="font-medium text-ocean underline decoration-accent/50 underline-offset-4"
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=alexandre.davidoff@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    alexandre.davidoff@gmail.com
                   </a>
                 </div>
               </div>
@@ -53,36 +57,19 @@ export function Club() {
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-sm">
-              <Image
-                src="/images/logo-lacanau.jpg"
-                alt="Ville de Lacanau"
-                width={160}
-                height={80}
-                className="h-12 w-auto object-contain"
-              />
-            </div>
-            <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-sm">
-              <Image
-                src="/images/logo-ffvolley.png"
-                alt="Comité de Gironde de Volley Ball"
-                width={160}
-                height={80}
-                className="h-12 w-auto object-contain"
-              />
+            <div className="font-ui text-xs uppercase tracking-[0.2em] text-ocean-deep/70">
+              Partenaires: Ville de Lacanau · Comité de Gironde de Volley Ball
             </div>
           </div>
         </ScrollReveal>
 
         <ScrollReveal className="relative z-10" delay={0.1}>
           <div className="relative overflow-hidden rounded-3xl shadow-[0_30px_90px_rgba(13,34,55,0.25)] -rotate-2">
-            <Image
+            <img
               src="/images/team-1.jpg"
               alt="Équipe AS Lacanau Volley"
-              width={1200}
-              height={900}
               className="h-[520px] w-full object-cover"
-              sizes="(max-width: 1024px) 100vw, 45vw"
+              loading="lazy"
             />
             <div className="absolute bottom-5 left-5 rounded-2xl border border-white/15 bg-white/10 px-5 py-4 text-foam backdrop-blur-xl">
               <div className="font-ui text-xs uppercase tracking-[0.2em]">40 adhérents • Mixte • Tous niveaux</div>

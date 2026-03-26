@@ -3,33 +3,32 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { WaveDivider } from "@/components/ui/WaveDivider";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Partners() {
   return (
     <section id="partners" className="bg-ocean text-foam">
-      <WaveDivider color="var(--ocean)" />
       <div className="mx-auto max-w-7xl px-4 py-20 md:px-8">
         <ScrollReveal className="text-center">
           <h2 className="font-display text-7xl leading-[0.9] tracking-wide md:text-8xl">Ils nous soutiennent</h2>
         </ScrollReveal>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
           <motion.div
             whileHover={{ y: -8 }}
             className="rounded-3xl border border-white/10 bg-white/5 p-10 backdrop-blur-xl"
           >
             <div className="flex items-center justify-center rounded-2xl bg-white p-4">
               <Image
-                src="/images/logo-lacanau.jpg"
+                src="/images/Logo mairie de lacanau (1).jpg"
                 alt="Ville de Lacanau"
-                width={300}
+                width={320}
                 height={160}
                 className="h-20 w-auto object-contain"
+                loading="lazy"
               />
             </div>
-            <div className="mt-6 text-center font-ui text-xs uppercase tracking-[0.18em] text-(--sand-light)/80">
+            <div className="mt-6 text-center font-ui text-xs uppercase tracking-[0.18em] text-sand-light/80">
               Ville de Lacanau
             </div>
           </motion.div>
@@ -41,14 +40,34 @@ export function Partners() {
             <div className="flex items-center justify-center rounded-2xl bg-white p-4">
               <Image
                 src="/images/logo-ffvolley.png"
-                alt="FF Volley"
-                width={300}
+                alt="Fédération Française de Volley"
+                width={320}
                 height={160}
                 className="h-20 w-auto object-contain"
+                loading="lazy"
               />
             </div>
-            <div className="mt-6 text-center font-ui text-xs uppercase tracking-[0.18em] text-(--sand-light)/80">
+            <div className="mt-6 text-center font-ui text-xs uppercase tracking-[0.18em] text-sand-light/80">
               Comité de Gironde de Volley Ball
+            </div>
+          </motion.div>
+
+          <motion.div
+            whileHover={{ y: -8 }}
+            className="rounded-3xl border border-white/10 bg-white/5 p-10 backdrop-blur-xl"
+          >
+            <div className="flex items-center justify-center rounded-2xl bg-white p-4">
+              <Image
+                src="/images/Cap33-Evenement-Site.jpg"
+                alt="Cap33"
+                width={320}
+                height={160}
+                className="h-20 w-auto object-contain"
+                loading="lazy"
+              />
+            </div>
+            <div className="mt-6 text-center font-ui text-xs uppercase tracking-[0.18em] text-sand-light/80">
+              Cap33
             </div>
           </motion.div>
         </div>
@@ -69,7 +88,6 @@ export function Partners() {
           </div>
         </div>
       </div>
-      <WaveDivider color="var(--ocean)" flipY />
     </section>
   );
 }

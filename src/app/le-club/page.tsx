@@ -56,7 +56,14 @@ export default function LeClubPage() {
             <p className="mt-2 text-slate-600">
               Contact : <a href="tel:0695043114" className="text-ocean hover:underline">06 95 04 31 14</a>
               {" · "}
-              <a href="mailto:david.lacanau33@orange.fr" className="text-ocean hover:underline">david.lacanau33@orange.fr</a>
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=alexandre.davidoff@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-ocean hover:underline"
+              >
+                alexandre.davidoff@gmail.com
+              </a>
             </p>
           </div>
           <div className="relative h-64 w-full shrink-0 overflow-hidden rounded-2xl bg-slate-200 lg:h-72 lg:w-96">

@@ -42,20 +42,22 @@ export function Navbar() {
   return (
     <>
       <motion.nav
-        className={`fixed left-0 right-0 top-0 z-50 transition-all duration-400 ${navClass}`}
+        className={`fixed left-0 right-0 top-0 z-50 pt-2 transition-all duration-400 ${navClass}`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 md:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 pb-3 pt-2 md:px-8 md:pb-3 md:pt-2">
           <Link href="#hero" className="flex items-center gap-3" aria-label="Aller à l'accueil">
-            <Image
-              src="/images/LVB1.png"
-              alt="AS Lacanau Section Volley Ball"
-              width={92}
-              height={92}
-              className="h-[78px] w-[78px] object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.35)] md:h-[92px] md:w-[92px]"
-              priority
-            />
+            <span className="relative block h-10 w-[140px] md:h-12 md:w-[170px]">
+              <Image
+                src="/images/LVB1.png"
+                alt="AS Lacanau Section Volley Ball"
+                width={220}
+                height={220}
+                className="absolute left-0 top-1/2 h-[160px] w-[160px] -translate-y-1/2 object-contain drop-shadow-[0_10px_22px_rgba(0,0,0,0.45)] md:h-[190px] md:w-[190px]"
+                priority
+              />
+            </span>
             <span className="hidden font-display text-3xl tracking-wide text-foam sm:block">
               Lacanau Volley
             </span>

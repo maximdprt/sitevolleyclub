@@ -11,21 +11,22 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-8">
         <div className="grid gap-12 md:grid-cols-3">
           <div>
+            <div className="font-display text-4xl tracking-wide text-foam">Lacanau Volley Ball</div>
+            <div className="mt-2 font-body italic text-sand-light/80">
+              Entre océan et forêt • Depuis 2010
+            </div>
             <Image
               src="/images/LVB1.png"
               alt="AS Lacanau Section Volley Ball"
-              width={180}
-              height={180}
-              className="h-24 w-24 object-contain md:h-28 md:w-28"
+              width={260}
+              height={260}
+              className="mt-6 h-[190px] w-[190px] object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,0.45)] md:h-[230px] md:w-[230px]"
+              loading="lazy"
             />
-            <div className="mt-6 font-display text-4xl tracking-wide text-foam">Lacanau Volley Ball</div>
-            <div className="mt-2 font-body italic text-(--sand-light)/80">
-              Entre océan et forêt • Depuis 2010
-            </div>
           </div>
 
           <div>
-            <div className="font-ui text-xs uppercase tracking-[0.2em] text-(--sand-light)/80">Horaires</div>
+            <div className="font-ui text-xs uppercase tracking-[0.2em] text-sand-light/80">Horaires</div>
             <ul className="mt-5 space-y-3 text-foam/85">
               <li>🏐 Jeudi 20h30 — Salle Cosec</li>
               <li>🏖️ Samedi 10h00 — Moutchic / Ardilouse</li>
@@ -33,7 +34,7 @@ export function Footer() {
           </div>
 
           <div>
-            <div className="font-ui text-xs uppercase tracking-[0.2em] text-(--sand-light)/80">Navigation</div>
+            <div className="font-ui text-xs uppercase tracking-[0.2em] text-sand-light/80">Navigation</div>
             <ul className="mt-5 space-y-3 text-foam/85">
               {[
                 { label: "Le Club", href: "#club" },
@@ -60,7 +61,22 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 border-t border-white/10 pt-8 text-sm text-(--sand-light)/70">
+        <div className="mt-14 border-t border-white/10 pt-8 text-sm text-sand-light/70">
+          <div className="mb-3 font-ui text-[11px] uppercase tracking-[0.18em] text-sand-light/70">
+            RGPD
+          </div>
+          <div className="text-sand-light/70">
+            Ce site utilise uniquement des données nécessaires pour vous recontacter lorsque vous nous contactez. Pour toute demande, écrivez-nous à{" "}
+            <a
+              className="underline decoration-accent/50 underline-offset-4 hover:decoration-accent"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=alexandre.davidoff@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              alexandre.davidoff@gmail.com
+            </a>
+            .
+          </div>
           © 2025 AS Lacanau Section Volley Ball · Tous droits réservés
         </div>
       </div>

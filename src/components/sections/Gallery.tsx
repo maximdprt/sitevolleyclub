@@ -54,7 +54,7 @@ export function Gallery() {
               type="button"
               data-cursor="hover"
               onClick={() => openAt(i)}
-              className="group mb-4 block w-full break-inside-avoid overflow-hidden rounded-2xl border border-white/10 bg-white/5"
+              className="group mb-4 block w-full break-inside-avoid overflow-hidden rounded-2xl border border-white/10 bg-white/5 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4"
               aria-label={`Ouvrir la photo: ${img.alt}`}
             >
               <div className="relative w-full overflow-hidden">
@@ -63,13 +63,13 @@ export function Gallery() {
                   alt={img.alt}
                   width={1200}
                   height={900}
-                  className="h-auto w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  className="h-auto w-full object-cover transition duration-500 group-hover:scale-[1.04] group-focus-visible:scale-[1.04]"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   loading="lazy"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-ocean-deep/60 opacity-0 transition duration-300 group-hover:opacity-100" />
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100">
-                  <div className="rounded-full bg-white/10 px-5 py-3 font-ui text-xs uppercase tracking-[0.18em] text-foam backdrop-blur">
+                <div className="pointer-events-none absolute inset-0 bg-ocean-deep/80 opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                  <div className="rounded-full bg-white/15 px-6 py-4 font-ui text-xs uppercase tracking-[0.18em] text-foam backdrop-blur">
                     Zoom
                   </div>
                 </div>

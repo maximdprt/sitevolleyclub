@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import Link from "next/link";
 
 const rows = [
   { date: "À venir", adversaire: "–", lieu: "–", score: "–" },
@@ -32,6 +33,19 @@ export function Championship() {
             Phase 2 reprise fin février.
           </p>
 
+          <p className="mt-4 max-w-prose font-body text-base leading-relaxed text-ocean-deep/75">
+            Les calendriers et résultats sont consultables sur la Fédération Française de Volley-Ball via{" "}
+            <Link
+              href="https://www.ffvb.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-ocean-deep underline decoration-accent/50 underline-offset-4 hover:decoration-accent"
+            >
+              ffvb.org
+            </Link>
+            .
+          </p>
+
           <div className="mt-8 flex items-end gap-4">
             <div className="font-display text-[140px] leading-none text-accent">12</div>
             <div className="pb-6 font-ui text-xs uppercase tracking-[0.2em] text-ocean-deep/70">
@@ -55,7 +69,7 @@ export function Championship() {
                 {rows.map((r, idx) => (
                   <motion.tr
                     key={idx}
-                    className={idx % 2 === 0 ? "bg-(--sand-light)/60" : "bg-white"}
+                    className={idx % 2 === 0 ? "bg-sand-light/60" : "bg-white"}
                     initial={{ opacity: 0, x: 40 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, amount: 0.2 }}

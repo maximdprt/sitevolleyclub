@@ -44,7 +44,15 @@ export default function TarifsPage() {
           Pour adhérer ou avoir plus d’infos, contactez-nous au{" "}
           <a href="tel:0695043114" className="font-medium text-ocean hover:underline">06 95 04 31 14</a>
           {" "}ou par email{" "}
-          <a href="mailto:david.lacanau33@orange.fr" className="font-medium text-ocean hover:underline">david.lacanau33@orange.fr</a>.
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=alexandre.davidoff@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-ocean hover:underline"
+          >
+            alexandre.davidoff@gmail.com
+          </a>
+          .
         </p>
 
         <div className="mt-10">

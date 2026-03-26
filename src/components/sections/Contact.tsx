@@ -9,17 +9,7 @@ export function Contact() {
     <section id="contact" className="bg-sand-light py-20 text-ocean-deep">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <ScrollReveal>
-          <div className="flex items-end justify-between gap-4">
-            <h2 className="font-display text-7xl leading-[0.9] tracking-wide md:text-8xl">Nous trouver</h2>
-            <Image
-              src="/images/LVB1.png"
-              alt="Logo AS Lacanau Volley Ball"
-              width={112}
-              height={112}
-              className="h-20 w-20 shrink-0 object-contain md:h-24 md:w-24"
-              loading="lazy"
-            />
-          </div>
+          <h2 className="font-display text-7xl leading-[0.9] tracking-wide md:text-8xl">Nous trouver</h2>
           <p className="mt-5 max-w-prose text-lg leading-relaxed text-ocean-deep/80">
             Lacanau, Gironde — entre océan Atlantique et forêt de pins. Venez nous rencontrer sur un entraînement.
           </p>
@@ -37,6 +27,7 @@ export function Contact() {
             <div className="font-ui text-xs uppercase tracking-[0.2em] text-ocean-deep/70">📅 Entraînements</div>
             <div className="mt-4 text-ocean-deep/85">
               Jeudi 20h30–23h00 (Indoor)<br />
+              Mardi (à confirmer) · Indoor<br />
               Samedi 10h–12h30 (Beach)
             </div>
           </div>
@@ -62,7 +53,7 @@ export function Contact() {
                 Appeler
               </a>
               <a
-                href="mailto:david.lacanau33@orange.fr"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=alexandre.davidoff@gmail.com"
                 data-cursor="hover"
                 className="rounded-full bg-accent px-5 py-3 font-ui text-xs uppercase tracking-[0.18em] text-foam"
               >
