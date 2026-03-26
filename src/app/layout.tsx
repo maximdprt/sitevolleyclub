@@ -7,11 +7,18 @@ const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans" });
 const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: "AS Lacanau Volley Ball · Indoor & Beach",
   description:
     "Club de volley-ball de Lacanau, Gironde. Entraînements le jeudi soir et beach le samedi. Rejoignez-nous ! 40 adhérents, fondé en 2010.",
   keywords: ["volley-ball", "Lacanau", "Gironde", "beach volley", "sport", "association"],
   openGraph: {
+    title: "AS Lacanau Volley Ball",
+    description: "Entre océan et forêt · Indoor & Beach · Depuis 2010",
+    images: ["/images/LVB1.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
     title: "AS Lacanau Volley Ball",
     description: "Entre océan et forêt · Indoor & Beach · Depuis 2010",
     images: ["/images/LVB1.png"],

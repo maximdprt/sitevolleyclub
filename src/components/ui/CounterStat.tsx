@@ -7,6 +7,11 @@ function easeOutQuart(t: number) {
   return 1 - Math.pow(1 - t, 4);
 }
 
+function prefersReducedMotion() {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+}
+
 export function CounterStat({
   value,
   suffix,
@@ -17,10 +22,22 @@ export function CounterStat({
   duration?: number;
 }) {
   const ref = useRef<HTMLSpanElement | null>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
+  // Trigger earlier to avoid “stuck at 0” on short viewports / fast scroll.
+  const inView = useInView(ref, { once: true, amount: 0.25, margin: "0px 0px -15% 0px" });
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
+    if (prefersReducedMotion()) {
+      setDisplay(value);
+      return;
+    }
+
+    // Fallback: if IntersectionObserver is unavailable, render the final value.
+    if (typeof window !== "undefined" && !("IntersectionObserver" in window)) {
+      setDisplay(value);
+      return;
+    }
+
     if (!inView) return;
     let rafId = 0;
     const start = performance.now();

@@ -63,7 +63,7 @@ export function Gallery() {
                   alt={img.alt}
                   width={1200}
                   height={900}
-                  className="h-auto w-full object-cover transition duration-500 group-hover:scale-[1.04] group-focus-visible:scale-[1.04]"
+                  className="h-auto w-full object-cover grayscale-[0.9] contrast-[1.05] brightness-[0.95] transition duration-500 group-hover:scale-[1.04] group-focus-visible:scale-[1.04] group-hover:grayscale-0 group-focus-visible:grayscale-0 group-hover:brightness-100 group-focus-visible:brightness-100"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   loading="lazy"
                 />

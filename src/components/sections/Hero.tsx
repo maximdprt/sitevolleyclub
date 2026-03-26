@@ -5,19 +5,20 @@ import { AnimatedText } from "@/components/ui/AnimatedText";
 
 export function Hero() {
   return (
-    <section id="hero" className="relative min-h-[92vh] overflow-hidden bg-ocean-deep">
+    <section id="hero" className="relative min-h-screen overflow-hidden bg-ocean-deep">
       <video
         autoPlay
         muted
         loop
         playsInline
         preload="metadata"
-        className="absolute inset-0 h-full w-full object-cover opacity-30 mix-blend-luminosity"
+        className="absolute inset-0 h-full w-full object-cover opacity-35 mix-blend-luminosity"
         src="/images/hero-video.mp4"
       />
       <div className="absolute inset-0 bg-linear-to-br from-ocean-deep/80 via-ocean/50 to-accent/20" />
+      <div aria-hidden className="absolute inset-0 bg-radial-[circle_at_20%_15%] from-accent/14 via-transparent to-transparent" />
 
-      <div className="relative z-10 mx-auto grid min-h-[92vh] max-w-7xl items-center gap-10 px-4 pt-24 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+      <div className="relative z-10 mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-4 pt-24 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
         <div className="max-w-3xl">
           <div className="mb-8 inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2 font-ui text-xs uppercase tracking-[0.18em] text-foam backdrop-blur-md">
             <span aria-hidden>🏐</span>
@@ -42,13 +43,17 @@ export function Hero() {
             Entre océan et forêt · Indoor &amp; Beach · Depuis 2010
           </p>
 
+          <div className="mt-6 max-w-2xl text-lg leading-relaxed text-foam/80">
+            L’esprit d’équipe. L’air marin. Une pratique indoor &amp; beach, ouverte à tous les niveaux.
+          </div>
+
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link
               href="#join"
               data-cursor="hover"
               className="rounded-full bg-accent px-8 py-4 font-ui text-xs uppercase tracking-[0.18em] text-foam transition hover:bg-foam hover:text-ocean-deep"
             >
-              Venez nous rejoindre →
+              Essai gratuit →
             </Link>
             <Link
               href="#activities"

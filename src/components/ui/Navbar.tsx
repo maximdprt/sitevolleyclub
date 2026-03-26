@@ -20,8 +20,8 @@ export function Navbar() {
   const navClass = useMemo(
     () =>
       scrolled
-        ? "bg-ocean-deep/95 backdrop-blur-xl shadow-2xl"
-        : "bg-transparent",
+        ? "bg-ocean-deep/92 backdrop-blur-xl shadow-2xl"
+        : "bg-transparent backdrop-blur-md",
     [scrolled],
   );
 
@@ -69,7 +69,7 @@ export function Navbar() {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="group relative font-ui text-[11px] uppercase tracking-[0.18em] text-(--sand-light)/85 transition hover:text-foam"
+                  className="group relative font-ui text-[11px] uppercase tracking-[0.18em] text-sand-light/85 transition hover:text-foam"
                 >
                   {l.label}
                   <span className="absolute -bottom-1 left-1/2 h-px w-4/5 -translate-x-1/2 scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100" />
@@ -81,7 +81,7 @@ export function Navbar() {
               data-cursor="hover"
               className="rounded-full bg-accent px-5 py-3 font-ui text-xs uppercase tracking-[0.18em] text-foam transition hover:bg-foam hover:text-ocean-deep"
             >
-              Rejoindre
+              Essai gratuit
             </Link>
           </div>
 
@@ -139,7 +139,7 @@ export function Navbar() {
                   onClick={() => setOpen(false)}
                   className="inline-flex rounded-full bg-accent px-7 py-4 font-ui text-xs uppercase tracking-[0.18em] text-foam"
                 >
-                  Rejoindre
+                  Essai gratuit
                 </Link>
               </div>
             </div>
