@@ -27,17 +27,31 @@ export default function CalendrierPage() {
             <tbody>
               <tr className="border-b border-slate-100">
                 <td className="px-6 py-4">Entraînement loisir</td>
+                <td className="px-6 py-4">Tous les mardis, 20h00 – 23h00</td>
+                <td className="px-6 py-4">COSEC Lacanau</td>
+              </tr>
+              <tr className="border-b border-slate-100">
+                <td className="px-6 py-4">Entraînement loisir</td>
                 <td className="px-6 py-4">Tous les jeudis, 20h30 – 23h00</td>
                 <td className="px-6 py-4">COSEC Lacanau</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-6 py-4">Beach volley</td>
-                <td className="px-6 py-4">Mai à octobre (selon météo)</td>
+                <td className="px-6 py-4">Dimanche, 10h00 – 12h30 (mai à octobre)</td>
+                <td className="px-6 py-4">Ardilouse</td>
+              </tr>
+              <tr className="border-b border-slate-100">
+                <td className="px-6 py-4">Tournoi</td>
+                <td className="px-6 py-4">Mercredi soir, à partir de 20h30 (juillet et août)</td>
                 <td className="px-6 py-4">Lacanau</td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <p className="mt-8 text-slate-600">
+          Les calendriers et résultats sont consultables sur la Fédération Française de Volley-Ball via <strong>FFvolley - Gestion Sportive</strong>.
+        </p>
       </div>
     </main>
   );

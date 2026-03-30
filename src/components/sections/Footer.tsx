@@ -28,8 +28,9 @@ export function Footer() {
           <div>
             <div className="font-ui text-xs uppercase tracking-[0.2em] text-sand-light/80">Horaires</div>
             <ul className="mt-5 space-y-3 text-foam/85">
+              <li>🏐 Mardi 20h00 — Salle Cosec</li>
               <li>🏐 Jeudi 20h30 — Salle Cosec</li>
-              <li>🏖️ Samedi 10h00 — Moutchic / Ardilouse</li>
+              <li>🏖️ Dimanche 10h00 — Ardilouse</li>
             </ul>
           </div>
 
@@ -69,11 +70,11 @@ export function Footer() {
             Ce site utilise uniquement des données nécessaires pour vous recontacter lorsque vous nous contactez. Pour toute demande, écrivez-nous à{" "}
             <a
               className="underline decoration-accent/50 underline-offset-4 hover:decoration-accent"
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=alexandre.davidoff@gmail.com"
+              href="mailto:david.lacanau33@orange.fr"
               target="_blank"
               rel="noopener noreferrer"
             >
-              alexandre.davidoff@gmail.com
+              david.lacanau33@orange.fr
             </a>
             .
           </div>

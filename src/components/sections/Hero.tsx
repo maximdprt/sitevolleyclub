@@ -67,11 +67,15 @@ export function Hero() {
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <div className="inline-flex w-fit items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-md">
               <span aria-hidden>📅</span>
+              <span className="font-ui text-xs uppercase tracking-[0.18em] text-foam">MARDI 20H · COSEC</span>
+            </div>
+            <div className="inline-flex w-fit items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-md">
+              <span aria-hidden>📅</span>
               <span className="font-ui text-xs uppercase tracking-[0.18em] text-foam">JEUDI 20H30 · COSEC</span>
             </div>
             <div className="inline-flex w-fit items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-md">
               <span aria-hidden>🏖️</span>
-              <span className="font-ui text-xs uppercase tracking-[0.18em] text-foam">SAMEDI 10H · BEACH</span>
+              <span className="font-ui text-xs uppercase tracking-[0.18em] text-foam">DIMANCHE 10H · BEACH (ARDILOUSE)</span>
             </div>
           </div>
         </div>
@@ -87,7 +91,7 @@ export function Hero() {
               Convivialité.
             </div>
             <div className="mt-4 text-foam/75">
-              Rejoignez l’AS Lacanau Section Volley Ball — indoor le jeudi, beach le samedi.
+              Rejoignez l’AS Lacanau Section Volley Ball — indoor le mardi et jeudi, beach le dimanche.
             </div>
           </div>
         </div>

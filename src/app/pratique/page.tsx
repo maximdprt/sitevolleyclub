@@ -5,7 +5,7 @@ import { PageHero } from "@/components/PageHero";
 
 export const metadata = {
   title: "Pratique — Lacanau Volley-Ball",
-  description: "Entraînements jeudis 20h30-23h au COSEC. Salle et beach (mai-octobre).",
+  description: "Entraînements mardis 20h-23h et jeudis 20h30-23h au COSEC. Salle et beach (mai-octobre).",
 };
 
 export default function PratiquePage() {
@@ -23,13 +23,13 @@ export default function PratiquePage() {
             Entraînements
           </h2>
           <p className="mt-4 text-slate-600">
-            Volley loisir en salle, tous les <strong>jeudis de 20h30 à 23h00</strong> au COSEC de Lacanau.
+            Volley loisir en salle, <strong>mardi de 20h00 à 23h00</strong> et <strong>jeudi de 20h30 à 23h00</strong> au COSEC de Lacanau.
             Ouvert à tous les adhérents à partir de 10 ans.
           </p>
           <div className="mt-6 flex flex-wrap gap-6 text-slate-700">
             <span className="flex items-center gap-2">
               <Calendar className="h-5 w-5 text-ocean" />
-              Jeudis 20h30 – 23h00
+              Mardis 20h00 – 23h00 · Jeudis 20h30 – 23h00
             </span>
             <span className="flex items-center gap-2">
               <MapPin className="h-5 w-5 text-ocean" />

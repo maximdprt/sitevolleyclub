@@ -29,7 +29,7 @@
   --color-text-light: var(--text-light);
   --font-display: var(--font-bebas);
   --font-ui: var(--font-dm-sans);
-  --font-body: var(--font-lora);
+  --font-body: var(--font-body-sans);
 }
 
 html {
@@ -39,7 +39,8 @@ html {
 body {
   background: var(--ocean-deep);
   color: var(--foam);
-  font-family: var(--font-lora), serif;
+  font-family: var(--font-body-sans), system-ui, sans-serif;
+  font-weight: 500;
 }
 
 body::before {

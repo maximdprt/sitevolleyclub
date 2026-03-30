@@ -45,11 +45,11 @@ export function Club() {
                   ·{" "}
                   <a
                     className="font-medium text-ocean underline decoration-accent/50 underline-offset-4"
-                    href="https://mail.google.com/mail/?view=cm&fs=1&to=alexandre.davidoff@gmail.com"
+                    href="mailto:david.lacanau33@orange.fr"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    alexandre.davidoff@gmail.com
+                    david.lacanau33@orange.fr
                   </a>
                 </div>
               </div>

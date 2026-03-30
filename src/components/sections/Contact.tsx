@@ -27,8 +27,8 @@ export function Contact() {
             <div className="font-ui text-xs uppercase tracking-[0.2em] text-ocean-deep/70">📅 Entraînements</div>
             <div className="mt-4 text-ocean-deep/85">
               Jeudi 20h30–23h00 (Indoor)<br />
-              Mardi (à confirmer) · Indoor<br />
-              Samedi 10h–12h30 (Beach)
+              Mardi 20h00–23h00 (Indoor)<br />
+              Dimanche 10h00–12h30 (Beach · Ardilouse)
             </div>
           </div>
           <div className="rounded-3xl border border-ocean-deep/10 bg-white p-8 shadow-sm">
@@ -53,11 +53,11 @@ export function Contact() {
                 Appeler
               </a>
               <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=alexandre.davidoff@gmail.com"
+                href="mailto:david.lacanau33@orange.fr"
                 data-cursor="hover"
                 className="rounded-full bg-accent px-5 py-3 font-ui text-xs uppercase tracking-[0.18em] text-foam"
               >
-                Email
+                Nous contacter
               </a>
             </div>
           </div>

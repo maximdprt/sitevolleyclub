@@ -7,7 +7,7 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { useMemo } from "react";
 
 const steps = [
-  { num: "01", title: "Venez à un entraînement", desc: "Jeudi soir à 20h30 · Salle Cosec Lacanau" },
+  { num: "01", title: "Venez à un entraînement", desc: "Mardi 20h00 / Jeudi 20h30 · Salle Cosec Lacanau" },
   { num: "02", title: "Essayez gratuitement", desc: "1ère séance sans inscription, sans engagement" },
   { num: "03", title: "Adhérez !", desc: "30€ salle ou 30€ beach · Paiement sur place" },
 ] as const;
@@ -31,7 +31,7 @@ function toGoogleDateUTC(d: Date) {
 function buildGoogleCalendarUrl({ start, end }: { start: Date; end: Date }) {
   const text = "Essai gratuit — Lacanau Volley";
   const details =
-    "Venez essayer gratuitement (sans inscription).\\n\\nIndoor: jeudi 20h30–23h00\\nAdresse: COSEC, 19 Av. Albert François, 33680 Lacanau";
+    "Venez essayer gratuitement (sans inscription).\\n\\nIndoor: mardi 20h00–23h00 et jeudi 20h30–23h00\\nAdresse: COSEC, 19 Av. Albert François, 33680 Lacanau";
   const location = "COSEC, 19 Av. Albert François, 33680 Lacanau";
   const dates = `${toGoogleDateUTC(start)}/${toGoogleDateUTC(end)}`;
   const params = new URLSearchParams({
@@ -62,7 +62,7 @@ function downloadIcs({ start, end }: { start: Date; end: Date }) {
     `DTEND:${dtEnd}Z`,
     "SUMMARY:Essai gratuit — Lacanau Volley",
     "LOCATION:COSEC, 19 Av. Albert François, 33680 Lacanau",
-    "DESCRIPTION:Venez essayer gratuitement (sans inscription).\\n\\nIndoor: jeudi 20h30–23h00",
+    "DESCRIPTION:Venez essayer gratuitement (sans inscription).\\n\\nIndoor: mardi 20h00–23h00 et jeudi 20h30–23h00",
     "END:VEVENT",
     "END:VCALENDAR",
   ].join("\r\n");
@@ -187,7 +187,7 @@ export function Join() {
             <div className="flex items-baseline justify-between gap-4">
               <div>
                 <div className="font-ui text-xs uppercase tracking-[0.18em] text-sand-light/80">🎯 Tournois ponctuels</div>
-                <div className="mt-2 text-sm text-foam/75">(Jeudi soir Juin-Août / 1er samedi)</div>
+                <div className="mt-2 text-sm text-foam/75">(Mercredi soir juillet-août · à partir de 20h30)</div>
               </div>
               <div className="font-display text-4xl text-accent">2 €</div>
             </div>

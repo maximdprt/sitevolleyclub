@@ -30,12 +30,12 @@ export default function ContactPage() {
               <li className="flex items-start gap-3">
                 <Mail className="h-5 w-5 shrink-0 text-ocean" />
                 <a
-                  href="https://mail.google.com/mail/?view=cm&fs=1&to=alexandre.davidoff@gmail.com"
+                  href="mailto:david.lacanau33@orange.fr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-ocean hover:underline"
                 >
-                  alexandre.davidoff@gmail.com
+                  david.lacanau33@orange.fr
                 </a>
               </li>
               <li className="flex items-start gap-3">
@@ -58,7 +58,7 @@ export default function ContactPage() {
               </li>
             </ul>
             <p className="mt-8 text-sm text-slate-500">
-              Entraînements : tous les jeudis de 20h30 à 23h00 au COSEC.
+              Entraînements : mardi de 20h00 à 23h00 et jeudi de 20h30 à 23h00 au COSEC.
             </p>
           </div>
 

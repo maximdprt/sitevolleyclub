@@ -27,13 +27,13 @@ export function Footer() {
                 06 95 04 31 14
               </a>
               <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=alexandre.davidoff@gmail.com"
+                href="mailto:david.lacanau33@orange.fr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 hover:text-white"
               >
                 <Mail className="h-4 w-4" />
-                alexandre.davidoff@gmail.com
+                david.lacanau33@orange.fr
               </a>
               <span className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
@@ -65,6 +65,8 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-white">Horaires</h3>
             <p className="mt-4 text-sm">
+              Mardis 20h00 – 23h00
+              <br />
               Jeudis 20h30 – 23h00
               <br />
               COSEC Lacanau
@@ -72,6 +74,14 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-12 border-t border-slate-700 pt-8 text-center text-sm text-slate-500">
+          <div className="mb-2 font-semibold text-slate-300">RGPD</div>
+          <div className="mx-auto mb-6 max-w-3xl text-xs text-slate-400">
+            Ce site utilise uniquement des données nécessaires pour vous recontacter lorsque vous nous contactez. Pour toute demande, écrivez-nous à{" "}
+            <a className="underline underline-offset-4 hover:text-white" href="mailto:david.lacanau33@orange.fr">
+              david.lacanau33@orange.fr
+            </a>
+            .
+          </div>
           © {new Date().getFullYear()} Lacanau Volley-Ball • ASL Volley
         </div>
       </div>

@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, DM_Sans, Lora } from "next/font/google";
+import { Bebas_Neue, DM_Sans, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas" });
 const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans" });
-const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
+const bodySans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-body-sans",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: "AS Lacanau Volley Ball · Indoor & Beach",
   description:
-    "Club de volley-ball de Lacanau, Gironde. Entraînements le jeudi soir et beach le samedi. Rejoignez-nous ! 40 adhérents, fondé en 2010.",
+    "Club de volley-ball de Lacanau, Gironde. Entraînements le mardi et jeudi soir et beach le dimanche. Rejoignez-nous ! 40 adhérents, fondé en 2010.",
   keywords: ["volley-ball", "Lacanau", "Gironde", "beach volley", "sport", "association"],
   openGraph: {
     title: "AS Lacanau Volley Ball",
@@ -32,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <body className={`${bebas.variable} ${dmSans.variable} ${lora.variable} antialiased`}>
+      <body className={`${bebas.variable} ${dmSans.variable} ${bodySans.variable} antialiased`}>
         {children}
       </body>
     </html>
