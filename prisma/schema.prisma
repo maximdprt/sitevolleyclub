@@ -1,0 +1,186 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum Role {
+  ADHERENT
+  COMITE_DIRECTION
+  ADMIN
+}
+
+enum UserStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+
+enum DocumentType {
+  PIECE_IDENTITE
+  CERTIFICAT_MEDICAL
+  FORMULAIRE_ADHESION
+  JUSTIFICATIF_DOMICILE
+  AUTRE
+  COMITE_INTERNE
+}
+
+enum DocumentVisibility {
+  PRIVATE
+  COMITE
+  PUBLIC
+}
+
+enum DocumentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// ─── Models ──────────────────────────────────────────────────────────────────
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  username     String     @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  role         Role       @default(ADHERENT)
+  status       UserStatus @default(PENDING)
+  avatarUrl    String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  lastLoginAt  DateTime?
+
+  documents     Document[]
+  forumPosts    ForumPost[]
+  forumComments ForumComment[]
+  auditLogs     AuditLog[]
+  passwordResets PasswordReset[]
+
+  // Auth.js required fields
+  accounts Account[]
+  sessions Session[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model PasswordReset {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Document {
+  id         String             @id @default(cuid())
+  userId     String
+  user       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type       DocumentType
+  title      String
+  fileName   String
+  fileUrl    String
+  fileSize   Int
+  mimeType   String
+  visibility DocumentVisibility @default(PRIVATE)
+  status     DocumentStatus     @default(PENDING)
+  uploadedAt DateTime           @default(now())
+  reviewedAt DateTime?
+  reviewedBy String?
+  notes      String?
+}
+
+model ForumCategory {
+  id          String      @id @default(cuid())
+  name        String
+  slug        String      @unique
+  description String?
+  icon        String?
+  color       String?
+  order       Int         @default(0)
+  posts       ForumPost[]
+}
+
+model ForumPost {
+  id         String        @id @default(cuid())
+  title      String
+  slug       String        @unique
+  content    String        @db.Text
+  authorId   String
+  author     User          @relation(fields: [authorId], references: [id])
+  categoryId String
+  category   ForumCategory @relation(fields: [categoryId], references: [id])
+  pinned     Boolean       @default(false)
+  locked     Boolean       @default(false)
+  viewCount  Int           @default(0)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  comments   ForumComment[]
+}
+
+model ForumComment {
+  id        String    @id @default(cuid())
+  content   String    @db.Text
+  postId    String
+  post      ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User      @relation(fields: [authorId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  resource  String
+  metadata  Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
