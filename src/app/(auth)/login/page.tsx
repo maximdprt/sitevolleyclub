@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, ArrowRight, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { loginSchema, type LoginInput } from "@/lib/validators/auth";
+import { getRoleHome } from "@/lib/permissions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,12 +20,6 @@ const ERRORS: Record<string, string> = {
   SUSPENDED: "Votre compte a été suspendu. Contactez un administrateur.",
   CredentialsSignin: "Identifiants incorrects.",
 };
-
-function getRoleHome(role?: string) {
-  if (role === "ADMIN") return "/admin";
-  if (role === "COMITE_DIRECTION") return "/comite-direction";
-  return "/espace-adherent";
-}
 
 export default function LoginPage() {
   return (

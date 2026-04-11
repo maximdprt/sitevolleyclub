@@ -1,15 +1,18 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
+import { getRoleHome } from "@/lib/permissions";
 
-const ADHERENT_PREFIXES = ["/espace-adherent", "/forum"];
+const MEMBER_PREFIXES = ["/espace-membre", "/espace-adherent", "/forum"];
 const COMITE_PREFIXES = ["/comite-direction"];
 const ADMIN_PREFIXES = ["/admin"];
 
-function getRoleHome(role?: string) {
-  if (role === "ADMIN") return "/admin";
-  if (role === "COMITE_DIRECTION") return "/comite-direction";
-  return "/espace-adherent";
+function loginRedirect(req: NextRequest, pathname: string) {
+  const url = req.nextUrl.clone();
+  url.pathname = "/";
+  url.searchParams.set("auth", "1");
+  url.searchParams.set("next", pathname);
+  return NextResponse.redirect(url);
 }
 
 export async function middleware(req: NextRequest) {
@@ -20,31 +23,39 @@ export async function middleware(req: NextRequest) {
     secret: process.env.AUTH_SECRET,
   });
 
-  // ─── Routes admin ───────────────────────────────────────────────────────────
+  // Legacy adhérent → espace membre
+  if (pathname === "/espace-adherent" || pathname.startsWith("/espace-adherent/")) {
+    const url = req.nextUrl.clone();
+    const tail = pathname.slice("/espace-adherent".length);
+    url.pathname = "/espace-membre" + tail;
+    return NextResponse.redirect(url, 308);
+  }
+
   if (ADMIN_PREFIXES.some((p) => pathname.startsWith(p))) {
     if (!token || token.role !== "ADMIN") {
-      return NextResponse.redirect(new URL(`/login?from=${encodeURIComponent(pathname)}`, req.url));
+      return loginRedirect(req, pathname);
     }
   }
 
-  // ─── Routes comité ─────────────────────────────────────────────────────────
   if (COMITE_PREFIXES.some((p) => pathname.startsWith(p))) {
     if (!token || !["COMITE_DIRECTION", "ADMIN"].includes(token.role as string)) {
-      return NextResponse.redirect(new URL(`/login?from=${encodeURIComponent(pathname)}`, req.url));
+      return loginRedirect(req, pathname);
     }
   }
 
-  // ─── Routes adhérent ───────────────────────────────────────────────────────
-  if (ADHERENT_PREFIXES.some((p) => pathname.startsWith(p))) {
+  if (MEMBER_PREFIXES.some((p) => pathname.startsWith(p))) {
     if (!token) {
-      return NextResponse.redirect(new URL(`/login?from=${encodeURIComponent(pathname)}`, req.url));
+      return loginRedirect(req, pathname);
     }
     if (token.status !== "ACTIVE") {
-      return NextResponse.redirect(new URL("/login?error=PENDING", req.url));
+      const url = req.nextUrl.clone();
+      url.pathname = "/";
+      url.searchParams.set("auth", "1");
+      url.searchParams.set("error", "PENDING");
+      return NextResponse.redirect(url);
     }
   }
 
-  // ─── Redirection si déjà connecté ──────────────────────────────────────────
   if (["/login", "/register"].includes(pathname) && token) {
     return NextResponse.redirect(new URL(getRoleHome(token.role as string), req.url));
   }

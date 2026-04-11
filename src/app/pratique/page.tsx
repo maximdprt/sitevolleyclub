@@ -1,12 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Calendar, MapPin } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
+import { publicPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Pratique — Lacanau Volley-Ball",
-  description: "Entraînements mardis 20h-23h et jeudis 20h30-23h au COSEC. Salle et beach (mai-octobre).",
-};
+export const metadata: Metadata = publicPageMetadata({
+  title: "Pratique",
+  description:
+    "Horaires d'entraînement volley à Lacanau : mardi et jeudi au COSEC, beach volley mai à octobre. Infos pratiques club.",
+  path: "/pratique",
+});
 
 export default function PratiquePage() {
   return (

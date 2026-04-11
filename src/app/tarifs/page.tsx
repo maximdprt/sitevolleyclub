@@ -1,10 +1,14 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
+import { publicPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Tarifs & adhésion — Lacanau Volley-Ball",
-  description: "Cotisation annuelle : 30 € en salle, 30 € saison beach (mai à octobre).",
-};
+export const metadata: Metadata = publicPageMetadata({
+  title: "Tarifs & adhésion",
+  description:
+    "Cotisation Lacanau Volley-Ball : tarifs salle et beach, adhésion à partir de 10 ans. Rejoindre le club à Lacanau.",
+  path: "/tarifs",
+});
 
 export default function TarifsPage() {
   return (

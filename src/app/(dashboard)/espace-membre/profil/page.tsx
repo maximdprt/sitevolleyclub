@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { FileText, Calendar, Shield, Mail, UserCircle } from "lucide-react";
+import { Calendar, Shield, Mail, UserCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -32,7 +32,6 @@ export default async function ProfilPage() {
       <h1 className="font-display text-2xl tracking-wide text-[#f0f7ff]">Mon profil</h1>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {/* Informations personnelles */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Informations personnelles</CardTitle>
@@ -40,7 +39,8 @@ export default async function ProfilPage() {
           <CardContent className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1a3a5c] text-lg font-bold text-[#f0f7ff]/70">
-                {user.firstName.charAt(0)}{user.lastName.charAt(0)}
+                {user.firstName.charAt(0)}
+                {user.lastName.charAt(0)}
               </div>
               <div>
                 <p className="text-lg font-semibold text-[#f0f7ff]">
@@ -52,11 +52,7 @@ export default async function ProfilPage() {
             <div className="space-y-3 pt-2">
               <InfoRow icon={Mail} label="Email" value={user.email} />
               <InfoRow icon={UserCircle} label="Nom d&apos;utilisateur" value={user.username} />
-              <InfoRow
-                icon={Shield}
-                label="Rôle"
-                value={ROLE_LABELS[user.role] ?? user.role}
-              />
+              <InfoRow icon={Shield} label="Rôle" value={ROLE_LABELS[user.role] ?? user.role} />
               <div className="flex items-center gap-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#f0f7ff]/5">
                   <Calendar className="h-4 w-4 text-[#f0f7ff]/30" />
@@ -70,7 +66,6 @@ export default async function ProfilPage() {
           </CardContent>
         </Card>
 
-        {/* Statistiques */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Activité</CardTitle>
@@ -112,7 +107,15 @@ export default async function ProfilPage() {
   );
 }
 
-function InfoRow({ icon: Icon, label, value }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string }) {
+function InfoRow({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: string;
+}) {
   return (
     <div className="flex items-center gap-3">
       <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#f0f7ff]/5">
@@ -128,7 +131,7 @@ function InfoRow({ icon: Icon, label, value }: { icon: React.ComponentType<{ cla
 
 function StatBlock({ value, label }: { value: number; label: string }) {
   return (
-    <div className="rounded-xl bg-[#f0f7ff]/3 border border-[#f0f7ff]/5 p-4 text-center">
+    <div className="rounded-xl border border-[#f0f7ff]/5 bg-[#f0f7ff]/3 p-4 text-center">
       <p className="text-2xl font-bold text-[#f0f7ff]">{value}</p>
       <p className="mt-0.5 text-xs text-[#f0f7ff]/40">{label}</p>
     </div>

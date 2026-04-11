@@ -59,6 +59,22 @@ async function main() {
   }
   console.log(`✓ ${categories.length} catégories forum créées`);
 
+  // ─── Équipes (matchs / entraînements / convocations) ───────────────────────
+  const teams = [
+    { slug: "seniors-h", name: "Seniors hommes", category: "Seniors" },
+    { slug: "seniors-f", name: "Seniors femmes", category: "Seniors" },
+    { slug: "u18", name: "U18 mixte", category: "Jeunes" },
+    { slug: "loisirs", name: "Loisirs", category: "Loisir" },
+  ];
+  for (const t of teams) {
+    await db.team.upsert({
+      where: { slug: t.slug },
+      update: { name: t.name, category: t.category },
+      create: t,
+    });
+  }
+  console.log(`✓ ${teams.length} équipes créées ou mises à jour`);
+
   // ─── Admin user ─────────────────────────────────────────────────────────────
   const adminPassword = process.env.ADMIN_SEED_PASSWORD ?? "Admin!Lacanau2025";
   const passwordHash = await hash(adminPassword, 12);

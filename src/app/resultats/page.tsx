@@ -1,9 +1,13 @@
+import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
+import { publicPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Résultats — Lacanau Volley-Ball",
-  description: "Résultats et classements du club.",
-};
+export const metadata: Metadata = publicPageMetadata({
+  title: "Résultats",
+  description:
+    "Résultats et compétitions : pratique loisir à Lacanau et informations Compet'Lib via le Comité de Gironde.",
+  path: "/resultats",
+});
 
 export default function ResultatsPage() {
   return (

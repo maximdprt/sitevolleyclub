@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, DM_Sans, Plus_Jakarta_Sans } from "next/font/google";
+import { AppProviders } from "@/components/providers/AppProviders";
 import "./globals.css";
 
 const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas" });
@@ -13,7 +14,10 @@ const bodySans = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
-  title: "AS Lacanau Volley Ball · Indoor & Beach",
+  title: {
+    default: "Accueil · Volley indoor & beach",
+    template: "%s | Lacanau Volley-Ball",
+  },
   description:
     "Club de volley-ball de Lacanau, Gironde. Entraînements le mardi et jeudi soir et beach le dimanche. Rejoignez-nous ! 40 adhérents, fondé en 2010.",
   keywords: ["volley-ball", "Lacanau", "Gironde", "beach volley", "sport", "association"],
@@ -38,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body className={`${bebas.variable} ${dmSans.variable} ${bodySans.variable} antialiased`}>
-        {children}
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

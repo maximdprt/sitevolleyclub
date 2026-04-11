@@ -1,10 +1,14 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
+import { publicPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Billetterie — Lacanau Volley-Ball",
-  description: "Événements et matchs du club.",
-};
+export const metadata: Metadata = publicPageMetadata({
+  title: "Billetterie",
+  description:
+    "Billetterie et événements Lacanau Volley-Ball : matchs amicaux et soirées — contactez le club pour les places.",
+  path: "/billetterie",
+});
 
 export default function BilletteriePage() {
   return (

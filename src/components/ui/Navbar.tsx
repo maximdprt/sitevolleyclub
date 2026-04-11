@@ -4,17 +4,32 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
+import { useSession, signOut } from "next-auth/react";
+import { LogOut, User } from "lucide-react";
+import { useAuthUi } from "@/components/providers/auth-ui-context";
+import { getRoleHome } from "@/lib/permissions";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const navLinks = [
-  { label: "Accueil", href: "#hero" },
-  { label: "Le Club", href: "#club" },
-  { label: "Activités", href: "#activities" },
-  { label: "Galerie", href: "#gallery" },
-  { label: "Rejoindre", href: "#join" },
-  { label: "Contact", href: "#contact" },
+  { label: "Accueil", href: "/#hero" },
+  { label: "Le Club", href: "/#club" },
+  { label: "Activités", href: "/#activities" },
+  { label: "Actualités", href: "/actualites" },
+  { label: "Galerie", href: "/#gallery" },
+  { label: "Rejoindre", href: "/#join" },
+  { label: "Contact", href: "/#contact" },
 ] as const;
 
 export function Navbar() {
+  const { data: session, status } = useSession();
+  const { openLogin } = useAuthUi();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const navClass = useMemo(
@@ -47,7 +62,7 @@ export function Navbar() {
         animate={{ y: 0 }}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 pb-3 pt-2 md:px-8 md:pb-3 md:pt-2">
-          <Link href="#hero" className="flex items-center gap-3" aria-label="Aller à l'accueil">
+          <Link href="/#hero" className="flex items-center gap-3" aria-label="Aller à l'accueil">
             <span className="relative block h-10 w-[140px] md:h-12 md:w-[170px]">
               <Image
                 src="/images/LVB1.png"
@@ -76,13 +91,67 @@ export function Navbar() {
                 </Link>
               ))}
             </div>
-            <Link
-              href="#join"
-              data-cursor="hover"
-              className="rounded-full bg-accent px-5 py-3 font-ui text-xs uppercase tracking-[0.18em] text-foam transition hover:bg-foam hover:text-ocean-deep"
-            >
-              Essai gratuit
-            </Link>
+            <div className="flex items-center gap-3">
+              {status === "authenticated" && session?.user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-2 py-1.5 pr-3 font-ui text-xs text-foam transition hover:bg-white/10"
+                      aria-label="Menu compte"
+                    >
+                      <Avatar className="h-8 w-8 border border-white/20">
+                        {session.user.image ? (
+                          <AvatarImage src={session.user.image} alt="" />
+                        ) : null}
+                        <AvatarFallback className="bg-ocean/80 text-[10px] text-foam">
+                          {(session.user.name ?? session.user.email ?? "?")
+                            .split(" ")
+                            .map((s) => s[0])
+                            .join("")
+                            .slice(0, 2)
+                            .toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="hidden max-w-[120px] truncate sm:inline">
+                        {session.user.name ?? session.user.email}
+                      </span>
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="min-w-48">
+                    <DropdownMenuItem asChild>
+                      <Link href={getRoleHome(session.user.role)}>
+                        <User className="h-4 w-4" />
+                        Mon espace
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                      className="text-red-400 focus:text-red-400"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Déconnexion
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => openLogin()}
+                  className="rounded-full border border-white/20 bg-white/5 px-4 py-2.5 font-ui text-xs uppercase tracking-[0.18em] text-foam transition hover:bg-white/10"
+                >
+                  Se connecter
+                </button>
+              )}
+              <Link
+                href="/#join"
+                data-cursor="hover"
+                className="rounded-full bg-accent px-5 py-3 font-ui text-xs uppercase tracking-[0.18em] text-foam transition hover:bg-foam hover:text-ocean-deep"
+              >
+                Essai gratuit
+              </Link>
+            </div>
           </div>
 
           <button
@@ -133,9 +202,41 @@ export function Navbar() {
                   </Link>
                 ))}
               </div>
-              <div className="mt-auto">
+              <div className="mt-auto flex flex-col gap-3">
+                {status === "authenticated" && session?.user ? (
+                  <>
+                    <Link
+                      href={getRoleHome(session.user.role)}
+                      onClick={() => setOpen(false)}
+                      className="inline-flex rounded-full border border-white/20 px-7 py-4 font-ui text-xs uppercase tracking-[0.18em] text-foam"
+                    >
+                      Mon espace
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setOpen(false);
+                        void signOut({ callbackUrl: "/" });
+                      }}
+                      className="inline-flex rounded-full bg-white/10 px-7 py-4 font-ui text-xs uppercase tracking-[0.18em] text-foam"
+                    >
+                      Déconnexion
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOpen(false);
+                      openLogin();
+                    }}
+                    className="inline-flex rounded-full border border-white/25 px-7 py-4 font-ui text-xs uppercase tracking-[0.18em] text-foam"
+                  >
+                    Se connecter
+                  </button>
+                )}
                 <Link
-                  href="#join"
+                  href="/#join"
                   onClick={() => setOpen(false)}
                   className="inline-flex rounded-full bg-accent px-7 py-4 font-ui text-xs uppercase tracking-[0.18em] text-foam"
                 >

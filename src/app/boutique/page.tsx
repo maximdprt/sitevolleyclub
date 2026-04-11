@@ -1,10 +1,13 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
+import { publicPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Boutique — Lacanau Volley-Ball",
-  description: "Maillots et goodies du club.",
-};
+export const metadata: Metadata = publicPageMetadata({
+  title: "Boutique",
+  description: "Boutique du club Lacanau Volley-Ball : maillots et goodies (disponibilité à venir).",
+  path: "/boutique",
+});
 
 export default function BoutiquePage() {
   return (

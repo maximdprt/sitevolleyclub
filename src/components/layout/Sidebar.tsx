@@ -21,11 +21,13 @@ interface NavItem {
   roles?: string[];
 }
 
+const MEMBER_HOME = "/espace-membre";
+
 const NAV_ITEMS: NavItem[] = [
-  { label: "Tableau de bord", href: "/espace-adherent", icon: LayoutDashboard },
-  { label: "Mes documents", href: "/espace-adherent/documents", icon: FileText },
-  { label: "Déposer un document", href: "/espace-adherent/documents/upload", icon: Upload },
-  { label: "Mon profil", href: "/espace-adherent/profil", icon: User },
+  { label: "Tableau de bord", href: MEMBER_HOME, icon: LayoutDashboard },
+  { label: "Mes documents", href: `${MEMBER_HOME}/documents`, icon: FileText },
+  { label: "Déposer un document", href: `${MEMBER_HOME}/documents/upload`, icon: Upload },
+  { label: "Mon profil", href: `${MEMBER_HOME}/profil`, icon: User },
   { label: "Comité de direction", href: "/comite-direction", icon: Shield, roles: ["COMITE_DIRECTION", "ADMIN"] },
   { label: "Forum", href: "/forum", icon: MessageSquare },
 ];
@@ -44,11 +46,10 @@ export function Sidebar({ userRole = "ADHERENT", userName }: SidebarProps) {
 
   return (
     <aside className="flex h-screen w-64 flex-col border-r border-[#f0f7ff]/8 bg-[#091b2f]">
-      {/* Logo */}
       <div className="flex items-center gap-3 border-b border-[#f0f7ff]/8 px-5 py-5">
         <Image
           src="/images/LVB1.png"
-          alt="Lacanau Volley Club"
+          alt=""
           width={44}
           height={44}
           className="shrink-0"
@@ -57,16 +58,15 @@ export function Sidebar({ userRole = "ADHERENT", userName }: SidebarProps) {
           <p className="truncate font-display text-sm tracking-wider text-[#f0f7ff]">
             Lacanau Volley
           </p>
-          <p className="text-[11px] text-[#f0f7ff]/40">Espace adhérent</p>
+          <p className="text-[11px] text-[#f0f7ff]/40">Espace membre</p>
         </div>
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-4">
         {filtered.map((item) => {
           const active =
             pathname === item.href ||
-            (item.href !== "/espace-adherent" && pathname.startsWith(item.href));
+            (item.href !== MEMBER_HOME && pathname.startsWith(item.href));
           const Icon = item.icon;
 
           return (
@@ -87,7 +87,6 @@ export function Sidebar({ userRole = "ADHERENT", userName }: SidebarProps) {
         })}
       </nav>
 
-      {/* User info */}
       {userName && (
         <div className="border-t border-[#f0f7ff]/8 px-5 py-4">
           <div className="flex items-center gap-3">

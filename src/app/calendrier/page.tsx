@@ -1,9 +1,13 @@
+import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
+import { publicPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Calendrier — Lacanau Volley-Ball",
-  description: "Entraînements et événements du club.",
-};
+export const metadata: Metadata = publicPageMetadata({
+  title: "Calendrier",
+  description:
+    "Calendrier des entraînements et temps forts du club Lacanau Volley-Ball : reprise, tournois et événements.",
+  path: "/calendrier",
+});
 
 export default function CalendrierPage() {
   return (

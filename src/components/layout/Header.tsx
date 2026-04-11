@@ -1,7 +1,7 @@
 "use client";
 
 import { signOut } from "next-auth/react";
-import { LogOut, Settings, User } from "lucide-react";
+import { LogOut, Settings, User, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -15,9 +15,10 @@ import {
 interface HeaderProps {
   title?: string;
   userName?: string;
+  isAdmin?: boolean;
 }
 
-export function Header({ title, userName }: HeaderProps) {
+export function Header({ title, userName, isAdmin }: HeaderProps) {
   return (
     <header className="flex h-16 shrink-0 items-center justify-between border-b border-[#f0f7ff]/8 bg-[#0d2237] px-6">
       <div>
@@ -38,21 +39,29 @@ export function Header({ title, userName }: HeaderProps) {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Mon compte</DropdownMenuLabel>
           <DropdownMenuSeparator />
+          {isAdmin && (
+            <DropdownMenuItem asChild>
+              <Link href="/espace-membre">
+                <LayoutDashboard className="h-4 w-4" />
+                Espace membre
+              </Link>
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem asChild>
-            <Link href="/espace-adherent/profil">
+            <Link href="/espace-membre/profil">
               <User className="h-4 w-4" />
               Profil
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/espace-adherent">
+            <Link href={isAdmin ? "/admin/dashboard" : "/espace-membre"}>
               <Settings className="h-4 w-4" />
-              Paramètres
+              Accueil tableau de bord
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            onClick={() => signOut({ callbackUrl: "/login" })}
+            onClick={() => signOut({ callbackUrl: "/" })}
             className="text-red-400 focus:text-red-400"
           >
             <LogOut className="h-4 w-4" />

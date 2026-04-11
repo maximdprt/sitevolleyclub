@@ -1,10 +1,14 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
+import { publicPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Le club — Lacanau Volley-Ball",
-  description: "Présentation du club ASL Volley / Lacanau Volley-Ball, historique et bureau.",
-};
+export const metadata: Metadata = publicPageMetadata({
+  title: "Le club",
+  description:
+    "Présentation du club Lacanau Volley-Ball : histoire depuis 2010, bureau, pratique loisir et Compet'Lib à Lacanau.",
+  path: "/le-club",
+});
 
 export default function LeClubPage() {
   return (

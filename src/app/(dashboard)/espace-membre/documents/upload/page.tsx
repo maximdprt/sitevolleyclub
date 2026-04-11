@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Upload, X, FileText, ArrowLeft, CheckCircle2 } from "lucide-react";
+import { Upload, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,9 @@ const MAX_SIZE = 10 * 1024 * 1024;
 
 const formSchema = z.object({
   title: z.string().min(3, "3 caractères minimum").max(100),
-  type: z.enum(["PIECE_IDENTITE", "CERTIFICAT_MEDICAL", "FORMULAIRE_ADHESION", "JUSTIFICATIF_DOMICILE", "AUTRE"] as const),
+  type: z.enum(
+    ["PIECE_IDENTITE", "CERTIFICAT_MEDICAL", "FORMULAIRE_ADHESION", "JUSTIFICATIF_DOMICILE", "AUTRE"] as const
+  ),
   notes: z.string().max(500).optional(),
 });
 
@@ -100,7 +102,7 @@ export default function UploadPage() {
       }
 
       toast.success("Document déposé avec succès !");
-      router.push("/espace-adherent/documents");
+      router.push("/espace-membre/documents");
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Erreur lors du dépôt.");
     } finally {
@@ -112,15 +114,13 @@ export default function UploadPage() {
     <div className="space-y-6">
       <div className="flex items-center gap-3">
         <Link
-          href="/espace-adherent/documents"
+          href="/espace-membre/documents"
           className="flex h-8 w-8 items-center justify-center rounded-lg text-[#f0f7ff]/40 transition-colors hover:bg-[#f0f7ff]/5 hover:text-[#f0f7ff]/70"
         >
           <ArrowLeft className="h-4 w-4" />
         </Link>
         <div>
-          <h1 className="font-display text-2xl tracking-wide text-[#f0f7ff]">
-            Déposer un document
-          </h1>
+          <h1 className="font-display text-2xl tracking-wide text-[#f0f7ff]">Déposer un document</h1>
           <p className="mt-0.5 text-sm text-[#f0f7ff]/50">
             Formats acceptés : PDF, JPG, PNG, HEIC · Max 10 Mo
           </p>
@@ -128,17 +128,19 @@ export default function UploadPage() {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Zone de dépôt */}
         <div
-          onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDragActive(true);
+          }}
           onDragLeave={() => setDragActive(false)}
           onDrop={onDrop}
           className={`relative rounded-2xl border-2 border-dashed p-8 text-center transition-all duration-200 ${
             dragActive
               ? "border-[#e8610a] bg-[#e8610a]/5"
               : file
-              ? "border-emerald-500/30 bg-emerald-500/5"
-              : "border-[#f0f7ff]/10 hover:border-[#f0f7ff]/20 hover:bg-[#f0f7ff]/2"
+                ? "border-emerald-500/30 bg-emerald-500/5"
+                : "border-[#f0f7ff]/10 hover:border-[#f0f7ff]/20 hover:bg-[#f0f7ff]/2"
           }`}
         >
           <AnimatePresence mode="wait">
@@ -179,12 +181,8 @@ export default function UploadPage() {
                   <Upload className="h-6 w-6 text-[#f0f7ff]/30" />
                 </div>
                 <div>
-                  <p className="text-sm text-[#f0f7ff]/60">
-                    Glissez-déposez votre fichier ici
-                  </p>
-                  <p className="mt-1 text-xs text-[#f0f7ff]/30">
-                    ou cliquez pour parcourir
-                  </p>
+                  <p className="text-sm text-[#f0f7ff]/60">Glissez-déposez votre fichier ici</p>
+                  <p className="mt-1 text-xs text-[#f0f7ff]/30">ou cliquez pour parcourir</p>
                 </div>
               </motion.div>
             )}
@@ -200,7 +198,6 @@ export default function UploadPage() {
           />
         </div>
 
-        {/* Titre */}
         <div className="space-y-1.5">
           <Label htmlFor="title">Titre du document</Label>
           <Input
@@ -212,7 +209,6 @@ export default function UploadPage() {
           {errors.title && <p className="text-xs text-red-400">{errors.title.message}</p>}
         </div>
 
-        {/* Type */}
         <div className="space-y-1.5">
           <Label>Type de document</Label>
           <Select onValueChange={(v) => setValue("type", v as FormData["type"])}>
@@ -230,7 +226,6 @@ export default function UploadPage() {
           {errors.type && <p className="text-xs text-red-400">{errors.type.message}</p>}
         </div>
 
-        {/* Notes */}
         <div className="space-y-1.5">
           <Label htmlFor="notes">Notes (optionnel)</Label>
           <Textarea
@@ -242,8 +237,10 @@ export default function UploadPage() {
         </div>
 
         <div className="flex gap-3">
-          <Link href="/espace-adherent/documents">
-            <Button type="button" variant="ghost">Annuler</Button>
+          <Link href="/espace-membre/documents">
+            <Button type="button" variant="ghost">
+              Annuler
+            </Button>
           </Link>
           <Button type="submit" loading={uploading} disabled={!file}>
             {uploading ? "Envoi en cours…" : "Déposer le document"}

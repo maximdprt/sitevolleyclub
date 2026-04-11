@@ -7,6 +7,7 @@ import { relativeDate } from "@/lib/utils";
 
 const CATEGORY_COLORS: Record<string, string> = {
   annonces: "bg-[#e8610a]/10 text-[#e8610a]",
+  "vie-asso": "bg-[#2b7fbf]/10 text-[#2b7fbf]",
   "vie-de-lasso": "bg-[#2b7fbf]/10 text-[#2b7fbf]",
   evenements: "bg-emerald-500/10 text-emerald-400",
   entraide: "bg-amber-500/10 text-amber-400",

@@ -1,10 +1,14 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
+import { publicPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Partenaires — Lacanau Volley-Ball",
-  description: "Ville de Lacanau, Comité de Gironde de Volley-Ball.",
-};
+export const metadata: Metadata = publicPageMetadata({
+  title: "Partenaires",
+  description:
+    "Partenaires de Lacanau Volley-Ball : Ville de Lacanau, Comité de Gironde de volley et soutiens locaux.",
+  path: "/partenaires",
+});
 
 const partners = [
   {

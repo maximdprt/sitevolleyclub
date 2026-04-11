@@ -1,6 +1,8 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Calendar, FileText, Trophy, Users } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
+import { publicPageMetadata } from "@/lib/seo";
 
 const links = [
   { label: "Calendrier", href: "/calendrier", icon: Calendar },
@@ -9,10 +11,12 @@ const links = [
   { label: "Le club", href: "/le-club", icon: FileText },
 ];
 
-export const metadata = {
-  title: "Infos — Lacanau Volley-Ball",
-  description: "Actualités, calendrier et infos du club.",
-};
+export const metadata: Metadata = publicPageMetadata({
+  title: "Infos",
+  description:
+    "Liens utiles Lacanau Volley-Ball : calendrier, résultats, partenaires et présentation du club à Lacanau.",
+  path: "/infos",
+});
 
 export default function InfosPage() {
   return (

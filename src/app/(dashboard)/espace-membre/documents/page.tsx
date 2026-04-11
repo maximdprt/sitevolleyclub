@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import Link from "next/link";
-import { FileText, Upload, Download, ArrowLeft } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { FileText, Upload, Download } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatFileSize, relativeDate } from "@/lib/utils";
@@ -33,14 +33,12 @@ export default async function DocumentsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-display text-2xl tracking-wide text-[#f0f7ff]">
-            Mes documents
-          </h1>
+          <h1 className="font-display text-2xl tracking-wide text-[#f0f7ff]">Mes documents</h1>
           <p className="mt-1 text-sm text-[#f0f7ff]/50">
             {documents.length} document{documents.length !== 1 ? "s" : ""} déposé{documents.length !== 1 ? "s" : ""}
           </p>
         </div>
-        <Link href="/espace-adherent/documents/upload">
+        <Link href="/espace-membre/documents/upload">
           <Button size="sm">
             <Upload className="h-4 w-4" />
             Déposer
@@ -52,13 +50,11 @@ export default async function DocumentsPage() {
         <Card>
           <CardContent className="py-16 text-center">
             <FileText className="mx-auto h-12 w-12 text-[#f0f7ff]/10" />
-            <h3 className="mt-4 text-lg font-semibold text-[#f0f7ff]/70">
-              Aucun document
-            </h3>
+            <h3 className="mt-4 text-lg font-semibold text-[#f0f7ff]/70">Aucun document</h3>
             <p className="mt-2 text-sm text-[#f0f7ff]/40">
               Commencez par déposer vos documents administratifs (certificat médical, pièce d&apos;identité, etc.)
             </p>
-            <Link href="/espace-adherent/documents/upload">
+            <Link href="/espace-membre/documents/upload">
               <Button className="mt-6">
                 <Upload className="h-4 w-4" />
                 Déposer mon premier document
@@ -78,9 +74,7 @@ export default async function DocumentsPage() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <p className="truncate text-sm font-medium text-[#f0f7ff]/90">
-                        {doc.title}
-                      </p>
+                      <p className="truncate text-sm font-medium text-[#f0f7ff]/90">{doc.title}</p>
                       <Badge variant={st.variant}>{st.label}</Badge>
                     </div>
                     <div className="mt-1 flex items-center gap-3 text-xs text-[#f0f7ff]/30">

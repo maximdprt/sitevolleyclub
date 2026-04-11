@@ -11,7 +11,7 @@ export default async function ComiteDirectionPage() {
   const role = session?.user?.role;
 
   if (role !== "COMITE_DIRECTION" && role !== "ADMIN") {
-    redirect("/espace-adherent");
+    redirect("/espace-membre");
   }
 
   const documents = await db.document.findMany({
