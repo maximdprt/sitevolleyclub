@@ -26,6 +26,7 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   images: {
+    qualities: [75, 85],
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
       { protocol: "https", hostname: "uploadthing.com", pathname: "/**" },

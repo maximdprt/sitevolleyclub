@@ -4,9 +4,24 @@ import { compare } from "bcryptjs";
 import { db } from "@/lib/db";
 import { loginSchema } from "@/lib/validators/auth";
 
+const authSecret =
+  process.env.AUTH_SECRET ??
+  (process.env.NODE_ENV === "development"
+    ? "dev-only-auth-secret-change-me-min-32-characters!!"
+    : undefined);
+
+if (process.env.NODE_ENV === "development" && !process.env.AUTH_SECRET) {
+  console.warn(
+    "[auth] AUTH_SECRET manquant — utilisation d'un secret de développement. " +
+      "Créez .env.local avec AUTH_SECRET (openssl rand -base64 32).",
+  );
+}
+
 // Credentials + JWT strategy n'a pas besoin d'un adapter base de données.
 // L'adapter (PrismaAdapter) n'est utile que pour OAuth et magic links.
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  secret: authSecret,
+  trustHost: true,
   providers: [
     CredentialsProvider({
       id: "credentials",

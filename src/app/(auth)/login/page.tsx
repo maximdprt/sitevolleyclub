@@ -74,6 +74,7 @@ function LoginForm() {
           alt="Équipe Lacanau Volley-Ball"
           fill
           className="object-cover"
+          sizes="55vw"
           priority
           quality={85}
         />

@@ -67,9 +67,10 @@ export function Navbar() {
               <Image
                 src="/images/LVB1.png"
                 alt="AS Lacanau Section Volley Ball"
-                width={220}
-                height={220}
-                className="absolute left-0 top-1/2 h-[160px] w-[160px] -translate-y-1/2 object-contain drop-shadow-[0_10px_22px_rgba(0,0,0,0.45)] md:h-[190px] md:w-[190px]"
+                width={190}
+                height={190}
+                className="absolute left-0 top-1/2 max-h-[160px] w-auto -translate-y-1/2 object-contain drop-shadow-[0_10px_22px_rgba(0,0,0,0.45)] md:max-h-[190px]"
+                style={{ width: "auto", height: "auto" }}
                 priority
               />
             </span>

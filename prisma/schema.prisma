@@ -8,7 +8,268 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// ─── Enums ───────────────────────────────────────────────────────────────────
+model User {
+  id                   String                @id @default(cuid())
+  email                String                @unique
+  username             String                @unique
+  passwordHash         String
+  firstName            String
+  lastName             String
+  role                 Role                  @default(ADHERENT)
+  status               UserStatus            @default(PENDING)
+  avatarUrl            String?
+  phone                String?
+  licenseNumber        String?
+  membershipDate       DateTime?
+  teamId               String?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  lastLoginAt          DateTime?
+  accounts             Account[]
+  auditLogs            AuditLog[]
+  convocationResponses ConvocationResponse[]
+  documents            Document[]
+  forumComments        ForumComment[]
+  forumPosts           ForumPost[]
+  passwordResets       PasswordReset[]
+  sessions             Session[]
+  team                 Team?                 @relation(fields: [teamId], references: [id])
+}
+
+model Team {
+  id            String         @id @default(cuid())
+  slug          String         @unique
+  name          String
+  category      String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  clubMatches   ClubMatch[]
+  convocations  Convocation[]
+  trainingSlots TrainingSlot[]
+  members       User[]
+}
+
+model ClubMatch {
+  id              String   @id @default(cuid())
+  teamId          String
+  opponent        String
+  matchAt         DateTime
+  isHome          Boolean  @default(true)
+  location        String?
+  homeScore       Int?
+  awayScore       Int?
+  resultPublished Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  team            Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+}
+
+model TrainingSlot {
+  id         String              @id @default(cuid())
+  teamId     String
+  dayOfWeek  Int
+  startTime  String
+  endTime    String
+  location   String
+  note       String?
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
+  exceptions TrainingException[]
+  team       Team                @relation(fields: [teamId], references: [id], onDelete: Cascade)
+}
+
+model TrainingException {
+  id             String       @id @default(cuid())
+  trainingSlotId String
+  date           DateTime
+  message        String
+  createdAt      DateTime     @default(now())
+  trainingSlot   TrainingSlot @relation(fields: [trainingSlotId], references: [id], onDelete: Cascade)
+}
+
+model ClubEvent {
+  id          String        @id @default(cuid())
+  type        ClubEventType @default(AUTRE)
+  title       String
+  description String?
+  startAt     DateTime
+  imageUrl    String?
+  externalUrl String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Article {
+  id              String        @id @default(cuid())
+  title           String
+  slug            String        @unique
+  metaDescription String
+  coverImageUrl   String?
+  content         String
+  category        String?
+  status          ArticleStatus @default(DRAFT)
+  publishedAt     DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model GalleryAlbum {
+  id          String         @id @default(cuid())
+  slug        String         @unique
+  title       String
+  description String?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  images      GalleryImage[]
+}
+
+model GalleryImage {
+  id        String       @id @default(cuid())
+  albumId   String
+  url       String
+  alt       String
+  sortOrder Int          @default(0)
+  createdAt DateTime     @default(now())
+  album     GalleryAlbum @relation(fields: [albumId], references: [id], onDelete: Cascade)
+}
+
+model Convocation {
+  id        String                @id @default(cuid())
+  teamId    String
+  title     String
+  content   String
+  eventAt   DateTime?
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+  team      Team                  @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  responses ConvocationResponse[]
+}
+
+model ConvocationResponse {
+  id            String                @id @default(cuid())
+  convocationId String
+  userId        String
+  attendance    ConvocationAttendance
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+  convocation   Convocation           @relation(fields: [convocationId], references: [id], onDelete: Cascade)
+  user          User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([convocationId, userId])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+model PasswordReset {
+  id        String    @id @default(cuid())
+  userId    String
+  token     String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Document {
+  id         String             @id @default(cuid())
+  userId     String
+  type       DocumentType
+  title      String
+  fileName   String
+  fileUrl    String
+  fileSize   Int
+  mimeType   String
+  visibility DocumentVisibility @default(PRIVATE)
+  status     DocumentStatus     @default(PENDING)
+  uploadedAt DateTime           @default(now())
+  reviewedAt DateTime?
+  reviewedBy String?
+  notes      String?
+  user       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ForumCategory {
+  id          String      @id @default(cuid())
+  name        String
+  slug        String      @unique
+  description String?
+  icon        String?
+  color       String?
+  order       Int         @default(0)
+  posts       ForumPost[]
+}
+
+model ForumPost {
+  id         String         @id @default(cuid())
+  title      String
+  slug       String         @unique
+  content    String
+  authorId   String
+  categoryId String
+  pinned     Boolean        @default(false)
+  locked     Boolean        @default(false)
+  viewCount  Int            @default(0)
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  comments   ForumComment[]
+  author     User           @relation(fields: [authorId], references: [id])
+  category   ForumCategory  @relation(fields: [categoryId], references: [id])
+}
+
+model ForumComment {
+  id        String    @id @default(cuid())
+  content   String
+  postId    String
+  authorId  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  author    User      @relation(fields: [authorId], references: [id])
+  post      ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  resource  String
+  metadata  Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
 
 enum Role {
   ADHERENT
@@ -60,278 +321,4 @@ enum ConvocationAttendance {
   YES
   NO
   MAYBE
-}
-
-// ─── Models ──────────────────────────────────────────────────────────────────
-
-model User {
-  id           String     @id @default(cuid())
-  email        String     @unique
-  username     String     @unique
-  passwordHash String
-  firstName    String
-  lastName     String
-  role         Role       @default(ADHERENT)
-  status       UserStatus @default(PENDING)
-  avatarUrl    String?
-  phone        String?
-  licenseNumber String?
-  membershipDate DateTime?
-  teamId       String?
-  team         Team?      @relation(fields: [teamId], references: [id], onDelete: SetNull)
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  lastLoginAt  DateTime?
-
-  documents              Document[]
-  forumPosts             ForumPost[]
-  forumComments          ForumComment[]
-  auditLogs              AuditLog[]
-  passwordResets         PasswordReset[]
-  convocationResponses   ConvocationResponse[]
-
-  // Auth.js required fields
-  accounts Account[]
-  sessions Session[]
-}
-
-model Team {
-  id        String   @id @default(cuid())
-  slug      String   @unique
-  name      String
-  category  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  members         User[]
-  clubMatches     ClubMatch[]
-  trainingSlots   TrainingSlot[]
-  convocations    Convocation[]
-}
-
-model ClubMatch {
-  id              String   @id @default(cuid())
-  teamId          String
-  team            Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  opponent        String
-  matchAt         DateTime
-  isHome          Boolean  @default(true)
-  location        String?
-  homeScore       Int?
-  awayScore       Int?
-  resultPublished Boolean  @default(false)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-}
-
-model TrainingSlot {
-  id        String   @id @default(cuid())
-  teamId    String
-  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  dayOfWeek Int
-  startTime String
-  endTime   String
-  location  String
-  note      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  exceptions TrainingException[]
-}
-
-model TrainingException {
-  id             String        @id @default(cuid())
-  trainingSlotId String
-  trainingSlot   TrainingSlot  @relation(fields: [trainingSlotId], references: [id], onDelete: Cascade)
-  date           DateTime
-  message        String        @db.Text
-  createdAt      DateTime      @default(now())
-}
-
-model ClubEvent {
-  id          String         @id @default(cuid())
-  type        ClubEventType  @default(AUTRE)
-  title       String
-  description String?        @db.Text
-  startAt     DateTime
-  imageUrl    String?
-  externalUrl String?
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
-}
-
-model Article {
-  id              String        @id @default(cuid())
-  title           String
-  slug            String        @unique
-  metaDescription String
-  coverImageUrl   String?
-  content         String        @db.Text
-  category        String?
-  status          ArticleStatus @default(DRAFT)
-  publishedAt     DateTime?
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-}
-
-model GalleryAlbum {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  title       String
-  description String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  images GalleryImage[]
-}
-
-model GalleryImage {
-  id        String       @id @default(cuid())
-  albumId   String
-  album     GalleryAlbum @relation(fields: [albumId], references: [id], onDelete: Cascade)
-  url       String
-  alt       String
-  sortOrder Int          @default(0)
-  createdAt DateTime     @default(now())
-}
-
-model Convocation {
-  id          String   @id @default(cuid())
-  teamId      String
-  team        Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  title       String
-  content     String   @db.Text
-  eventAt     DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  responses ConvocationResponse[]
-}
-
-model ConvocationResponse {
-  id            String                 @id @default(cuid())
-  convocationId String
-  convocation   Convocation            @relation(fields: [convocationId], references: [id], onDelete: Cascade)
-  userId        String
-  user          User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  attendance    ConvocationAttendance
-  createdAt     DateTime               @default(now())
-  updatedAt     DateTime               @updatedAt
-
-  @@unique([convocationId, userId])
-}
-
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
-
-model PasswordReset {
-  id        String   @id @default(cuid())
-  userId    String
-  token     String   @unique
-  expiresAt DateTime
-  usedAt    DateTime?
-  createdAt DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Document {
-  id         String             @id @default(cuid())
-  userId     String
-  user       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  type       DocumentType
-  title      String
-  fileName   String
-  fileUrl    String
-  fileSize   Int
-  mimeType   String
-  visibility DocumentVisibility @default(PRIVATE)
-  status     DocumentStatus     @default(PENDING)
-  uploadedAt DateTime           @default(now())
-  reviewedAt DateTime?
-  reviewedBy String?
-  notes      String?
-}
-
-model ForumCategory {
-  id          String      @id @default(cuid())
-  name        String
-  slug        String      @unique
-  description String?
-  icon        String?
-  color       String?
-  order       Int         @default(0)
-  posts       ForumPost[]
-}
-
-model ForumPost {
-  id         String        @id @default(cuid())
-  title      String
-  slug       String        @unique
-  content    String        @db.Text
-  authorId   String
-  author     User          @relation(fields: [authorId], references: [id])
-  categoryId String
-  category   ForumCategory @relation(fields: [categoryId], references: [id])
-  pinned     Boolean       @default(false)
-  locked     Boolean       @default(false)
-  viewCount  Int           @default(0)
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
-  comments   ForumComment[]
-}
-
-model ForumComment {
-  id        String    @id @default(cuid())
-  content   String    @db.Text
-  postId    String
-  post      ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-  authorId  String
-  author    User      @relation(fields: [authorId], references: [id])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model AuditLog {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  action    String
-  resource  String
-  metadata  Json?
-  ipAddress String?
-  userAgent String?
-  createdAt DateTime @default(now())
 }

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { getRoleHome } from "@/lib/permissions";
+import { updateSession } from "@/utils/supabase/middleware";
 
 const MEMBER_PREFIXES = ["/espace-membre", "/espace-adherent", "/forum"];
 const COMITE_PREFIXES = ["/comite-direction"];
@@ -16,6 +17,7 @@ function loginRedirect(req: NextRequest, pathname: string) {
 }
 
 export async function middleware(req: NextRequest) {
+  const supabaseResponse = await updateSession(req);
   const { pathname } = req.nextUrl;
 
   const token = await getToken({
@@ -60,7 +62,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(getRoleHome(token.role as string), req.url));
   }
 
-  return NextResponse.next();
+  return supabaseResponse;
 }
 
 export const config = {
