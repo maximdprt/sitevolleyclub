@@ -16,7 +16,7 @@ function loginRedirect(req: NextRequest, pathname: string) {
   return NextResponse.redirect(url);
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const supabaseResponse = await updateSession(req);
   const { pathname } = req.nextUrl;
 
@@ -65,7 +65,8 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  if (["/login", "/register"].includes(pathname) && token) {
+  // Authenticated users visiting /register land on their dashboard.
+  if (pathname === "/register" && token) {
     return NextResponse.redirect(new URL(getRoleHome(token.role as string), req.url));
   }
 

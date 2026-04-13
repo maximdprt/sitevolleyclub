@@ -74,7 +74,7 @@ export default function RegisterPage() {
             Votre compte est en attente de validation par un administrateur.
             Vous recevrez un email dès que votre accès sera activé.
           </p>
-          <Link href="/login">
+          <Link href="/?auth=1">
             <Button className="mt-6">Se connecter</Button>
           </Link>
         </motion.div>
@@ -274,7 +274,7 @@ export default function RegisterPage() {
 
           <p className="mt-6 text-center text-sm text-[#f0f7ff]/50">
             Déjà adhérent ?{" "}
-            <Link href="/login" className="font-semibold text-[#e8610a] hover:text-[#ff7a28] transition-colors">
+            <Link href="/?auth=1" className="font-semibold text-[#e8610a] hover:text-[#ff7a28] transition-colors">
               Se connecter
             </Link>
           </p>

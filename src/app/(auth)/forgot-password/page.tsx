@@ -64,7 +64,7 @@ export default function ForgotPasswordPage() {
               Si un compte correspond à cette adresse, vous recevrez un lien de réinitialisation dans quelques minutes.
               Ce lien est valable <strong className="text-[#f0f7ff]/80">1 heure</strong>.
             </p>
-            <Link href="/login">
+            <Link href="/?auth=1">
               <Button variant="ghost" className="mt-6">
                 <ArrowLeft className="h-4 w-4" />
                 Retour à la connexion
@@ -110,7 +110,7 @@ export default function ForgotPasswordPage() {
 
             <div className="mt-6 text-center">
               <Link
-                href="/login"
+                href="/?auth=1"
                 className="inline-flex items-center gap-1.5 text-sm text-[#f0f7ff]/40 hover:text-[#f0f7ff]/70 transition-colors"
               >
                 <ArrowLeft className="h-3.5 w-3.5" />
