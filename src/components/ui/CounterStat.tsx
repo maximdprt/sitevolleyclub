@@ -25,13 +25,17 @@ export function CounterStat({
   // Trigger earlier to avoid “stuck at 0” on short viewports / fast scroll.
   const inView = useInView(ref, { once: true, amount: 0.25, margin: "0px 0px -15% 0px" });
   const [display, setDisplay] = useState(0);
-  const reducedMotion = prefersReducedMotion();
-  const supportsIntersectionObserver =
-    typeof window === "undefined" || "IntersectionObserver" in window;
-  const shouldAnimate = inView && !reducedMotion && supportsIntersectionObserver;
 
   useEffect(() => {
-    if (!shouldAnimate) return;
+    const reducedMotion = prefersReducedMotion();
+    const supportsIntersectionObserver =
+      typeof window === "undefined" || "IntersectionObserver" in window;
+
+    if (reducedMotion || !supportsIntersectionObserver || !inView) {
+      const doneId = requestAnimationFrame(() => setDisplay(value));
+      return () => cancelAnimationFrame(doneId);
+    }
+
     let rafId = 0;
     const start = performance.now();
     const tick = (now: number) => {
@@ -41,13 +45,11 @@ export function CounterStat({
     };
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
-  }, [duration, shouldAnimate, value]);
-
-  const renderedValue = shouldAnimate ? display : value;
+  }, [duration, inView, value]);
 
   return (
     <span ref={ref} className="font-display text-6xl leading-none text-accent md:text-7xl">
-      {renderedValue}
+      {display}
       {suffix}
     </span>
   );

@@ -5,11 +5,14 @@ import { useEffect, useRef, useState } from "react";
 export function CustomCursor() {
   const mainRef = useRef<HTMLDivElement | null>(null);
   const trailRef = useRef<HTMLDivElement | null>(null);
-  const [enabled] = useState(() => {
-    if (typeof window === "undefined") return false;
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
     const coarse = window.matchMedia?.("(pointer: coarse)")?.matches ?? false;
-    return !coarse;
-  });
+    if (coarse) return;
+    const enableId = requestAnimationFrame(() => setEnabled(true));
+    return () => cancelAnimationFrame(enableId);
+  }, []);
 
   useEffect(() => {
     if (!enabled) return;
