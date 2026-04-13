@@ -20,6 +20,13 @@ export async function middleware(req: NextRequest) {
   const supabaseResponse = await updateSession(req);
   const { pathname } = req.nextUrl;
 
+  // Force legacy login URL to land on home page.
+  if (pathname === "/login") {
+    const url = req.nextUrl.clone();
+    url.pathname = "/";
+    return NextResponse.redirect(url, 307);
+  }
+
   const token = await getToken({
     req,
     secret: process.env.AUTH_SECRET,

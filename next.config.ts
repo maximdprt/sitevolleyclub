@@ -25,6 +25,10 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    // Force Turbopack to use this project as root (prevents wrong .env resolution)
+    root: __dirname,
+  },
   images: {
     qualities: [75, 85],
     remotePatterns: [
