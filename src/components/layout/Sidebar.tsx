@@ -10,6 +10,7 @@ import {
   User,
   Shield,
   MessageSquare,
+  House,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -60,6 +61,13 @@ export function Sidebar({ userRole = "ADHERENT", userName }: SidebarProps) {
           </p>
           <p className="text-[11px] text-[#f0f7ff]/40">Espace membre</p>
         </div>
+        <Link
+          href="/"
+          aria-label="Retour à l'accueil"
+          className="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#f0f7ff]/10 text-[#f0f7ff]/65 transition hover:bg-[#f0f7ff]/5 hover:text-[#f0f7ff]"
+        >
+          <House className="h-4 w-4" />
+        </Link>
       </div>
 
       <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-4">
