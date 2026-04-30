@@ -41,13 +41,28 @@ export default function CalendrierPage() {
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-6 py-4">Beach volley</td>
-                <td className="px-6 py-4">Dimanche, 10h00 – 12h30 (mai à octobre)</td>
-                <td className="px-6 py-4">Ardilouse</td>
+                <td className="px-6 py-4">Tous les samedis de mai et juin, 9h00 – 13h00</td>
+                <td className="px-6 py-4">Pôle de l&apos;Ardilouse</td>
+              </tr>
+              <tr className="border-b border-slate-100">
+                <td className="px-6 py-4">Beach volley</td>
+                <td className="px-6 py-4">Tous les samedis de juillet et août, 10h00 – 13h00</td>
+                <td className="px-6 py-4">Pôle de l&apos;Ardilouse</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-6 py-4">Tournoi</td>
-                <td className="px-6 py-4">Mercredi soir, à partir de 20h30 (juillet et août)</td>
-                <td className="px-6 py-4">Lacanau</td>
+                <td className="px-6 py-4">6 juin, 10h00 – 22h00</td>
+                <td className="px-6 py-4">Plage Nord</td>
+              </tr>
+              <tr className="border-b border-slate-100">
+                <td className="px-6 py-4">Tournoi</td>
+                <td className="px-6 py-4">12 juillet, 16h00 – 22h00</td>
+                <td className="px-6 py-4">Pôle de l&apos;Ardilouse</td>
+              </tr>
+              <tr className="border-b border-slate-100">
+                <td className="px-6 py-4">Tournoi</td>
+                <td className="px-6 py-4">2 août, 16h00 – 22h00</td>
+                <td className="px-6 py-4">Pôle de l&apos;Ardilouse</td>
               </tr>
             </tbody>
           </table>

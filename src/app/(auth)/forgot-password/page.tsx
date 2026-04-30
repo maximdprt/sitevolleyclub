@@ -49,7 +49,7 @@ export default function ForgotPasswordPage() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="mb-8 flex justify-center">
-          <Image src="/images/LVB1.png" alt="Lacanau Volley Club" width={72} height={72} />
+          <Image src="/images/LVC_FINAL%20LOGO-04.png" alt="Lacanau Volley Club" width={72} height={72} />
         </div>
 
         {sent ? (

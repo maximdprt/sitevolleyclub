@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { signIn, getSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -20,7 +20,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuthUi } from "@/components/providers/auth-ui-context";
-import { getRoleHome } from "@/lib/permissions";
 
 const modalLoginSchema = z.object({
   email: z.string().min(1, "Email requis").email("Email invalide"),
@@ -33,6 +32,7 @@ const ERRORS: Record<string, string> = {
   PENDING: "Votre compte est en attente de validation par un administrateur.",
   SUSPENDED: "Votre compte a été suspendu. Contactez un administrateur.",
   CredentialsSignin: "Identifiants incorrects.",
+  CallbackRouteError: "Connexion refusée. Vérifiez vos identifiants ou le statut du compte.",
 };
 
 export function LoginModal() {
@@ -77,16 +77,15 @@ export function LoginModal() {
     });
 
     if (result?.error) {
-      setServerError(ERRORS[result.error] ?? "Identifiants incorrects.");
+      const code = result.code ?? result.error;
+      setServerError(ERRORS[code] ?? ERRORS[result.error] ?? "Identifiants incorrects.");
       return;
     }
 
-    const fresh = await getSession();
-    const roleHome = getRoleHome(fresh?.user?.role);
     const target =
       pendingNext && pendingNext.startsWith("/") && !pendingNext.startsWith("//")
         ? pendingNext
-        : roleHome;
+        : "/espace-membre";
 
     closeLogin();
     if (typeof window !== "undefined") {
@@ -95,8 +94,7 @@ export function LoginModal() {
       url.searchParams.delete("next");
       window.history.replaceState({}, "", url.pathname + url.search);
     }
-    router.push(target);
-    router.refresh();
+    window.location.assign(target);
   }
 
   return (

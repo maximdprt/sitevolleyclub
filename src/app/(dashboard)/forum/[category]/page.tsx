@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, MessageSquare, Pin, Lock, Eye, Plus } from "lucide-react";
@@ -13,6 +14,7 @@ interface Props {
 
 export default async function CategoryPage({ params }: Props) {
   const { category: slug } = await params;
+  const session = await auth();
 
   const category = await db.forumCategory.findUnique({
     where: { slug },
@@ -28,6 +30,15 @@ export default async function CategoryPage({ params }: Props) {
   });
 
   if (!category) notFound();
+  const postIds = category.posts.map((p) => p.id);
+  const readRows =
+    session?.user?.id && postIds.length > 0
+      ? await db.forumReadStatus.findMany({
+          where: { userId: session.user.id, threadId: { in: postIds } },
+          select: { threadId: true, lastReadAt: true },
+        })
+      : [];
+  const readMap = new Map(readRows.map((r) => [r.threadId, r.lastReadAt.getTime()]));
 
   return (
     <div className="space-y-6">
@@ -83,11 +94,14 @@ export default async function CategoryPage({ params }: Props) {
                       </h3>
                       {post.pinned && <Badge variant="accent"><Pin className="h-3 w-3" /> Épinglé</Badge>}
                       {post.locked && <Badge variant="default"><Lock className="h-3 w-3" /> Verrouillé</Badge>}
+                      {(readMap.get(post.id) ?? 0) < post.lastReplyAt.getTime() ? (
+                        <Badge variant="accent">Nouveau</Badge>
+                      ) : null}
                     </div>
                     <div className="mt-1 flex items-center gap-3 text-xs text-[#f0f7ff]/30">
                       <span>{post.author.firstName} {post.author.lastName}</span>
                       <span>·</span>
-                      <span>{relativeDate(post.createdAt)}</span>
+                      <span>{relativeDate(post.lastReplyAt)}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 text-xs text-[#f0f7ff]/25">

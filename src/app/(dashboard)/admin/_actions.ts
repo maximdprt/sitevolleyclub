@@ -5,6 +5,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { auth } from "@/auth";
 import { slugify } from "@/lib/utils";
+import { createAuditLog } from "@/lib/audit";
 
 async function guardAdmin() {
   const s = await auth();
@@ -259,4 +260,39 @@ export async function assignTeamAction(formData: FormData) {
   });
   revalidatePath("/admin/membres");
   revalidatePath("/espace-membre");
+}
+
+const reviewDocumentSchema = z.object({
+  documentId: z.string().min(1),
+  status: z.enum(["APPROVED", "REJECTED"]),
+  refusalReason: z.preprocess(
+    (v) => (v === "" || v === undefined || v === null ? undefined : v),
+    z.string().max(500).optional(),
+  ),
+});
+
+export async function reviewDocumentAction(formData: FormData) {
+  const session = await guardAdmin();
+  const parsed = reviewDocumentSchema.safeParse(Object.fromEntries(formData.entries()));
+  if (!parsed.success) throw new Error("Données invalides");
+
+  const { documentId, status, refusalReason } = parsed.data;
+  await db.document.update({
+    where: { id: documentId },
+    data: {
+      status,
+      reviewedAt: new Date(),
+      reviewedBy: session.user.id,
+      refusalReason: status === "REJECTED" ? refusalReason ?? "Motif non renseigné" : null,
+    },
+  });
+  createAuditLog({
+    userId: session.user.id,
+    action: "DOCUMENT_REVIEW",
+    resource: `document:${documentId}`,
+    metadata: { status, refusalReason: status === "REJECTED" ? refusalReason ?? null : null },
+  }).catch(console.error);
+
+  revalidatePath("/admin/documents");
+  revalidatePath("/espace-membre/documents");
 }

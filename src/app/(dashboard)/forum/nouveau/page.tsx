@@ -77,7 +77,7 @@ function NouveauPostForm() {
 
       const post = await res.json();
       toast.success("Post créé !");
-      router.push(`/forum/${post.category?.slug ?? defaultCategory}/${post.slug}`);
+      router.push(`/forum/${post.categorySlug ?? defaultCategory}/${post.slug}`);
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Erreur");
     }

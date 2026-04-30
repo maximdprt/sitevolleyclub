@@ -16,6 +16,23 @@ export const moderatePostSchema = z.object({
   locked: z.boolean().optional(),
 });
 
+export const updatePostSchema = z.object({
+  title: z.string().min(5).max(150).optional(),
+  content: z.string().min(5).max(10000).optional(),
+});
+
+export const updateCommentSchema = z.object({
+  content: z.string().min(5).max(3000),
+});
+
+export const categorySchema = z.object({
+  name: z.string().min(2).max(80),
+  description: z.string().max(300).optional(),
+  icon: z.string().max(8).optional(),
+  color: z.string().max(20).optional(),
+  order: z.number().int().min(0).optional(),
+});
+
 export type CreatePostInput = z.infer<typeof createPostSchema>;
 export type CreateCommentInput = z.infer<typeof createCommentSchema>;
 export type ModeratePostInput = z.infer<typeof moderatePostSchema>;

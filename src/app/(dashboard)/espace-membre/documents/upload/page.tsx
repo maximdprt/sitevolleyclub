@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useUploadThing } from "@/utils/uploadthing";
 import {
   Select,
   SelectContent,
@@ -20,14 +21,36 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const ACCEPTED_TYPES = ["application/pdf", "image/jpeg", "image/png", "image/heic"];
 const MAX_SIZE = 10 * 1024 * 1024;
+const SINGLE_INSTANCE_TYPES = new Set([
+  "PIECE_IDENTITE",
+  "CERTIFICAT_MEDICAL",
+  "FORMULAIRE_ADHESION",
+  "PHOTO_IDENTITE",
+  "JUSTIFICATIF_DOMICILE",
+]);
 
 const formSchema = z.object({
   title: z.string().min(3, "3 caractères minimum").max(100),
   type: z.enum(
-    ["PIECE_IDENTITE", "CERTIFICAT_MEDICAL", "FORMULAIRE_ADHESION", "JUSTIFICATIF_DOMICILE", "AUTRE"] as const
+    [
+      "PIECE_IDENTITE",
+      "CERTIFICAT_MEDICAL",
+      "FORMULAIRE_ADHESION",
+      "PHOTO_IDENTITE",
+      "JUSTIFICATIF_DOMICILE",
+      "AUTRE",
+    ] as const
   ),
   notes: z.string().max(500).optional(),
 });
@@ -38,15 +61,26 @@ const DOC_TYPES = [
   { value: "PIECE_IDENTITE", label: "Pièce d\u2019identité" },
   { value: "CERTIFICAT_MEDICAL", label: "Certificat médical" },
   { value: "FORMULAIRE_ADHESION", label: "Formulaire d\u2019adhésion" },
+  { value: "PHOTO_IDENTITE", label: "Photo d’identité (portrait)" },
   { value: "JUSTIFICATIF_DOMICILE", label: "Justificatif de domicile" },
   { value: "AUTRE", label: "Autre" },
 ];
 
+interface ExistingDocument {
+  id: string;
+  type: FormData["type"];
+  title: string;
+}
+
 export default function UploadPage() {
   const router = useRouter();
+  const { startUpload, isUploading } = useUploadThing("memberDocument");
   const [file, setFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [existingByType, setExistingByType] = useState<Record<string, ExistingDocument>>({});
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [pendingData, setPendingData] = useState<FormData | null>(null);
 
   const {
     register,
@@ -54,6 +88,25 @@ export default function UploadPage() {
     setValue,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(formSchema) });
+
+  useEffect(() => {
+    fetch("/api/documents")
+      .then((r) => r.json())
+      .then((docs) => {
+        const map: Record<string, ExistingDocument> = {};
+        if (Array.isArray(docs)) {
+          for (const doc of docs) {
+            if (!map[doc.type]) {
+              map[doc.type] = { id: doc.id, type: doc.type, title: doc.title };
+            }
+          }
+        }
+        setExistingByType(map);
+      })
+      .catch(() => {
+        // Ignore initial fetch errors here, API POST remains source of truth.
+      });
+  }, []);
 
   const handleFile = useCallback((f: File) => {
     if (!ACCEPTED_TYPES.includes(f.type)) {
@@ -74,20 +127,25 @@ export default function UploadPage() {
     if (f) handleFile(f);
   }
 
-  async function onSubmit(data: FormData) {
+  async function performSubmit(data: FormData, replaceExisting: boolean) {
     if (!file) {
       toast.error("Veuillez sélectionner un fichier.");
       return;
     }
     setUploading(true);
     try {
+      const uploadResult = await startUpload([file]);
+      const uploadedFile = uploadResult?.[0];
+      if (!uploadedFile) throw new Error("Échec de l’upload du fichier.");
+
       const body = JSON.stringify({
         ...data,
         visibility: "PRIVATE",
-        fileName: file.name,
-        fileUrl: URL.createObjectURL(file),
-        fileSize: file.size,
-        mimeType: file.type,
+        fileName: uploadedFile.name,
+        fileUrl: uploadedFile.url,
+        fileSize: uploadedFile.size,
+        mimeType: uploadedFile.type,
+        replaceExisting,
       });
 
       const res = await fetch("/api/documents", {
@@ -98,16 +156,30 @@ export default function UploadPage() {
 
       if (!res.ok) {
         const json = await res.json();
+        if (res.status === 409 && json?.code === "DOCUMENT_TYPE_EXISTS") {
+          throw new Error("Un document de ce type existe déjà. Confirmez le remplacement.");
+        }
         throw new Error(json.error ?? "Erreur serveur.");
       }
 
+      setExistingByType((prev) => ({ ...prev, [data.type]: { id: "updated", type: data.type, title: data.title } }));
       toast.success("Document déposé avec succès !");
       router.push("/espace-membre/documents");
+      router.refresh();
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Erreur lors du dépôt.");
     } finally {
       setUploading(false);
     }
+  }
+
+  async function onSubmit(data: FormData) {
+    if (SINGLE_INSTANCE_TYPES.has(data.type) && existingByType[data.type]) {
+      setPendingData(data);
+      setConfirmOpen(true);
+      return;
+    }
+    await performSubmit(data, false);
   }
 
   return (
@@ -242,11 +314,39 @@ export default function UploadPage() {
               Annuler
             </Button>
           </Link>
-          <Button type="submit" loading={uploading} disabled={!file}>
-            {uploading ? "Envoi en cours…" : "Déposer le document"}
+          <Button type="submit" loading={uploading || isUploading} disabled={!file}>
+            {uploading || isUploading ? "Envoi en cours…" : "Déposer le document"}
           </Button>
         </div>
       </form>
+
+      <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Remplacer le document existant ?</DialogTitle>
+            <DialogDescription>
+              Un document de ce type est déjà présent. Confirmez pour le remplacer par ce nouveau fichier.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button type="button" variant="ghost" onClick={() => setConfirmOpen(false)}>
+              Annuler
+            </Button>
+            <Button
+              type="button"
+              loading={uploading || isUploading}
+              onClick={async () => {
+                if (!pendingData) return;
+                setConfirmOpen(false);
+                await performSubmit(pendingData, true);
+                setPendingData(null);
+              }}
+            >
+              Confirmer le remplacement
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

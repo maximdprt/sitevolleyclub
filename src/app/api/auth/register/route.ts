@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { registerSchema } from "@/lib/validators/auth";
 import { sendWelcomeEmail } from "@/lib/email";
 import { createAuditLog } from "@/lib/audit";
+import { getDatabaseUrlConfigError } from "@/lib/database-env";
 
 function registerDbErrorMessage(error: unknown): string {
   const base =
@@ -32,6 +33,10 @@ function registerDbErrorMessage(error: unknown): string {
     return "Connexion à la base impossible. Vérifiez DATABASE_URL dans .env / .env.local et que le projet Supabase est actif.";
   }
 
+  if (error instanceof Error && /must start with the protocol|validating datasource/i.test(error.message)) {
+    return "DATABASE_URL ou DIRECT_URL n’est pas une URI PostgreSQL valide : les deux doivent commencer par postgresql:// (copie depuis Supabase → Database → Connection string, mode URI). Redémarrez `npm run dev` après modification du .env.";
+  }
+
   if (process.env.NODE_ENV === "development" && error instanceof Error) {
     return `${base} (détail dev : ${error.message})`;
   }
@@ -41,14 +46,9 @@ function registerDbErrorMessage(error: unknown): string {
 
 export async function POST(req: Request) {
   try {
-    if (!process.env.DATABASE_URL) {
-      return NextResponse.json(
-        {
-          error:
-            "DATABASE_URL est manquante. Copiez .env.example vers .env.local et collez l’URI PostgreSQL (Supabase : Project Settings → Database → Connection string, mode « URI »). Ajoutez aussi DIRECT_URL et AUTH_SECRET.",
-        },
-        { status: 500 }
-      );
+    const dbConfigError = getDatabaseUrlConfigError();
+    if (dbConfigError) {
+      return NextResponse.json({ error: dbConfigError }, { status: 500 });
     }
 
     const body = await req.json();

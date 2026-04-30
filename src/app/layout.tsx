@@ -24,13 +24,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AS Lacanau Volley Ball",
     description: "Entre océan et forêt · Indoor & Beach · Depuis 2010",
-    images: ["/images/LVB1.png"],
+    images: ["/images/LVC_FINAL%20LOGO-04.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "AS Lacanau Volley Ball",
     description: "Entre océan et forêt · Indoor & Beach · Depuis 2010",
-    images: ["/images/LVB1.png"],
+    images: ["/images/LVC_FINAL%20LOGO-04.png"],
   },
 };
 

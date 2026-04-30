@@ -10,7 +10,7 @@ export function Activities() {
         <ScrollReveal>
           <h2 className="font-display text-7xl leading-[0.9] tracking-wide md:text-8xl">Nos activités</h2>
           <p className="mt-5 max-w-2xl font-body text-lg leading-relaxed text-foam/80">
-            Indoor le mardi et jeudi soir, beach le dimanche matin. Tournois, convivialité, et esprit d’équipe.
+            Indoor le mardi et jeudi soir, beach le samedi matin. Tournois, convivialité, et esprit d&apos;équipe.
           </p>
         </ScrollReveal>
 
@@ -79,13 +79,17 @@ export function Activities() {
               <div className="inline-flex items-center gap-2 rounded-full border border-ocean-deep/10 bg-white/45 px-4 py-2 font-ui text-[11px] uppercase tracking-[0.2em] text-ocean-deep/70 backdrop-blur">
                 <span aria-hidden>🏖️</span> Beach
               </div>
-              <div className="mt-6 font-display text-7xl leading-none tracking-wide md:text-8xl">Dimanche</div>
-              <div className="mt-3 text-lg leading-relaxed text-ocean-deep/75">
-                Sable, soleil et convivialité. Saison beach de mai à octobre.
-              </div>
+              <div className="mt-6 font-display text-7xl leading-none tracking-wide md:text-8xl">Samedis</div>
+              <div className="mt-3 text-lg leading-relaxed text-ocean-deep/75">Sable, soleil et convivialité. Saison beach de mai à août.</div>
               <div className="mt-8 rounded-2xl border border-ocean-deep/10 bg-white/55 px-5 py-4 backdrop-blur">
-                <div className="font-ui text-[11px] uppercase tracking-[0.18em] text-ocean-deep/60">Horaire</div>
-                <div className="mt-2">10h00 → 12h30 · Ardilouse</div>
+                <div className="font-ui text-[11px] uppercase tracking-[0.18em] text-ocean-deep/60">Horaires</div>
+                <div className="mt-2">
+                  Mai-Juin : 9h00 → 13h00
+                  <br />
+                  Juillet-Août : 10h00 → 13h00
+                  <br />
+                  Pôle de l&apos;Ardilouse
+                </div>
               </div>
               <div className="mt-8 inline-flex items-center gap-3 rounded-full bg-ocean-deep px-6 py-3 font-ui text-xs uppercase tracking-[0.18em] text-foam transition group-hover:bg-ocean">
                 Découvrir la section →
@@ -146,7 +150,7 @@ export function Activities() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          🏆 Tournoi le mercredi soir à partir de 20h30 &nbsp;|&nbsp; Juillet → Août &nbsp;|&nbsp; 2 €/joueur &nbsp;|&nbsp; Avec Cap 33
+          🏆 Tournois beach : 6 juin (Plage Nord, 10h-22h) · 12 juillet et 2 août (Pôle de l&apos;Ardilouse, 16h-22h)
         </motion.div>
       </div>
     </section>

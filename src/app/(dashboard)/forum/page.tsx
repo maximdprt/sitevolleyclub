@@ -1,8 +1,10 @@
 import { db } from "@/lib/db";
+import { auth } from "@/auth";
 import Link from "next/link";
 import { Plus, MessageSquare, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ForumCategoryManager } from "@/components/forum/ForumCategoryManager";
 import { relativeDate } from "@/lib/utils";
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -15,6 +17,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 export default async function ForumPage() {
+  const session = await auth();
   const categories = await db.forumCategory.findMany({
     orderBy: { order: "asc" },
     include: {
@@ -28,6 +31,15 @@ export default async function ForumPage() {
       },
     },
   });
+  const lastPostIds = categories.map((c) => c.posts[0]?.id).filter(Boolean) as string[];
+  const readRows =
+    session?.user?.id && lastPostIds.length > 0
+      ? await db.forumReadStatus.findMany({
+          where: { userId: session.user.id, threadId: { in: lastPostIds } },
+          select: { threadId: true, lastReadAt: true },
+        })
+      : [];
+  const readMap = new Map(readRows.map((r) => [r.threadId, r.lastReadAt.getTime()]));
 
   return (
     <div className="space-y-6">
@@ -50,6 +62,7 @@ export default async function ForumPage() {
         {categories.map((cat) => {
           const lastPost = cat.posts[0];
           const colorClass = CATEGORY_COLORS[cat.slug] ?? "bg-[#f0f7ff]/5 text-[#f0f7ff]/50";
+          const unread = lastPost ? (readMap.get(lastPost.id) ?? 0) < lastPost.lastReplyAt.getTime() : false;
 
           return (
             <Link key={cat.id} href={`/forum/${cat.slug}`}>
@@ -72,7 +85,8 @@ export default async function ForumPage() {
                       <p className="mt-1.5 text-xs text-[#f0f7ff]/25">
                         Dernier : <span className="text-[#f0f7ff]/40">{lastPost.title}</span>
                         {" "}par {lastPost.author.firstName} {lastPost.author.lastName}
-                        {" "}· {relativeDate(lastPost.updatedAt)}
+                        {" "}· {relativeDate(lastPost.lastReplyAt)}
+                        {unread ? <span className="ml-2 rounded-full bg-[#f97316]/20 px-2 py-0.5 text-[10px] text-[#f97316]">Nouveau</span> : null}
                       </p>
                     )}
                   </div>
@@ -83,6 +97,12 @@ export default async function ForumPage() {
           );
         })}
       </div>
+
+      {session?.user && ["ADMIN", "COMITE_DIRECTION"].includes(session.user.role) ? (
+        <ForumCategoryManager
+          categories={categories.map((c) => ({ id: c.id, name: c.name, description: c.description ?? null }))}
+        />
+      ) : null}
     </div>
   );
 }

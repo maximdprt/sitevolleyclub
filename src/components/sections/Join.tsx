@@ -187,7 +187,7 @@ export function Join() {
             <div className="flex items-baseline justify-between gap-4">
               <div>
                 <div className="font-ui text-xs uppercase tracking-[0.18em] text-sand-light/80">🎯 Tournois ponctuels</div>
-                <div className="mt-2 text-sm text-foam/75">(Mercredi soir juillet-août · à partir de 20h30)</div>
+                <div className="mt-2 text-sm text-foam/75">(6 juin 10h-22h · 12 juillet et 2 août 16h-22h)</div>
               </div>
               <div className="font-display text-4xl text-accent">2 €</div>
             </div>

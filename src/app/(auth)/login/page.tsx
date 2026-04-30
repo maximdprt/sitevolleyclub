@@ -1,8 +1,8 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { getSession, signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, ArrowRight, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { loginSchema, type LoginInput } from "@/lib/validators/auth";
-import { getRoleHome } from "@/lib/permissions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,6 +18,7 @@ const ERRORS: Record<string, string> = {
   PENDING: "Votre compte est en attente de validation par un administrateur.",
   SUSPENDED: "Votre compte a été suspendu. Contactez un administrateur.",
   CredentialsSignin: "Identifiants incorrects.",
+  CallbackRouteError: "Connexion refusée. Vérifiez vos identifiants ou le statut du compte.",
 };
 
 export default function LoginPage() {
@@ -30,7 +30,6 @@ export default function LoginPage() {
 }
 
 function LoginForm() {
-  const router = useRouter();
   const params = useSearchParams();
   const from = params.get("from");
   const errorParam = params.get("error");
@@ -55,14 +54,13 @@ function LoginForm() {
     });
 
     if (result?.error) {
-      setServerError(ERRORS[result.error] ?? "Identifiants incorrects.");
+      const code = result.code ?? result.error;
+      setServerError(ERRORS[code] ?? ERRORS[result.error] ?? "Identifiants incorrects.");
       return;
     }
 
-    const session = await getSession();
-    const fallbackPath = getRoleHome(session?.user?.role);
-    router.push(from ?? fallbackPath);
-    router.refresh();
+    const target = from && from.startsWith("/") && !from.startsWith("//") ? from : "/espace-membre";
+    window.location.assign(target);
   }
 
   return (
@@ -87,7 +85,7 @@ function LoginForm() {
           {/* Logo */}
           <div>
             <Image
-              src="/images/LVB1.png"
+              src="/images/LVC_FINAL%20LOGO-04.png"
               alt="Lacanau Volley Club"
               width={140}
               height={140}
@@ -142,7 +140,7 @@ function LoginForm() {
           {/* Logo mobile */}
           <div className="mb-10 flex items-center gap-3 lg:hidden">
             <Image
-              src="/images/LVB1.png"
+              src="/images/LVC_FINAL%20LOGO-04.png"
               alt="Lacanau Volley Club"
               width={56}
               height={56}

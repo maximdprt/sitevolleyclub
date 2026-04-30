@@ -62,20 +62,21 @@ export function Navbar() {
         animate={{ y: 0 }}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 pb-3 pt-2 md:px-8 md:pb-3 md:pt-2">
-          <Link href="/#hero" className="flex items-center gap-3" aria-label="Aller à l'accueil">
-            <span className="relative block h-10 w-[140px] md:h-12 md:w-[170px]">
+          <Link
+            href="/#hero"
+            className="ml-6 flex items-center gap-3 md:ml-10"
+            aria-label="Aller à l'accueil"
+          >
+            <span className="relative block h-8 w-[90px] md:h-10 md:w-[100px]">
               <Image
-                src="/images/LVB1.png"
+                src="/images/LVC_FINAL%20LOGO-04.png"
                 alt="AS Lacanau Section Volley Ball"
                 width={190}
                 height={190}
-                className="absolute left-0 top-1/2 max-h-[160px] w-auto -translate-y-1/2 object-contain drop-shadow-[0_10px_22px_rgba(0,0,0,0.45)] md:max-h-[190px]"
+                className="absolute left-1 top-[56%] max-h-[100px] w-auto -translate-y-1/2 object-contain drop-shadow-[0_10px_22px_rgba(0,0,0,0.45)] md:left-2 md:max-h-[145px]"
                 style={{ width: "auto", height: "auto" }}
                 priority
               />
-            </span>
-            <span className="hidden font-display text-3xl tracking-wide text-foam sm:block">
-              Lacanau Volley
             </span>
           </Link>
 

@@ -16,7 +16,7 @@ export function Footer() {
               Entre océan et forêt • Depuis 2010
             </div>
             <Image
-              src="/images/LVB1.png"
+              src="/images/LVC_FINAL%20LOGO-04.png"
               alt="AS Lacanau Section Volley Ball"
               width={260}
               height={260}
@@ -30,7 +30,7 @@ export function Footer() {
             <ul className="mt-5 space-y-3 text-foam/85">
               <li>🏐 Mardi 20h00 — Salle Cosec</li>
               <li>🏐 Jeudi 20h30 — Salle Cosec</li>
-              <li>🏖️ Dimanche 10h00 — Ardilouse</li>
+              <li>🏖️ Samedis (mai-juin 9h00 / juillet-août 10h00) — Pôle de l&apos;Ardilouse</li>
             </ul>
           </div>
 

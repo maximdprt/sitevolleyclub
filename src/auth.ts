@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import { CredentialsSignin } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { db } from "@/lib/db";
@@ -17,11 +18,21 @@ if (process.env.NODE_ENV === "development" && !process.env.AUTH_SECRET) {
   );
 }
 
+class AccountStatusError extends CredentialsSignin {
+  code: "PENDING" | "SUSPENDED";
+
+  constructor(status: "PENDING" | "SUSPENDED") {
+    super();
+    this.code = status;
+  }
+}
+
 // Credentials + JWT strategy n'a pas besoin d'un adapter base de données.
 // L'adapter (PrismaAdapter) n'est utile que pour OAuth et magic links.
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: authSecret,
   trustHost: true,
+  useSecureCookies: process.env.NODE_ENV === "production",
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -48,7 +59,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         // Vérification du statut
         if (user.status !== "ACTIVE") {
-          throw new Error(user.status === "PENDING" ? "PENDING" : "SUSPENDED");
+          throw new AccountStatusError(user.status === "PENDING" ? "PENDING" : "SUSPENDED");
         }
 
         // Vérification du mot de passe
@@ -112,16 +123,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/login",
     error: "/login",
-  },
-
-  cookies: {
-    sessionToken: {
-      options: {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/",
-      },
-    },
   },
 });

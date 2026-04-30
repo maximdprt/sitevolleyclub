@@ -16,15 +16,15 @@ export const uploadDocumentSchema = z.object({
     "PIECE_IDENTITE",
     "CERTIFICAT_MEDICAL",
     "FORMULAIRE_ADHESION",
+    "PHOTO_IDENTITE",
     "JUSTIFICATIF_DOMICILE",
     "AUTRE",
-    "COMITE_INTERNE",
   ] as const),
   visibility: z.enum(["PRIVATE", "COMITE", "PUBLIC"] as const).default("PRIVATE"),
   notes: z.string().max(500, "Max 500 car.").optional(),
   fileUrl: z.string().url("URL de fichier invalide"),
   fileName: z.string().min(1),
-  fileSize: z.number().max(MAX_FILE_SIZE_BYTES, "Fichier trop volumineux (max 8 Mo)"),
+  fileSize: z.number().max(MAX_FILE_SIZE_BYTES, "Fichier trop volumineux (max 10 Mo)"),
   mimeType: z.string().refine(
     (v) => ACCEPTED_MIME_TYPES.includes(v as (typeof ACCEPTED_MIME_TYPES)[number]),
     "Format non accepté (PDF, JPG, PNG, HEIC)"
@@ -34,6 +34,7 @@ export const uploadDocumentSchema = z.object({
 export const reviewDocumentSchema = z.object({
   status: z.enum(["APPROVED", "REJECTED"] as const),
   notes: z.string().max(500).optional(),
+  refusalReason: z.string().max(500).optional(),
 });
 
 export type UploadDocumentInput = z.infer<typeof uploadDocumentSchema>;

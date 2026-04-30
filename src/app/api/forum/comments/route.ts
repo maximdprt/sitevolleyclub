@@ -5,8 +5,13 @@ import { createCommentSchema } from "@/lib/validators/forum";
 import { getForumCommentRateLimiter, checkRateLimit } from "@/lib/rate-limit";
 import { createAuditLog } from "@/lib/audit";
 import { fr } from "@/lib/i18n/fr";
+import { validateCsrfRequest } from "@/lib/security";
+import { sanitizeForumContent } from "@/lib/forum-security";
 
 export async function POST(req: Request) {
+  if (!(await validateCsrfRequest(req))) {
+    return NextResponse.json({ error: "Requête CSRF invalide." }, { status: 403 });
+  }
   const session = await auth();
   if (!session?.user?.id) return NextResponse.json({ error: "Non authentifié." }, { status: 401 });
 
@@ -28,6 +33,7 @@ export async function POST(req: Request) {
     }
 
     const { content, postId } = parsed.data;
+    const safeContent = sanitizeForumContent(content);
 
     // Vérifier que le post existe et n'est pas verrouillé
     const post = await db.forumPost.findUnique({
@@ -38,11 +44,16 @@ export async function POST(req: Request) {
     if (post.locked) return NextResponse.json({ error: "Ce sujet est verrouillé." }, { status: 403 });
 
     const comment = await db.forumComment.create({
-      data: { content, postId, authorId: session.user.id },
+      data: { content: safeContent, postId, authorId: session.user.id },
     });
 
-    // Mettre à jour updatedAt du post pour le tri
-    await db.forumPost.update({ where: { id: postId }, data: { updatedAt: new Date() } });
+    const now = new Date();
+    await db.forumPost.update({ where: { id: postId }, data: { lastReplyAt: now } });
+    await db.forumReadStatus.upsert({
+      where: { userId_threadId: { userId: session.user.id, threadId: postId } },
+      update: { lastReadAt: now },
+      create: { userId: session.user.id, threadId: postId },
+    });
 
     createAuditLog({
       userId: session.user.id,

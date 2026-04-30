@@ -6,8 +6,13 @@ import { slugify } from "@/lib/utils";
 import { getForumPostRateLimiter, checkRateLimit } from "@/lib/rate-limit";
 import { createAuditLog } from "@/lib/audit";
 import { fr } from "@/lib/i18n/fr";
+import { validateCsrfRequest } from "@/lib/security";
+import { sanitizeForumContent } from "@/lib/forum-security";
 
 export async function POST(req: Request) {
+  if (!(await validateCsrfRequest(req))) {
+    return NextResponse.json({ error: "Requête CSRF invalide." }, { status: 403 });
+  }
   const session = await auth();
   if (!session?.user?.id) return NextResponse.json({ error: "Non authentifié." }, { status: 401 });
 
@@ -29,6 +34,7 @@ export async function POST(req: Request) {
     }
 
     const { title, content, categoryId } = parsed.data;
+    const safeContent = sanitizeForumContent(content);
 
     // Vérification que la catégorie existe
     const category = await db.forumCategory.findUnique({
@@ -45,7 +51,13 @@ export async function POST(req: Request) {
     const slug = existingCount > 0 ? `${baseSlug}-${existingCount}` : baseSlug;
 
     const post = await db.forumPost.create({
-      data: { title, slug, content, authorId: session.user.id, categoryId },
+      data: { title, slug, content: safeContent, authorId: session.user.id, categoryId, lastReplyAt: new Date() },
+    });
+
+    await db.forumReadStatus.upsert({
+      where: { userId_threadId: { userId: session.user.id, threadId: post.id } },
+      update: { lastReadAt: new Date() },
+      create: { userId: session.user.id, threadId: post.id },
     });
 
     createAuditLog({

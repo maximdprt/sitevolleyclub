@@ -28,7 +28,8 @@ export function Contact() {
             <div className="mt-4 text-ocean-deep/85">
               Jeudi 20h30–23h00 (Indoor)<br />
               Mardi 20h00–23h00 (Indoor)<br />
-              Dimanche 10h00–12h30 (Beach · Ardilouse)
+              Samedis mai-juin 9h00–13h00 (Beach · Pôle de l&apos;Ardilouse)<br />
+              Samedis juillet-août 10h00–13h00 (Beach · Pôle de l&apos;Ardilouse)
             </div>
           </div>
           <div className="rounded-3xl border border-ocean-deep/10 bg-white p-8 shadow-sm">

@@ -10,6 +10,7 @@ import {
   PartyPopper,
   Newspaper,
   Users,
+  Archive,
   Images,
   type LucideIcon,
 } from "lucide-react";
@@ -22,6 +23,7 @@ const ITEMS: { label: string; href: string; icon: LucideIcon }[] = [
   { label: "Événements", href: "/admin/evenements", icon: PartyPopper },
   { label: "Articles", href: "/admin/articles", icon: Newspaper },
   { label: "Membres", href: "/admin/membres", icon: Users },
+  { label: "Documents", href: "/admin/documents", icon: Archive },
   { label: "Galerie", href: "/admin/galerie", icon: Images },
 ];
 
@@ -31,7 +33,7 @@ export function AdminSidebar() {
   return (
     <aside className="flex h-screen w-64 flex-col border-r border-[#f0f7ff]/8 bg-[#091b2f]">
       <div className="flex items-center gap-3 border-b border-[#f0f7ff]/8 px-5 py-5">
-        <Image src="/images/LVB1.png" alt="" width={44} height={44} className="shrink-0" />
+        <Image src="/images/LVC_FINAL%20LOGO-04.png" alt="" width={44} height={44} className="shrink-0" />
         <div className="min-w-0">
           <p className="truncate font-display text-sm tracking-wider text-[#f0f7ff]">Administration</p>
           <p className="text-[11px] text-[#f0f7ff]/40">Lacanau Volley-Ball</p>

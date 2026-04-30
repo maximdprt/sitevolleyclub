@@ -28,7 +28,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Mes documents", href: `${MEMBER_HOME}/documents`, icon: FileText },
   { label: "Déposer un document", href: `${MEMBER_HOME}/documents/upload`, icon: Upload },
   { label: "Mon profil", href: `${MEMBER_HOME}/profil`, icon: User },
-  { label: "Comité de direction", href: "/comite-direction", icon: Shield, roles: ["COMITE_DIRECTION", "ADMIN"] },
+  { label: "Espace Comité", href: "/comite-direction", icon: Shield, roles: ["COMITE_DIRECTION", "ADMIN"] },
   { label: "Forum", href: "/forum", icon: MessageSquare },
 ];
 
@@ -48,7 +48,7 @@ export function Sidebar({ userRole = "ADHERENT", userName }: SidebarProps) {
     <aside className="flex h-screen w-64 flex-col border-r border-[#f0f7ff]/8 bg-[#091b2f]">
       <div className="flex items-center gap-3 border-b border-[#f0f7ff]/8 px-5 py-5">
         <Image
-          src="/images/LVB1.png"
+          src="/images/LVC_FINAL%20LOGO-04.png"
           alt=""
           width={44}
           height={44}

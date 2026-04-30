@@ -25,6 +25,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Évite que Turbopack résolve Prisma en wasm/edge-light (URLs prisma+postgres://) au lieu du client Node (postgresql://).
+  serverExternalPackages: ["@prisma/client", ".prisma/client"],
   turbopack: {
     // Force Turbopack to use this project as root (prevents wrong .env resolution)
     root: __dirname,

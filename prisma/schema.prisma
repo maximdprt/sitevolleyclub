@@ -31,9 +31,12 @@ model User {
   documents            Document[]
   forumComments        ForumComment[]
   forumPosts           ForumPost[]
+  forumReadStatuses    ForumReadStatus[]
   passwordResets       PasswordReset[]
   sessions             Session[]
   team                 Team?                 @relation(fields: [teamId], references: [id])
+  comiteFoldersCreated ComiteFolder[]        @relation("ComiteFolderCreator")
+  comiteDocuments      ComiteDocument[]      @relation("ComiteDocumentUploader")
 }
 
 model Team {
@@ -217,7 +220,12 @@ model Document {
   reviewedAt DateTime?
   reviewedBy String?
   notes      String?
+  refusalReason String?
   user       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@index([userId, type])
+  @@index([uploadedAt])
 }
 
 model ForumCategory {
@@ -241,9 +249,12 @@ model ForumPost {
   pinned     Boolean        @default(false)
   locked     Boolean        @default(false)
   viewCount  Int            @default(0)
+  lastReplyAt DateTime      @default(now())
+  editedAt   DateTime?
   createdAt  DateTime       @default(now())
   updatedAt  DateTime       @updatedAt
   comments   ForumComment[]
+  readStatuses ForumReadStatus[]
   author     User           @relation(fields: [authorId], references: [id])
   category   ForumCategory  @relation(fields: [categoryId], references: [id])
 }
@@ -253,10 +264,54 @@ model ForumComment {
   content   String
   postId    String
   authorId  String
+  editedAt  DateTime?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   author    User      @relation(fields: [authorId], references: [id])
   post      ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model ForumReadStatus {
+  userId     String
+  threadId   String
+  lastReadAt DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  thread     ForumPost @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  @@id([userId, threadId])
+  @@index([lastReadAt])
+}
+
+model ComiteFolder {
+  id         String         @id @default(cuid())
+  name       String
+  parentId   String?
+  createdBy  String
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  parent     ComiteFolder?  @relation("ComiteFolderTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children   ComiteFolder[] @relation("ComiteFolderTree")
+  creator    User           @relation("ComiteFolderCreator", fields: [createdBy], references: [id], onDelete: Cascade)
+  documents  ComiteDocument[]
+
+  @@index([parentId])
+  @@index([createdBy])
+}
+
+model ComiteDocument {
+  id         String       @id @default(cuid())
+  folderId   String
+  filePath   String
+  fileName   String
+  fileSize   Int
+  mimeType   String
+  uploadedBy String
+  uploadedAt DateTime     @default(now())
+  folder     ComiteFolder @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  uploader   User         @relation("ComiteDocumentUploader", fields: [uploadedBy], references: [id], onDelete: Cascade)
+
+  @@index([folderId, uploadedAt])
+  @@index([fileName])
 }
 
 model AuditLog {
@@ -287,6 +342,7 @@ enum DocumentType {
   PIECE_IDENTITE
   CERTIFICAT_MEDICAL
   FORMULAIRE_ADHESION
+  PHOTO_IDENTITE
   JUSTIFICATIF_DOMICILE
   AUTRE
   COMITE_INTERNE

@@ -12,7 +12,7 @@ export const SITE_KEYWORDS = [
   "volley indoor",
 ] as const;
 
-const OG_IMAGE = "/images/LVB1.png";
+const OG_IMAGE = "/images/LVC_FINAL%20LOGO-04.png";
 
 export function publicPageMetadata(opts: {
   title: string;

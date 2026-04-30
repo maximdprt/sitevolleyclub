@@ -9,14 +9,15 @@ import { formatFileSize, relativeDate } from "@/lib/utils";
 
 const STATUS = {
   PENDING: { label: "En attente", variant: "warning" as const },
-  APPROVED: { label: "Approuvé", variant: "success" as const },
-  REJECTED: { label: "Rejeté", variant: "destructive" as const },
+  APPROVED: { label: "Validé", variant: "success" as const },
+  REJECTED: { label: "Refusé", variant: "destructive" as const },
 };
 
 const DOC_TYPE_LABEL: Record<string, string> = {
   PIECE_IDENTITE: "Pièce d\u2019identité",
   CERTIFICAT_MEDICAL: "Certificat médical",
   FORMULAIRE_ADHESION: "Formulaire d\u2019adhésion",
+  PHOTO_IDENTITE: "Photo d’identité",
   JUSTIFICATIF_DOMICILE: "Justificatif de domicile",
   AUTRE: "Autre",
   COMITE_INTERNE: "Document comité",
@@ -80,12 +81,16 @@ export default async function DocumentsPage() {
                     <div className="mt-1 flex items-center gap-3 text-xs text-[#f0f7ff]/30">
                       <span>{DOC_TYPE_LABEL[doc.type] ?? doc.type}</span>
                       <span>·</span>
+                      <span className="max-w-[220px] truncate">{doc.fileName}</span>
+                      <span>·</span>
                       <span>{formatFileSize(doc.fileSize)}</span>
                       <span>·</span>
                       <span>{relativeDate(doc.uploadedAt)}</span>
                     </div>
-                    {doc.notes && (
-                      <p className="mt-1 text-xs italic text-[#f0f7ff]/25">{doc.notes}</p>
+                    {(doc.refusalReason || doc.notes) && (
+                      <p className="mt-1 text-xs italic text-[#f0f7ff]/25">
+                        {doc.refusalReason ? `Motif: ${doc.refusalReason}` : doc.notes}
+                      </p>
                     )}
                   </div>
                   <a

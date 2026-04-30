@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { createAuditLog } from "@/lib/audit";
 
 interface Params { params: Promise<{ id: string }> }
 
@@ -37,6 +38,13 @@ export async function GET(_req: Request, { params }: Params) {
   if (!canAccess) {
     return NextResponse.json({ error: "Accès refusé." }, { status: 403 });
   }
+
+  createAuditLog({
+    userId: session.user.id,
+    action: "DOCUMENT_DOWNLOAD",
+    resource: `document:${document.id}`,
+    metadata: { ownerId: document.userId, visibility: document.visibility },
+  }).catch(console.error);
 
   // Redirection vers l'URL signée UploadThing avec l'entête de téléchargement
   const response = NextResponse.redirect(document.fileUrl);

@@ -7,6 +7,11 @@ import { updateSession } from "@/utils/supabase/middleware";
 const MEMBER_PREFIXES = ["/espace-membre", "/espace-adherent", "/forum"];
 const COMITE_PREFIXES = ["/comite-direction"];
 const ADMIN_PREFIXES = ["/admin"];
+const authSecret =
+  process.env.AUTH_SECRET ??
+  (process.env.NODE_ENV === "development"
+    ? "dev-only-auth-secret-change-me-min-32-characters!!"
+    : undefined);
 
 function loginRedirect(req: NextRequest, pathname: string) {
   const url = req.nextUrl.clone();
@@ -29,7 +34,7 @@ export async function proxy(req: NextRequest) {
 
   const token = await getToken({
     req,
-    secret: process.env.AUTH_SECRET,
+    secret: authSecret,
   });
 
   // Legacy adhérent → espace membre
