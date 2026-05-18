@@ -55,18 +55,18 @@ export default function LeClubPage() {
               Bureau
             </h2>
             <p className="mt-4 text-slate-600">
-              <strong>David Da Costa</strong> — Président et contact principal du club.
+              <strong>Sébastien Duprat</strong> — Président et contact principal du club.
             </p>
             <p className="mt-2 text-slate-600">
-              Contact : <a href="tel:0695043114" className="text-ocean hover:underline">06 95 04 31 14</a>
+              Contact : <a href="tel:0634432002" className="text-ocean hover:underline">06 34 43 20 02</a>
               {" · "}
               <a
-                href="mailto:david.lacanau33@orange.fr"
+                href="mailto:contact@lacanauvolley.fr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-ocean hover:underline"
               >
-                david.lacanau33@orange.fr
+                contact@lacanauvolley.fr
               </a>
             </p>
           </div>

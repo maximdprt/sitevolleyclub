@@ -2,86 +2,78 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { WaveDivider } from "@/components/ui/WaveDivider";
+
+const navLinks = [
+  { label: "Le Club", href: "#club" },
+  { label: "Activités", href: "#activities" },
+  { label: "Galerie", href: "#gallery" },
+  { label: "Rejoindre", href: "#join" },
+  { label: "Contact", href: "#contact" },
+];
 
 export function Footer() {
   return (
     <footer className="bg-ocean-deep text-foam">
-      <WaveDivider color="var(--ocean-deep)" />
-      <div className="mx-auto max-w-7xl px-4 py-16 md:px-8">
-        <div className="grid gap-12 md:grid-cols-3">
-          <div>
-            <div className="font-display text-4xl tracking-wide text-foam">Lacanau Volley Ball</div>
-            <div className="mt-2 font-body italic text-sand-light/80">
-              Entre océan et forêt • Depuis 2010
+      <div className="border-t border-white/8">
+        <div className="mx-auto max-w-6xl px-6 py-14 md:px-10">
+          <div className="grid gap-10 md:grid-cols-3">
+            <div>
+              <Image
+                src="/images/LVC_FINAL%20LOGO-08%20(1).png"
+                alt="AS Lacanau Section Volley Ball"
+                width={120}
+                height={120}
+                className="h-20 w-auto object-contain"
+                loading="lazy"
+              />
+              <div className="mt-4 font-display text-3xl leading-tight tracking-wide text-foam">Lacanau Volley Ball</div>
+              <div className="mt-1 text-sm text-foam/50">Entre océan et forêt · Depuis 2010</div>
             </div>
-            <Image
-              src="/images/LVC_FINAL%20LOGO-04.png"
-              alt="AS Lacanau Section Volley Ball"
-              width={260}
-              height={260}
-              className="mt-6 h-[190px] w-[190px] object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,0.45)] md:h-[230px] md:w-[230px]"
-              loading="lazy"
-            />
-          </div>
 
-          <div>
-            <div className="font-ui text-xs uppercase tracking-[0.2em] text-sand-light/80">Horaires</div>
-            <ul className="mt-5 space-y-3 text-foam/85">
-              <li>🏐 Mardi 20h00 — Salle Cosec</li>
-              <li>🏐 Jeudi 20h30 — Salle Cosec</li>
-              <li>🏖️ Samedis (mai-juin 9h00 / juillet-août 10h00) — Pôle de l&apos;Ardilouse</li>
-            </ul>
-          </div>
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-widest text-foam/40">Horaires</div>
+              <ul className="mt-4 space-y-2 text-sm text-foam/75">
+                <li>🏐 Mardi 20h00 — COSEC</li>
+                <li>🏐 Jeudi 20h30 — COSEC</li>
+                <li>🏖️ Samedi 10h00–13h00 — Ardilouse</li>
+              </ul>
+            </div>
 
-          <div>
-            <div className="font-ui text-xs uppercase tracking-[0.2em] text-sand-light/80">Navigation</div>
-            <ul className="mt-5 space-y-3 text-foam/85">
-              {[
-                { label: "Le Club", href: "#club" },
-                { label: "Activités", href: "#activities" },
-                { label: "Galerie", href: "#gallery" },
-                { label: "Rejoindre", href: "#join" },
-                { label: "Contact", href: "#contact" },
-              ].map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="underline decoration-white/10 underline-offset-4 hover:decoration-accent">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6">
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-widest text-foam/40">Navigation</div>
+              <ul className="mt-4 space-y-2">
+                {navLinks.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="text-sm text-foam/75 hover:text-foam transition">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
               <Link
                 href="#join"
-                className="inline-flex rounded-full border border-white/10 bg-white/5 px-5 py-3 font-ui text-xs uppercase tracking-[0.18em] text-foam backdrop-blur transition hover:bg-white/10"
+                className="mt-5 inline-flex rounded-xl border border-white/10 px-4 py-2 text-sm font-semibold text-foam transition hover:bg-white/8"
               >
-                S&apos;inscrire / Nous rejoindre
+                Rejoindre le club →
               </Link>
             </div>
           </div>
-        </div>
 
-        <div className="mt-14 border-t border-white/10 pt-8 text-sm text-sand-light/70">
-          <div className="mb-3 font-ui text-[11px] uppercase tracking-[0.18em] text-sand-light/70">
-            RGPD
+          <div className="mt-12 border-t border-white/8 pt-6">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div className="text-xs text-foam/40">
+                © 2025 AS Lacanau Section Volley Ball · Tous droits réservés
+              </div>
+              <div className="text-xs text-foam/40">
+                Ce site utilise uniquement des données nécessaires pour vous recontacter.{" "}
+                <a href="mailto:contact@lacanauvolley.fr" className="underline underline-offset-4 decoration-white/20 hover:decoration-foam/40">
+                  contact@lacanauvolley.fr
+                </a>
+              </div>
+            </div>
           </div>
-          <div className="text-sand-light/70">
-            Ce site utilise uniquement des données nécessaires pour vous recontacter lorsque vous nous contactez. Pour toute demande, écrivez-nous à{" "}
-            <a
-              className="underline decoration-accent/50 underline-offset-4 hover:decoration-accent"
-              href="mailto:david.lacanau33@orange.fr"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              david.lacanau33@orange.fr
-            </a>
-            .
-          </div>
-          © 2025 AS Lacanau Section Volley Ball · Tous droits réservés
         </div>
       </div>
     </footer>
   );
 }
-

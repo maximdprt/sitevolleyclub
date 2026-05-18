@@ -49,7 +49,7 @@ export function Sidebar({ userRole = "ADHERENT", userName }: SidebarProps) {
     <aside className="flex h-screen w-64 flex-col border-r border-[#f0f7ff]/8 bg-[#091b2f]">
       <div className="flex items-center gap-3 border-b border-[#f0f7ff]/8 px-5 py-5">
         <Image
-          src="/images/LVC_FINAL%20LOGO-04.png"
+          src="/images/LVC_FINAL%20LOGO-08%20(1).png"
           alt=""
           width={44}
           height={44}

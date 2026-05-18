@@ -11,9 +11,6 @@
   --accent-light: #ff7a28;
   --text-dark: #0d2237;
   --text-light: #f5edd8;
-  --card-glass: rgba(255, 255, 255, 0.06);
-  --border-glass: rgba(255, 255, 255, 0.12);
-  --grain-opacity: 0.032;
 }
 
 @theme inline {
@@ -28,7 +25,7 @@
   --color-text-dark: var(--text-dark);
   --color-text-light: var(--text-light);
   --font-display: var(--font-bebas);
-  --font-ui: var(--font-dm-sans);
+  --font-ui: var(--font-body-sans);
   --font-body: var(--font-body-sans);
 }
 
@@ -40,17 +37,8 @@ body {
   background: var(--ocean-deep);
   color: var(--foam);
   font-family: var(--font-body-sans), system-ui, sans-serif;
-  font-weight: 500;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: var(--grain-opacity);
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 :focus-visible {
@@ -63,5 +51,5 @@ body::before {
 }
 
 .font-ui {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: var(--font-body-sans), system-ui, sans-serif;
 }

@@ -22,18 +22,18 @@ export function Footer() {
               Club de volley loisir de Lacanau. Entraînements tous les jeudis au COSEC. Salle et beach (mai–octobre).
             </p>
             <div className="mt-6 flex flex-col gap-3 text-sm">
-              <a href="tel:0695043114" className="flex items-center gap-2 hover:text-white">
+              <a href="tel:0634432002" className="flex items-center gap-2 hover:text-white">
                 <Phone className="h-4 w-4" />
-                06 95 04 31 14
+                06 34 43 20 02
               </a>
               <a
-                href="mailto:david.lacanau33@orange.fr"
+                href="mailto:contact@lacanauvolley.fr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 hover:text-white"
               >
                 <Mail className="h-4 w-4" />
-                david.lacanau33@orange.fr
+                contact@lacanauvolley.fr
               </a>
               <span className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
@@ -77,8 +77,8 @@ export function Footer() {
           <div className="mb-2 font-semibold text-slate-300">RGPD</div>
           <div className="mx-auto mb-6 max-w-3xl text-xs text-slate-400">
             Ce site utilise uniquement des données nécessaires pour vous recontacter lorsque vous nous contactez. Pour toute demande, écrivez-nous à{" "}
-            <a className="underline underline-offset-4 hover:text-white" href="mailto:david.lacanau33@orange.fr">
-              david.lacanau33@orange.fr
+            <a className="underline underline-offset-4 hover:text-white" href="mailto:contact@lacanauvolley.fr">
+              contact@lacanauvolley.fr
             </a>
             .
           </div>

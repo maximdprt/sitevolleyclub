@@ -58,7 +58,7 @@ export default function RegisterPage() {
           className="max-w-sm text-center"
         >
           <Image
-            src="/images/LVC_FINAL%20LOGO-04.png"
+            src="/images/LVC_FINAL%20LOGO-08%20(1).png"
             alt="Lacanau Volley Club"
             width={80}
             height={80}
@@ -101,7 +101,7 @@ export default function RegisterPage() {
         <div className="relative z-10 flex h-full flex-col justify-between p-10">
           <div>
             <Image
-              src="/images/LVC_FINAL%20LOGO-04.png"
+              src="/images/LVC_FINAL%20LOGO-08%20(1).png"
               alt="Lacanau Volley Club"
               width={140}
               height={140}

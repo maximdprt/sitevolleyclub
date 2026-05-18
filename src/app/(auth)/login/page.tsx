@@ -85,7 +85,7 @@ function LoginForm() {
           {/* Logo */}
           <div>
             <Image
-              src="/images/LVC_FINAL%20LOGO-04.png"
+              src="/images/LVC_FINAL%20LOGO-08%20(1).png"
               alt="Lacanau Volley Club"
               width={140}
               height={140}
@@ -140,7 +140,7 @@ function LoginForm() {
           {/* Logo mobile */}
           <div className="mb-10 flex items-center gap-3 lg:hidden">
             <Image
-              src="/images/LVC_FINAL%20LOGO-04.png"
+              src="/images/LVC_FINAL%20LOGO-08%20(1).png"
               alt="Lacanau Volley Club"
               width={56}
               height={56}

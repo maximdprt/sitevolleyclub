@@ -41,12 +41,7 @@ export default function CalendrierPage() {
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-6 py-4">Beach volley</td>
-                <td className="px-6 py-4">Tous les samedis de mai et juin, 9h00 – 13h00</td>
-                <td className="px-6 py-4">Pôle de l&apos;Ardilouse</td>
-              </tr>
-              <tr className="border-b border-slate-100">
-                <td className="px-6 py-4">Beach volley</td>
-                <td className="px-6 py-4">Tous les samedis de juillet et août, 10h00 – 13h00</td>
+                <td className="px-6 py-4">Tous les samedis, 10h00 – 13h00</td>
                 <td className="px-6 py-4">Pôle de l&apos;Ardilouse</td>
               </tr>
               <tr className="border-b border-slate-100">

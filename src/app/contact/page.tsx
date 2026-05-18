@@ -23,19 +23,19 @@ export default function ContactPage() {
             <ul className="mt-6 space-y-4 text-slate-600">
               <li className="flex items-start gap-3">
                 <Phone className="h-5 w-5 shrink-0 text-ocean" />
-                <a href="tel:0695043114" className="hover:text-ocean hover:underline">
-                  06 95 04 31 14
+                <a href="tel:0634432002" className="hover:text-ocean hover:underline">
+                  06 34 43 20 02
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="h-5 w-5 shrink-0 text-ocean" />
                 <a
-                  href="mailto:david.lacanau33@orange.fr"
+                  href="mailto:contact@lacanauvolley.fr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-ocean hover:underline"
                 >
-                  david.lacanau33@orange.fr
+                  contact@lacanauvolley.fr
                 </a>
               </li>
               <li className="flex items-start gap-3">

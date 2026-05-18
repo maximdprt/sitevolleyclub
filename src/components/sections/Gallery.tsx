@@ -10,8 +10,8 @@ export function Gallery() {
   const images = useMemo(
     () => [
       { src: "/images/team-4.jpg", alt: "Grande équipe Lacanau Volley" },
-      { src: "/images/team-3.jpg", alt: "Équipe en salle (maillots bleus) au filet" },
-      { src: "/images/team-5.jpg", alt: "Match (rouge vs bleu)" },
+      { src: "/images/team-3.jpg", alt: "Équipe en salle au filet" },
+      { src: "/images/team-5.jpg", alt: "Match rouge vs bleu" },
       { src: "/images/team-2.jpg", alt: "Stand forum associations" },
       { src: "/images/team-1.jpg", alt: "Équipe Lacanau Volley" },
     ],
@@ -21,57 +21,49 @@ export function Gallery() {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
-  const openAt = (i: number) => {
-    setIndex(i);
-    setOpen(true);
-  };
+  const openAt = (i: number) => { setIndex(i); setOpen(true); };
 
   return (
     <section id="gallery" className="bg-ocean-deep py-20 text-foam">
-      <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <ScrollReveal className="max-w-2xl">
-            <h2 className="font-display text-7xl leading-[0.9] tracking-wide md:text-8xl">Le Club en images</h2>
-            <p className="mt-5 font-body text-lg leading-relaxed text-foam/80">
-              Un aperçu de l’ambiance indoor et beach, entre océan, pins et esprit d’équipe.
-            </p>
+      <div className="mx-auto max-w-6xl px-6 md:px-10">
+        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+          <ScrollReveal>
+            <div className="text-xs font-semibold uppercase tracking-widest text-foam/50">Galerie</div>
+            <h2 className="mt-3 font-display text-6xl leading-[0.9] tracking-wide md:text-7xl">Le club en images</h2>
           </ScrollReveal>
           <Link
             href="https://www.facebook.com/volley.lacanau"
             target="_blank"
             rel="noopener noreferrer"
-            data-cursor="hover"
-            className="rounded-full bg-wave px-6 py-3 font-ui text-xs uppercase tracking-[0.18em] text-foam transition hover:bg-foam hover:text-ocean-deep"
+            className="shrink-0 rounded-xl border border-white/15 px-5 py-2.5 text-sm font-semibold text-foam transition hover:bg-white/8"
           >
-            Voir toutes nos photos sur Facebook →
+            Toutes les photos →
           </Link>
         </div>
 
-        <div className="mt-12 columns-1 gap-4 sm:columns-2 lg:columns-3">
+        <div className="mt-10 columns-1 gap-4 sm:columns-2 lg:columns-3">
           {images.map((img, i) => (
             <button
               key={img.src}
               type="button"
-              data-cursor="hover"
               onClick={() => openAt(i)}
-              className="group mb-4 block w-full break-inside-avoid overflow-hidden rounded-2xl border border-white/10 bg-white/5 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4"
-              aria-label={`Ouvrir la photo: ${img.alt}`}
+              className="group mb-4 block w-full break-inside-avoid overflow-hidden rounded-xl border border-white/8 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+              aria-label={`Ouvrir : ${img.alt}`}
             >
-              <div className="relative w-full overflow-hidden">
+              <div className="relative overflow-hidden">
                 <Image
                   src={img.src}
                   alt={img.alt}
-                  width={1200}
-                  height={900}
-                  className="h-auto w-full object-cover grayscale-[0.9] contrast-[1.05] brightness-[0.95] transition duration-500 group-hover:scale-[1.04] group-focus-visible:scale-[1.04] group-hover:grayscale-0 group-focus-visible:grayscale-0 group-hover:brightness-100 group-focus-visible:brightness-100"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  width={800}
+                  height={600}
+                  className="h-auto w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   loading="lazy"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-ocean-deep/80 opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-                  <div className="rounded-full bg-white/15 px-6 py-4 font-ui text-xs uppercase tracking-[0.18em] text-foam backdrop-blur">
+                <div className="absolute inset-0 flex items-center justify-center bg-ocean-deep/60 opacity-0 transition duration-200 group-hover:opacity-100">
+                  <span className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-foam backdrop-blur">
                     Zoom
-                  </div>
+                  </span>
                 </div>
               </div>
             </button>
@@ -90,4 +82,3 @@ export function Gallery() {
     </section>
   );
 }
-
