@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/site";
 
 export function Contact() {
   return (
@@ -48,12 +49,22 @@ export function Contact() {
               </div>
               <div>
                 <Link
-                  href="https://www.facebook.com/volley.lacanau"
+                  href={FACEBOOK_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium underline underline-offset-4 decoration-accent/40 hover:text-ocean"
                 >
                   Facebook · Lacanau Volley-Ball
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium underline underline-offset-4 decoration-accent/40 hover:text-ocean"
+                >
+                  Instagram · @lacanau_volley_club
                 </Link>
               </div>
             </div>

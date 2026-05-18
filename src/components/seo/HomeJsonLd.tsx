@@ -1,4 +1,4 @@
-import { siteUrl } from "@/lib/site";
+import { FACEBOOK_URL, INSTAGRAM_URL, siteUrl } from "@/lib/site";
 
 export function HomeJsonLd() {
   const url = siteUrl();
@@ -8,6 +8,7 @@ export function HomeJsonLd() {
     name: "Lacanau Volley-Ball",
     sport: "Volleyball",
     url,
+    sameAs: [FACEBOOK_URL, INSTAGRAM_URL],
     address: {
       "@type": "PostalAddress",
       addressLocality: "Lacanau",

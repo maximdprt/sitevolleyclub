@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Facebook } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
+import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/site";
 
 export function SocialFeed() {
   return (
@@ -11,18 +12,29 @@ export function SocialFeed() {
               Suivez-nous sur les réseaux
             </h2>
             <p className="mt-2 text-slate-600">
-              Actualités, photos et infos sur notre page Facebook.
+              Actualités, photos et infos sur Facebook et Instagram.
             </p>
           </div>
-          <Link
-            href="https://www.facebook.com/volley.lacanau"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-3 rounded-full bg-[#1877F2] px-6 py-3.5 font-semibold text-white transition hover:bg-[#166FE5]"
-          >
-            <Facebook className="h-6 w-6" />
-            Facebook Lacanau Volley
-          </Link>
+          <div className="flex shrink-0 flex-wrap items-center justify-center gap-3">
+            <Link
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 rounded-full bg-[#1877F2] px-6 py-3.5 font-semibold text-white transition hover:bg-[#166FE5]"
+            >
+              <Facebook className="h-6 w-6" />
+              Facebook
+            </Link>
+            <Link
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 rounded-full bg-linear-to-r from-[#f09433] via-[#e6683c] to-[#bc1888] px-6 py-3.5 font-semibold text-white transition hover:opacity-90"
+            >
+              <Instagram className="h-6 w-6" />
+              Instagram
+            </Link>
+          </div>
         </div>
       </div>
     </section>

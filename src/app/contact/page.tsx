@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, Facebook, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Instagram, Send } from "lucide-react";
+import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/site";
 import { PageHero } from "@/components/PageHero";
 
 export default function ContactPage() {
@@ -48,12 +49,23 @@ export default function ContactPage() {
               <li className="flex items-start gap-3">
                 <Facebook className="h-5 w-5 shrink-0 text-ocean" />
                 <a
-                  href="https://www.facebook.com/volley.lacanau"
+                  href={FACEBOOK_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-ocean hover:underline"
                 >
                   Facebook — volley.lacanau
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Instagram className="h-5 w-5 shrink-0 text-ocean" />
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-ocean hover:underline"
+                >
+                  Instagram — @lacanau_volley_club
                 </a>
               </li>
             </ul>

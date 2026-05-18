@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Facebook, Instagram } from "lucide-react";
+import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/site";
 
 const navLinks = [
   { label: "Le Club", href: "#club" },
@@ -28,6 +30,26 @@ export function Footer() {
               />
               <div className="mt-4 font-display text-3xl leading-tight tracking-wide text-foam">Lacanau Volley Ball</div>
               <div className="mt-1 text-sm text-foam/50">Entre océan et forêt · Depuis 2010</div>
+              <div className="mt-4 flex gap-3">
+                <a
+                  href={FACEBOOK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full p-2 text-foam/70 transition hover:bg-white/10 hover:text-foam"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full p-2 text-foam/70 transition hover:bg-white/10 hover:text-foam"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+              </div>
             </div>
 
             <div>

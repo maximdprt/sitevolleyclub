@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, Facebook } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Instagram } from "lucide-react";
+import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/site";
 
 const links = [
   { label: "Le club", href: "/le-club" },
@@ -40,15 +41,26 @@ export function Footer() {
                 COSEC, 19 av. Albert François, 33680 Lacanau
               </span>
             </div>
-            <a
-              href="https://www.facebook.com/volley.lacanau"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 text-[#1877F2] hover:underline"
-            >
-              <Facebook className="h-5 w-5" />
-              Facebook
-            </a>
+            <div className="mt-4 flex flex-wrap gap-4">
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[#1877F2] hover:underline"
+              >
+                <Facebook className="h-5 w-5" />
+                Facebook
+              </a>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[#E4405F] hover:underline"
+              >
+                <Instagram className="h-5 w-5" />
+                Instagram
+              </a>
+            </div>
           </div>
           <div>
             <h3 className="font-semibold text-white">Liens</h3>
