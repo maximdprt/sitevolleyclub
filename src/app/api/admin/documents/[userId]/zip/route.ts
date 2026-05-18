@@ -51,7 +51,7 @@ export async function GET(_req: Request, { params }: Params) {
     }
   }
 
-  const content = await zip.generateAsync({ type: "uint8array" });
+  const content = await zip.generateAsync({ type: "nodebuffer" });
   const filename = `documents-${safeName(user.lastName)}-${safeName(user.firstName)}.zip`;
   createAuditLog({
     userId: session.user.id,
@@ -59,7 +59,7 @@ export async function GET(_req: Request, { params }: Params) {
     resource: `documents-zip:${userId}`,
     metadata: { files: user.documents.length },
   }).catch(console.error);
-  return new NextResponse(content, {
+  return new NextResponse(new Uint8Array(content), {
     status: 200,
     headers: {
       "Content-Type": "application/zip",

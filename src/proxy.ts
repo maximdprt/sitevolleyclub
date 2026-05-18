@@ -26,9 +26,14 @@ export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Force legacy login URL to land on home page.
+  // On préserve les query params (auth, next, error) pour que la home
+  // ouvre correctement le modal de login via AuthModalListener.
   if (pathname === "/login") {
     const url = req.nextUrl.clone();
     url.pathname = "/";
+    if (!url.searchParams.has("auth")) {
+      url.searchParams.set("auth", "1");
+    }
     return NextResponse.redirect(url, 307);
   }
 

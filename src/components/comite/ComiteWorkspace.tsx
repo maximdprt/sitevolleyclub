@@ -250,7 +250,7 @@ export function ComiteWorkspace({ currentUserId, currentRole }: { currentUserId:
                 <div className="min-w-0">
                   <p className="truncate text-sm text-white">{doc.fileName}</p>
                   <p className="text-xs text-[#94a3b8]">
-                    {formatFileSize(doc.fileSize)} · {doc.uploader.firstName} {doc.uploader.lastName} · {relativeDate(doc.uploadedAt)}
+                    {formatFileSize(doc.fileSize)} · {doc.uploader.firstName} {doc.uploader.lastName} · {relativeDate(new Date(doc.uploadedAt))}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">

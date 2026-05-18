@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,7 +36,6 @@ const ERRORS: Record<string, string> = {
 
 export function LoginModal() {
   const { loginOpen, closeLogin } = useAuthUi();
-  const router = useRouter();
   const [showPwd, setShowPwd] = React.useState(false);
   const [serverError, setServerError] = React.useState<string | null>(null);
   const [pendingNext, setPendingNext] = React.useState<string | null>(null);

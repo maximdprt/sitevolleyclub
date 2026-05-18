@@ -122,7 +122,7 @@ export default function RegisterPage() {
             )}
           </div>
 
-          <Link href="/login">
+          <Link href="/?auth=1">
             <Button variant="ghost" className="mt-6">
               Retour à la connexion
             </Button>
@@ -348,7 +348,7 @@ export default function RegisterPage() {
           <p className="mt-6 text-center text-sm text-[#f0f7ff]/50">
             Déjà adhérent ?{" "}
             <Link
-              href="/login"
+              href="/?auth=1"
               className="font-semibold text-[#e8610a] hover:text-[#ff7a28] transition-colors"
             >
               Se connecter

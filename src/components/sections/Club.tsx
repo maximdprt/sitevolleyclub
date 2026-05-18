@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Club() {

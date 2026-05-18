@@ -36,14 +36,11 @@ function VerifyEmailContent() {
   const params = useSearchParams();
   const token = params.get("token");
 
-  const [status, setStatus] = useState<Status>("loading");
+  const [status, setStatus] = useState<Status>(token ? "loading" : "invalid");
   const [errorMsg, setErrorMsg] = useState<string>("");
 
   useEffect(() => {
-    if (!token) {
-      setStatus("invalid");
-      return;
-    }
+    if (!token) return;
 
     let cancelled = false;
     (async () => {
@@ -125,7 +122,7 @@ function VerifyEmailContent() {
                 </>
               )}
             </p>
-            <Link href="/login">
+            <Link href="/?auth=1">
               <Button className="mt-6">
                 Aller à la connexion <ArrowRight className="h-4 w-4" />
               </Button>

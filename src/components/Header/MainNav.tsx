@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { NavLinks } from "./NavLinks";
-import { User, ShoppingBag, Ticket } from "lucide-react";
+import { User, ShoppingBag } from "lucide-react";
 
 const ctaLinks = [
   { label: "Boutique", href: "/boutique", icon: ShoppingBag },

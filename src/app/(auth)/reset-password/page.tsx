@@ -137,7 +137,7 @@ function ResetPasswordForm() {
             Votre mot de passe a bien été réinitialisé.
             Vous pouvez désormais vous reconnecter.
           </p>
-          <Link href="/login">
+          <Link href="/?auth=1">
             <Button className="mt-6">
               Se connecter <ArrowRight className="h-4 w-4" />
             </Button>
@@ -260,7 +260,7 @@ function ResetPasswordForm() {
 
         <div className="mt-6 text-center">
           <Link
-            href="/login"
+            href="/?auth=1"
             className="inline-flex items-center gap-1.5 text-sm text-[#f0f7ff]/40 hover:text-[#f0f7ff]/70 transition-colors"
           >
             <ArrowLeft className="h-3.5 w-3.5" />

@@ -22,13 +22,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   let articles: { slug: string; updatedAt: Date }[] = [];
-  try {
-    articles = await db.article.findMany({
-      where: { status: "PUBLISHED" },
-      select: { slug: true, updatedAt: true },
-    });
-  } catch {
-    // DB unavailable (e.g. local build without DATABASE_URL) — static URLs only
+  if (process.env.DATABASE_URL?.trim()) {
+    try {
+      articles = await db.article.findMany({
+        where: { status: "PUBLISHED" },
+        select: { slug: true, updatedAt: true },
+      });
+    } catch {
+      // DB unavailable at build time — static URLs only
+    }
   }
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_PATHS.map((path) => ({
