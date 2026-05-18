@@ -3,67 +3,29 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { homePartners } from "@/lib/partners";
 
-const partners = [
-  {
-    name: "Ville de Lacanau",
-    logo: "/images/Logo mairie de lacanau (1).jpg",
-    href: "https://www.lacanau.fr",
-  },
-  {
-    name: "Comité de Gironde de Volley-Ball",
-    logo: "/images/logo-ffvolley.png",
-    href: "https://www.ffvb.org",
-  },
-  {
-    name: "Cap33",
-    logo: "/images/Cap33-Evenement-Site.jpg",
-  },
-  {
-    name: "BioEcoPrint",
-    logo: "/images/logo-bioecoprint.png",
-  },
-  {
-    name: "Atelier Marquage Aquitain",
-    logo: "/images/logo-ama.png",
-    href: "https://www.marquage-aquitaine.fr",
-  },
-] as const;
-
-function PartnerCard({
-  name,
-  logo,
-  href,
-}: {
-  name: string;
-  logo: string;
-  href?: string;
-}) {
-  const inner = (
-    <div className="flex min-h-[120px] items-center justify-center rounded-xl bg-white p-5">
-      <Image
-        src={logo}
-        alt={name}
-        width={240}
-        height={120}
-        className="max-h-[88px] w-full object-contain"
-        loading="lazy"
-      />
-    </div>
+function PartnerCard({ name, logo, href }: { name: string; logo: string; href: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={name}
+      className="block rounded-xl border border-white/10 bg-white/5 p-4 transition hover:border-white/20 hover:bg-white/8 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+    >
+      <div className="flex min-h-[120px] items-center justify-center rounded-xl bg-white p-5">
+        <Image
+          src={logo}
+          alt={name}
+          width={240}
+          height={120}
+          className="max-h-[88px] w-full object-contain"
+          loading="lazy"
+        />
+      </div>
+    </a>
   );
-
-  const className =
-    "block rounded-xl border border-white/10 bg-white/5 p-4 transition hover:border-white/20 hover:bg-white/8 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2";
-
-  if (href) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={className} title={name}>
-        {inner}
-      </a>
-    );
-  }
-
-  return <div className={className}>{inner}</div>;
 }
 
 export function Partners() {
@@ -75,9 +37,9 @@ export function Partners() {
           <h2 className="mt-3 font-display text-6xl leading-[0.9] tracking-wide md:text-7xl">Ils nous soutiennent</h2>
         </ScrollReveal>
 
-        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-          {partners.map((p) => (
-            <PartnerCard key={p.name} name={p.name} logo={p.logo} href={"href" in p ? p.href : undefined} />
+        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+          {homePartners.map((p) => (
+            <PartnerCard key={p.name} name={p.name} logo={p.logo} href={p.href} />
           ))}
         </div>
 
