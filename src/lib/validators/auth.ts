@@ -1,10 +1,14 @@
 import { z } from "zod";
 
+/**
+ * Politique de mot de passe
+ * ─────────────────────────
+ * • 8 caractères minimum
+ * • au moins un caractère spécial (non alphanumérique) obligatoire
+ */
 const passwordSchema = z
   .string()
-  .min(12, "Minimum 12 caractères")
-  .regex(/[A-Z]/, "Au moins une majuscule")
-  .regex(/[0-9]/, "Au moins un chiffre")
+  .min(8, "Minimum 8 caractères")
   .regex(/[^A-Za-z0-9]/, "Au moins un caractère spécial");
 
 export const loginSchema = z.object({
@@ -45,7 +49,17 @@ export const resetPasswordSchema = z
     path: ["confirmPassword"],
   });
 
+export const verifyEmailSchema = z.object({
+  token: z.string().min(1),
+});
+
+export const resendVerificationSchema = z.object({
+  email: z.string().email("Email invalide"),
+});
+
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
+export type VerifyEmailInput = z.infer<typeof verifyEmailSchema>;
+export type ResendVerificationInput = z.infer<typeof resendVerificationSchema>;

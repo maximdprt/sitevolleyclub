@@ -4,6 +4,14 @@ import { db } from "@/lib/db";
 import { forgotPasswordSchema } from "@/lib/validators/auth";
 import { sendPasswordResetEmail } from "@/lib/email";
 
+function getAppUrl(req: Request): string {
+  return (
+    process.env.AUTH_URL ??
+    process.env.NEXT_PUBLIC_APP_URL ??
+    new URL(req.url).origin
+  );
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -15,7 +23,9 @@ export async function POST(req: Request) {
     const { email } = parsed.data;
 
     // On répond toujours 200 pour ne pas révéler si l'email existe (sécurité)
-    const user = await db.user.findUnique({ where: { email: email.toLowerCase() } });
+    const user = await db.user.findUnique({
+      where: { email: email.toLowerCase() },
+    });
 
     if (user && user.status === "ACTIVE") {
       // Invalider les anciens tokens
@@ -31,7 +41,7 @@ export async function POST(req: Request) {
         data: { userId: user.id, token, expiresAt },
       });
 
-      const resetUrl = `${process.env.AUTH_URL}/reset-password?token=${token}`;
+      const resetUrl = `${getAppUrl(req)}/reset-password?token=${token}`;
       await sendPasswordResetEmail(user.email, resetUrl);
     }
 

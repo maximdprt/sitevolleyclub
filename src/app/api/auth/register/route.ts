@@ -1,11 +1,20 @@
 import { NextResponse } from "next/server";
+import { randomBytes } from "crypto";
 import { hash } from "bcryptjs";
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { registerSchema } from "@/lib/validators/auth";
-import { sendWelcomeEmail } from "@/lib/email";
+import { sendVerificationEmail } from "@/lib/email";
 import { createAuditLog } from "@/lib/audit";
 import { getDatabaseUrlConfigError } from "@/lib/database-env";
+
+function getAppUrl(req: Request): string {
+  return (
+    process.env.AUTH_URL ??
+    process.env.NEXT_PUBLIC_APP_URL ??
+    new URL(req.url).origin
+  );
+}
 
 function registerDbErrorMessage(error: unknown): string {
   const base =
@@ -52,38 +61,38 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-
-    // Validation Zod stricte
     const parsed = registerSchema.safeParse(body);
     if (!parsed.success) {
       return NextResponse.json(
         { error: "Données invalides.", details: parsed.error.flatten() },
-        { status: 422 }
+        { status: 422 },
       );
     }
 
     const { email, username, firstName, lastName, password } = parsed.data;
+    const normalizedEmail = email.toLowerCase();
 
-    // Unicité email + username
     const existing = await db.user.findFirst({
-      where: { OR: [{ email: email.toLowerCase() }, { username }] },
+      where: { OR: [{ email: normalizedEmail }, { username }] },
       select: { email: true, username: true },
     });
 
     if (existing) {
-      const field = existing.email === email.toLowerCase() ? "email" : "username";
+      const field = existing.email === normalizedEmail ? "email" : "username";
       return NextResponse.json(
-        { error: `Cet ${field === "email" ? "email" : "nom d'utilisateur"} est déjà utilisé.` },
-        { status: 409 }
+        {
+          error: `Cet ${field === "email" ? "email" : "nom d'utilisateur"} est déjà utilisé.`,
+        },
+        { status: 409 },
       );
     }
 
-    // Hash bcrypt (12 rounds)
     const passwordHash = await hash(password, 12);
 
+    // 1. Création utilisateur (statut PENDING, sera ACTIVE après validation admin)
     const user = await db.user.create({
       data: {
-        email: email.toLowerCase(),
+        email: normalizedEmail,
         username,
         firstName,
         lastName,
@@ -93,7 +102,22 @@ export async function POST(req: Request) {
       },
     });
 
-    // Audit log (sans await pour ne pas bloquer la réponse)
+    // 2. Génération du token de vérification d’email
+    const token = randomBytes(32).toString("hex");
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24h
+
+    await db.emailVerification.create({
+      data: { userId: user.id, token, expiresAt },
+    });
+
+    const verifyUrl = `${getAppUrl(req)}/verify-email?token=${token}`;
+
+    // 3. Envoi email de vérification (non bloquant)
+    sendVerificationEmail(user.email, user.firstName, verifyUrl).catch(
+      console.error,
+    );
+
+    // 4. Audit log
     createAuditLog({
       userId: user.id,
       action: "REGISTER",
@@ -101,14 +125,14 @@ export async function POST(req: Request) {
       metadata: { email: user.email, username: user.username },
     }).catch(console.error);
 
-    // Email de bienvenue (sans await pour ne pas bloquer)
-    sendWelcomeEmail(user.email, user.firstName).catch(console.error);
-
-    return NextResponse.json({ success: true }, { status: 201 });
+    return NextResponse.json({ success: true, email: user.email }, { status: 201 });
   } catch (error) {
     console.error("[REGISTER]", error);
     const message = registerDbErrorMessage(error);
-    const status = error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002" ? 409 : 500;
+    const status =
+      error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002"
+        ? 409
+        : 500;
     return NextResponse.json({ error: message }, { status });
   }
 }

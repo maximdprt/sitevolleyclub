@@ -34,6 +34,7 @@ model User {
   forumPosts           ForumPost[]
   forumReadStatuses    ForumReadStatus[]
   passwordResets       PasswordReset[]
+  emailVerifications   EmailVerification[]
   sessions             Session[]
   team                 Team?                 @relation(fields: [teamId], references: [id])
   comiteFoldersCreated ComiteFolder[]        @relation("ComiteFolderCreator")
@@ -204,6 +205,18 @@ model PasswordReset {
   usedAt    DateTime?
   createdAt DateTime  @default(now())
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model EmailVerification {
+  id         String    @id @default(cuid())
+  userId     String
+  token      String    @unique
+  expiresAt  DateTime
+  verifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Document {

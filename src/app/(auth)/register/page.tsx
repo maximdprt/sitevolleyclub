@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, ArrowRight, CheckCircle2, AlertCircle } from "lucide-react";
+import { Eye, EyeOff, ArrowRight, CheckCircle2, AlertCircle, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { registerSchema, type RegisterInput } from "@/lib/validators/auth";
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,10 @@ export default function RegisterPage() {
   const [showPwd, setShowPwd] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState<string>("");
   const [serverError, setServerError] = useState<string | null>(null);
+  const [resending, setResending] = useState(false);
+  const [resent, setResent] = useState(false);
 
   const {
     register,
@@ -27,10 +30,10 @@ export default function RegisterPage() {
 
   const pwd = watch("password", "");
   const strengthChecks = [
-    { label: "12 caractères min.", ok: pwd.length >= 12 },
-    { label: "Une majuscule", ok: /[A-Z]/.test(pwd) },
-    { label: "Un chiffre", ok: /[0-9]/.test(pwd) },
+    { label: "8 caractères min.", ok: pwd.length >= 8 },
     { label: "Un caractère spécial", ok: /[^A-Za-z0-9]/.test(pwd) },
+    { label: "Une majuscule (conseillé)", ok: /[A-Z]/.test(pwd) },
+    { label: "Un chiffre (conseillé)", ok: /[0-9]/.test(pwd) },
   ];
 
   async function onSubmit(data: RegisterInput) {
@@ -42,20 +45,39 @@ export default function RegisterPage() {
         body: JSON.stringify(data),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Erreur lors de l&apos;inscription.");
+      if (!res.ok) throw new Error(json.error ?? "Erreur lors de l’inscription.");
+      setRegisteredEmail(json.email ?? data.email);
       setSuccess(true);
     } catch (e) {
       setServerError(e instanceof Error ? e.message : "Une erreur est survenue.");
     }
   }
 
+  async function resendVerification() {
+    if (!registeredEmail) return;
+    setResending(true);
+    try {
+      await fetch("/api/auth/resend-verification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: registeredEmail }),
+      });
+      setResent(true);
+    } catch {
+      /* silent */
+    } finally {
+      setResending(false);
+    }
+  }
+
+  // ── Écran de succès : « vérifiez vos emails » ────────────────────────────
   if (success) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#0d2237] px-6">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="max-w-sm text-center"
+          className="max-w-md text-center"
         >
           <Image
             src="/images/LVC_FINAL%20LOGO-08%20(1).png"
@@ -64,18 +86,46 @@ export default function RegisterPage() {
             height={80}
             className="mx-auto mb-6"
           />
-          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/15">
-            <CheckCircle2 className="h-7 w-7 text-emerald-400" />
+          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-[#e8610a]/15">
+            <Mail className="h-7 w-7 text-[#e8610a]" />
           </div>
-          <h2 className="font-display text-2xl tracking-wide text-[#f0f7ff]">
-            Inscription envoyée !
+          <h2 className="font-display text-3xl tracking-wide text-[#f0f7ff]">
+            Vérifiez vos emails
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-[#f0f7ff]/60">
-            Votre compte est en attente de validation par un administrateur.
-            Vous recevrez un email dès que votre accès sera activé.
+          <p className="mt-3 text-sm leading-relaxed text-[#f0f7ff]/70">
+            Nous avons envoyé un email de confirmation à{" "}
+            <strong className="text-[#f0f7ff]">{registeredEmail}</strong>.
+            Cliquez sur le lien dans l’email pour vérifier votre adresse.
           </p>
-          <Link href="/?auth=1">
-            <Button className="mt-6">Se connecter</Button>
+          <p className="mt-3 text-sm leading-relaxed text-[#f0f7ff]/50">
+            Une fois votre email confirmé, un administrateur validera votre
+            compte. Vous recevrez alors un dernier email d’activation.
+          </p>
+
+          <div className="mt-8 rounded-xl border border-[#f0f7ff]/10 bg-[#f0f7ff]/3 p-4">
+            <p className="text-xs text-[#f0f7ff]/50">
+              Vous n’avez pas reçu l’email ? Vérifiez vos spams ou&nbsp;:
+            </p>
+            {resent ? (
+              <p className="mt-2 inline-flex items-center gap-1.5 text-sm text-emerald-400">
+                <CheckCircle2 className="h-4 w-4" />
+                Email renvoyé
+              </p>
+            ) : (
+              <button
+                onClick={resendVerification}
+                disabled={resending}
+                className="mt-2 text-sm font-semibold text-[#e8610a] hover:text-[#ff7a28] transition-colors disabled:opacity-50"
+              >
+                {resending ? "Envoi…" : "Renvoyer l’email de vérification"}
+              </button>
+            )}
+          </div>
+
+          <Link href="/login">
+            <Button variant="ghost" className="mt-6">
+              Retour à la connexion
+            </Button>
           </Link>
         </motion.div>
       </div>
@@ -118,7 +168,8 @@ export default function RegisterPage() {
                 Rejoignez<br />le club
               </h2>
               <p className="mt-4 text-base leading-relaxed text-[#f0f7ff]/70">
-                Créez votre compte pour accéder à vos documents, au forum et à toute la vie du club.
+                Créez votre compte pour accéder à vos documents, au forum et à
+                toute la vie du club.
               </p>
             </motion.div>
           </div>
@@ -133,9 +184,13 @@ export default function RegisterPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Logo mobile */}
           <div className="mb-8 flex items-center gap-3 lg:hidden">
-            <Image src="/images/LVC_FINAL%20LOGO-04.png" alt="Logo" width={48} height={48} />
+            <Image
+              src="/images/LVC_FINAL%20LOGO-08%20(1).png"
+              alt="Logo"
+              width={48}
+              height={48}
+            />
             <span className="font-display text-xl tracking-wide text-[#f0f7ff]">
               Lacanau Volley Club
             </span>
@@ -146,7 +201,8 @@ export default function RegisterPage() {
               Créer un compte
             </h1>
             <p className="mt-2 text-sm text-[#f0f7ff]/60">
-              Votre accès sera activé après validation par un administrateur.
+              Vous recevrez un email pour vérifier votre adresse, puis votre
+              accès sera activé par un administrateur.
             </p>
           </div>
 
@@ -167,7 +223,9 @@ export default function RegisterPage() {
                   error={errors.firstName?.message}
                   {...register("firstName")}
                 />
-                {errors.firstName && <p className="text-xs text-red-400">{errors.firstName.message}</p>}
+                {errors.firstName && (
+                  <p className="text-xs text-red-400">{errors.firstName.message}</p>
+                )}
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="lastName">Nom</Label>
@@ -177,7 +235,9 @@ export default function RegisterPage() {
                   error={errors.lastName?.message}
                   {...register("lastName")}
                 />
-                {errors.lastName && <p className="text-xs text-red-400">{errors.lastName.message}</p>}
+                {errors.lastName && (
+                  <p className="text-xs text-red-400">{errors.lastName.message}</p>
+                )}
               </div>
             </div>
 
@@ -191,7 +251,9 @@ export default function RegisterPage() {
                 error={errors.email?.message}
                 {...register("email")}
               />
-              {errors.email && <p className="text-xs text-red-400">{errors.email.message}</p>}
+              {errors.email && (
+                <p className="text-xs text-red-400">{errors.email.message}</p>
+              )}
             </div>
 
             <div className="space-y-1.5">
@@ -203,7 +265,9 @@ export default function RegisterPage() {
                 error={errors.username?.message}
                 {...register("username")}
               />
-              {errors.username && <p className="text-xs text-red-400">{errors.username.message}</p>}
+              {errors.username && (
+                <p className="text-xs text-red-400">{errors.username.message}</p>
+              )}
             </div>
 
             <div className="space-y-1.5">
@@ -213,7 +277,7 @@ export default function RegisterPage() {
                   id="password"
                   type={showPwd ? "text" : "password"}
                   autoComplete="new-password"
-                  placeholder="••••••••••••"
+                  placeholder="••••••••"
                   error={errors.password?.message}
                   className="pr-10"
                   {...register("password")}
@@ -230,9 +294,18 @@ export default function RegisterPage() {
               {pwd.length > 0 && (
                 <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1">
                   {strengthChecks.map((c) => (
-                    <div key={c.label} className="flex items-center gap-1.5 text-[11px]">
-                      <div className={`h-1.5 w-1.5 rounded-full transition-colors ${c.ok ? "bg-emerald-400" : "bg-[#f0f7ff]/20"}`} />
-                      <span className={c.ok ? "text-emerald-400" : "text-[#f0f7ff]/40"}>{c.label}</span>
+                    <div
+                      key={c.label}
+                      className="flex items-center gap-1.5 text-[11px]"
+                    >
+                      <div
+                        className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                          c.ok ? "bg-emerald-400" : "bg-[#f0f7ff]/20"
+                        }`}
+                      />
+                      <span className={c.ok ? "text-emerald-400" : "text-[#f0f7ff]/40"}>
+                        {c.label}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -246,7 +319,7 @@ export default function RegisterPage() {
                   id="confirmPassword"
                   type={showConfirm ? "text" : "password"}
                   autoComplete="new-password"
-                  placeholder="••••••••••••"
+                  placeholder="••••••••"
                   error={errors.confirmPassword?.message}
                   className="pr-10"
                   {...register("confirmPassword")}
@@ -274,7 +347,10 @@ export default function RegisterPage() {
 
           <p className="mt-6 text-center text-sm text-[#f0f7ff]/50">
             Déjà adhérent ?{" "}
-            <Link href="/?auth=1" className="font-semibold text-[#e8610a] hover:text-[#ff7a28] transition-colors">
+            <Link
+              href="/login"
+              className="font-semibold text-[#e8610a] hover:text-[#ff7a28] transition-colors"
+            >
               Se connecter
             </Link>
           </p>
