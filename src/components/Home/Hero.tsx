@@ -21,7 +21,7 @@ export function Hero() {
           Bienvenue au club de Volley loisir de Lacanau
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-white/90">
-          Entraînements le mardi de 20h30 à 23h00 et le jeudi de 21h00 à 23h00 au COSEC. Rejoignez-nous pour une saison en salle ou sur le sable.
+          Entraînements le mardi de 20h30 à 22h30 et le jeudi de 21h00 à 23h00 au COSEC. Rejoignez-nous pour une saison en salle ou sur le sable.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Link

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 
 const steps = [
-  { num: "01", title: "Venez à un entraînement", desc: "Mardi 20h30 / Jeudi 21h · COSEC Lacanau" },
+  { num: "01", title: "Venez à un entraînement", desc: "Mardi 20h30–22h30 / Jeudi 21h–23h · COSEC Lacanau" },
   { num: "02", title: "Essayez gratuitement", desc: "1re séance sans inscription, sans engagement" },
   { num: "03", title: "Adhérez !", desc: "30 € salle ou beach · Paiement sur place" },
 ] as const;

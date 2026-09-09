@@ -58,11 +58,11 @@ export function Hero() {
           <div className="mt-10 flex flex-wrap gap-3">
             <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-foam/80">
               <span aria-hidden>📅</span>
-              Mardi 20h30 · COSEC
+              Mardi 20h30–22h30 · COSEC
             </div>
             <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-foam/80">
               <span aria-hidden>📅</span>
-              Jeudi 21h · COSEC
+              Jeudi 21h–23h · COSEC
             </div>
             <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-foam/80">
               <span aria-hidden>🏖️</span>

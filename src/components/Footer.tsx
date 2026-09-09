@@ -77,7 +77,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-white">Horaires</h3>
             <p className="mt-4 text-sm">
-              Mardis 20h30 – 23h00
+              Mardis 20h30 – 22h30
               <br />
               Jeudis 21h00 – 23h00
               <br />

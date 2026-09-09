@@ -70,7 +70,7 @@ export default function ContactPage() {
               </li>
             </ul>
             <p className="mt-8 text-sm text-slate-500">
-              Entraînements : mardi de 20h30 à 23h00 et jeudi de 21h00 à 23h00 au COSEC.
+              Entraînements : mardi de 20h30 à 22h30 et jeudi de 21h00 à 23h00 au COSEC.
             </p>
           </div>
 

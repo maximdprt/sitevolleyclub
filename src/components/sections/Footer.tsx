@@ -55,8 +55,8 @@ export function Footer() {
             <div>
               <div className="text-xs font-semibold uppercase tracking-widest text-foam/40">Horaires</div>
               <ul className="mt-4 space-y-2 text-sm text-foam/75">
-                <li>🏐 Mardi 20h30 — COSEC</li>
-                <li>🏐 Jeudi 21h00 — COSEC</li>
+                <li>🏐 Mardi 20h30 – 22h30 — COSEC</li>
+                <li>🏐 Jeudi 21h00 – 23h00 — COSEC</li>
                 <li>🏖️ Samedi 10h00–13h00 — Ardilouse</li>
               </ul>
             </div>

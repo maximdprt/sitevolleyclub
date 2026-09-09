@@ -28,7 +28,7 @@ export function Contact() {
           <div className="rounded-xl border border-ocean-deep/10 bg-white p-6">
             <div className="text-xs font-semibold uppercase tracking-wide text-ocean-deep/50">📅 Horaires</div>
             <div className="mt-3 text-sm leading-relaxed text-ocean-deep/80">
-              Mardi 20h30–23h (Indoor)<br />
+              Mardi 20h30–22h30 (Indoor)<br />
               Jeudi 21h–23h (Indoor)<br />
               Samedi 10h–13h (Beach · Ardilouse)
             </div>
