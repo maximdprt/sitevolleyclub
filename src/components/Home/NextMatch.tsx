@@ -22,7 +22,7 @@ export function NextMatch() {
             <div className="mt-6 flex flex-wrap gap-6 text-slate-700">
               <span className="flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-ocean" />
-                Tous les jeudis, 20h30 – 23h00
+                Tous les jeudis, 21h00 – 23h00
               </span>
               <span className="flex items-center gap-2">
                 <MapPin className="h-5 w-5 text-ocean" />

@@ -25,7 +25,7 @@ export default function LeClubPage() {
           <p>
             <strong>ASL Volley / Lacanau Volley-Ball</strong> est un club de volley loisir basé à Lacanau, en Gironde.
             Bienvenue au club de Volley loisir de Lacanau : nous proposons une pratique en salle et en beach (de mai à octobre),
-            ouverte à tous à partir de 10 ans. Le club compte environ <strong>40 adhérents</strong> et <strong>12 licenciés Compet&apos;Lib</strong>.
+            ouverte à tous à partir de 10 ans. Le club compte environ <strong>50 licenciés</strong> et <strong>12 licenciés Compet&apos;Lib</strong>.
           </p>
         </section>
 

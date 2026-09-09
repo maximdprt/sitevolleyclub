@@ -3,7 +3,7 @@
 import { CounterStat } from "@/components/ui/CounterStat";
 
 const stats = [
-  { value: 40, label: "Adhérents" },
+  { value: 50, label: "Licenciés" },
   { value: 12, label: "Licenciées Compet'Lib" },
   { value: 2010, label: "Année de création" },
   { value: 1000, label: "Abonnés Facebook", suffix: "+" },

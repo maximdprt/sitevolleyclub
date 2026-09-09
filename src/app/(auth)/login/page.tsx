@@ -111,7 +111,7 @@ function LoginForm() {
             {/* Stats en bas */}
             <div className="mt-8 flex gap-8">
               {[
-                { value: "40+", label: "adhérents" },
+                { value: "50", label: "licenciés" },
                 { value: "2010", label: "depuis" },
                 { value: "Indoor", label: "& Beach" },
               ].map((s) => (

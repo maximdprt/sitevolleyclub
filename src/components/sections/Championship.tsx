@@ -4,13 +4,13 @@ import Link from "next/link";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { useEffect, useMemo, useState } from "react";
 
-function getNextThursdayAt2030(now = new Date()) {
+function getNextThursdayAt21(now = new Date()) {
   const d = new Date(now);
   d.setSeconds(0, 0);
   const day = d.getDay();
   const daysUntilThursday = (4 - day + 7) % 7;
   d.setDate(d.getDate() + daysUntilThursday);
-  d.setHours(20, 30, 0, 0);
+  d.setHours(21, 0, 0, 0);
   if (d.getTime() <= now.getTime()) d.setDate(d.getDate() + 7);
   return d;
 }
@@ -37,7 +37,7 @@ function formatDateFR(d: Date) {
 }
 
 export function Championship() {
-  const next = useMemo(() => getNextThursdayAt2030(), []);
+  const next = useMemo(() => getNextThursdayAt21(), []);
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {

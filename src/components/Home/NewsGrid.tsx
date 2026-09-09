@@ -14,7 +14,7 @@ const news = [
     image: "/imagesvideos/Images volley 2.jpg",
   },
   {
-    title: "40 adhérents et 12 licenciés Compet'Lib",
+    title: "50 licenciés et 12 licenciés Compet'Lib",
     href: "/le-club",
     image: "/imagesvideos/img volley 5.jpg",
   },

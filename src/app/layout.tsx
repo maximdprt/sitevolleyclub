@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Lacanau Volley-Ball",
   },
   description:
-    "Club de volley-ball de Lacanau, Gironde. Entraînements le mardi et jeudi soir et beach le dimanche. Rejoignez-nous ! 40 adhérents, fondé en 2010.",
+    "Club de volley-ball de Lacanau, Gironde. Entraînements le mardi et jeudi soir et beach le dimanche. Rejoignez-nous ! 50 licenciés, fondé en 2010.",
   keywords: ["volley-ball", "Lacanau", "Gironde", "beach volley", "sport", "association"],
   openGraph: {
     title: "AS Lacanau Volley Ball",

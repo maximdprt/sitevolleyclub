@@ -19,7 +19,7 @@ export function Club() {
 
           <div className="mt-6 flex flex-wrap gap-2">
             <span className="rounded-full bg-ocean-deep/10 px-4 py-1.5 text-sm font-medium text-ocean-deep">Fondé en 2010</span>
-            <span className="rounded-full bg-ocean-deep/10 px-4 py-1.5 text-sm font-medium text-ocean-deep">40 adhérents</span>
+            <span className="rounded-full bg-ocean-deep/10 px-4 py-1.5 text-sm font-medium text-ocean-deep">50 licenciés</span>
             <span className="rounded-full bg-ocean-deep/10 px-4 py-1.5 text-sm font-medium text-ocean-deep">Tous niveaux</span>
           </div>
 

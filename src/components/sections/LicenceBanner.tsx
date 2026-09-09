@@ -16,7 +16,14 @@ export function LicenceBanner() {
             </div>
             <p className="mt-2 text-sm leading-relaxed text-foam/75">
               Téléchargez le formulaire de demande de licence pour la saison 2026-2027,
-              remplissez-le et rapportez-le à un entraînement.
+              remplissez-le et renvoyez-le à{" "}
+              <a
+                href="mailto:contact@lacanauvolley.fr"
+                className="font-semibold text-accent underline underline-offset-4 hover:text-accent-light"
+              >
+                contact@lacanauvolley.fr
+              </a>
+              .
             </p>
           </div>
         </div>

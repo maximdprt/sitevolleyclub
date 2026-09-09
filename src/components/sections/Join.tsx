@@ -4,18 +4,18 @@ import Link from "next/link";
 import { useMemo } from "react";
 
 const steps = [
-  { num: "01", title: "Venez à un entraînement", desc: "Mardi 20h / Jeudi 20h30 · COSEC Lacanau" },
+  { num: "01", title: "Venez à un entraînement", desc: "Mardi 20h30 / Jeudi 21h · COSEC Lacanau" },
   { num: "02", title: "Essayez gratuitement", desc: "1re séance sans inscription, sans engagement" },
   { num: "03", title: "Adhérez !", desc: "30 € salle ou beach · Paiement sur place" },
 ] as const;
 
-function getNextThursdayAt2030(now = new Date()) {
+function getNextThursdayAt21(now = new Date()) {
   const d = new Date(now);
   d.setSeconds(0, 0);
   const day = d.getDay();
   const daysUntilThursday = (4 - day + 7) % 7;
   d.setDate(d.getDate() + daysUntilThursday);
-  d.setHours(20, 30, 0, 0);
+  d.setHours(21, 0, 0, 0);
   if (d.getTime() <= now.getTime()) d.setDate(d.getDate() + 7);
   return d;
 }
@@ -58,7 +58,7 @@ function downloadIcs({ start, end }: { start: Date; end: Date }) {
 
 export function Join() {
   const nextTraining = useMemo(() => {
-    const start = getNextThursdayAt2030();
+    const start = getNextThursdayAt21();
     const end = new Date(start);
     end.setHours(23, 0, 0, 0);
     return { start, end };
