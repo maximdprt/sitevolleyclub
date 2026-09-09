@@ -4,9 +4,9 @@ import { PageHero } from "@/components/PageHero";
 import { publicPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = publicPageMetadata({
-  title: "Tarifs & adhésion",
+  title: "Tarifs & adhésion 2026-2027",
   description:
-    "Cotisation Lacanau Volley-Ball : tarifs salle et beach, adhésion à partir de 10 ans. Rejoindre le club à Lacanau.",
+    "Cotisation Lacanau Volley-Ball saison 2026-2027 : tarifs salle et beach, adhésion à partir de 10 ans. Rejoindre le club à Lacanau.",
   path: "/tarifs",
 });
 
@@ -14,8 +14,8 @@ export default function TarifsPage() {
   return (
     <main>
       <PageHero
-        title="Tarifs & adhésion"
-        description="Cotisation annuelle du club. Pratique à partir de 10 ans."
+        title="Tarifs & adhésion 2026-2027"
+        description="Cotisation annuelle du club pour la saison 2026-2027. Pratique à partir de 10 ans."
         imageSrc="/imagesvideos/Im volley 3.jpg"
       />
 

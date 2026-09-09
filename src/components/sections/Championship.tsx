@@ -54,7 +54,7 @@ export function Championship() {
             Nos équipes en compétition
           </h2>
           <p className="mt-5 text-base leading-relaxed text-ocean-deep/75">
-            Participation régulière au championnat loisir Volley&apos;Lib. 12 licenciées en Compet&apos;Lib.
+            Saison 2026-2027 : participation régulière au championnat loisir Volley&apos;Lib. 12 licenciées en Compet&apos;Lib.
           </p>
           <p className="mt-3 text-sm text-ocean-deep/65">
             Les calendriers et résultats sont consultables sur{" "}
@@ -110,7 +110,7 @@ export function Championship() {
 
           <div className="mt-4 grid gap-3 md:grid-cols-2">
             {[
-              { title: "Résultats", body: "Les résultats seront renseignés ici au fil de la saison." },
+              { title: "Résultats", body: "Les résultats seront renseignés ici au fil de la saison 2026-2027." },
               { title: "Classements & agenda", body: "Accès direct aux équipes et calendriers via la fédération." },
             ].map((c) => (
               <div key={c.title} className="rounded-xl border border-ocean-deep/10 bg-white p-5 shadow-sm">

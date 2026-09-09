@@ -114,7 +114,7 @@ export function Join() {
           </div>
 
           <div className="rounded-xl bg-ocean-deep p-6 text-foam">
-            <div className="text-xs font-semibold uppercase tracking-widest text-sand-light/60">Tarifs saison 2025-2026</div>
+            <div className="text-xs font-semibold uppercase tracking-widest text-sand-light/60">Tarifs saison 2026-2027</div>
             <div className="mt-4 space-y-4">
               {[
                 { label: "Volley indoor", sub: "Septembre → Mai", price: "30 €" },

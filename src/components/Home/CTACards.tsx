@@ -4,7 +4,7 @@ import { Shirt, Users } from "lucide-react";
 const cards = [
   {
     title: "Rejoindre le club",
-    description: "30 € / an en salle, 30 € saison beach (mai à octobre). À partir de 10 ans.",
+    description: "Saison 2026-2027 : 30 € / an en salle, 30 € saison beach (mai à octobre). À partir de 10 ans.",
     href: "/tarifs",
     icon: Users,
     cta: "Tarifs & adhésion",

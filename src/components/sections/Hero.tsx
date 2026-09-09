@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { LicenceBanner } from "@/components/sections/LicenceBanner";
 
 export function Hero() {
   return (
@@ -16,11 +17,15 @@ export function Hero() {
       />
       <div className="absolute inset-0 bg-gradient-to-br from-ocean-deep/90 via-ocean-deep/70 to-ocean/50" />
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 pt-24 pb-16 md:px-10">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 pt-28 pb-16 md:px-10">
+        <div className="mb-10">
+          <LicenceBanner />
+        </div>
+
         <div className="max-w-2xl">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-1.5 text-sm text-foam/80">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
-            Saison 2025-2026 · En cours
+            Saison 2026-2027 · En cours
           </div>
 
           <h2 className="font-display text-[clamp(72px,10vw,140px)] leading-[0.88] tracking-wide text-foam">

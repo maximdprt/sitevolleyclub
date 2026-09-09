@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 const news = [
   {
-    title: "Reprise des entraînements 2024-2025",
+    title: "Reprise des entraînements 2026-2027",
     href: "/infos",
     image: "/imagesvideos/Images volley lacanau 1.jpg",
   },

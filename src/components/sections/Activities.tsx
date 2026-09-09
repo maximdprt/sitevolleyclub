@@ -61,7 +61,7 @@ export function Activities() {
               <h3 className="mt-5 font-display text-5xl leading-none tracking-wide text-ocean-deep md:text-6xl">
                 Samedis matin
               </h3>
-              <p className="mt-3 text-ocean-deep/70">Sable, soleil et convivialité. Saison beach de mai à août.</p>
+              <p className="mt-3 text-ocean-deep/70">Sable, soleil et convivialité. Saison beach 2026-2027, de mai à août.</p>
               <div className="mt-6 rounded-xl border border-ocean-deep/12 bg-white/50 px-4 py-3">
                 <div className="text-xs font-semibold uppercase tracking-wide text-ocean-deep/50">Horaire</div>
                 <div className="mt-1 text-sm text-ocean-deep">

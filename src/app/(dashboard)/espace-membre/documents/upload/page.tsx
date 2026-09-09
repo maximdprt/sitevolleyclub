@@ -274,7 +274,7 @@ export default function UploadPage() {
           <Label htmlFor="title">Titre du document</Label>
           <Input
             id="title"
-            placeholder="ex : Certificat médical 2025-2026"
+            placeholder="ex : Certificat médical 2026-2027"
             error={errors.title?.message}
             {...register("title")}
           />
