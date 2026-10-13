@@ -84,7 +84,7 @@ export function Footer() {
           <div className="mt-12 border-t border-white/8 pt-6">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div className="text-xs text-foam/40">
-                © 2025 AS Lacanau Section Volley Ball · Tous droits réservés · Site réalisé par{" "}
+                © 2025 AS Lacanau Section Volley Ball · Tous droits réservés ·{" "}
                 <a href="https://axior-agency.fr" className="underline underline-offset-4 decoration-white/20 hover:decoration-foam/40">Axior</a>
               </div>
               <div className="text-xs text-foam/40">
